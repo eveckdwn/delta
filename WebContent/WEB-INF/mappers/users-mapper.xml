@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<insert id="addNewOne" parameterType="hashmap">
+		insert into users values(#{id}, #{pass}, #{nick}, #{email}, 0, default.jpg, sysdate, #{ban, jdbcType=VARCHAR}, 0)
+	</insert>
+	
+	<select id="checkId" resultType="hashmap">
+		select users.id, users.email, users.pass, users.lv, users.photo COUNT(*) as count from users where id = #{id} group by users.id, users.pass, users.email, users.lv, users.photo
+	</select>
+</mapper>
