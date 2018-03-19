@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+
+	<context:component-scan base-package="controller" />
+	<context:component-scan base-package="service" />
+
+	<!-- view setting -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1"></property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<array>
+				<value>/WEB-INF/tiles/*-definition.xml</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2"></property>
+	</bean>
+
+	<!-- gson -->
+	<bean class="com.google.gson.Gson" />
+
+	<!-- Database Setting Start -->
+	<!-- DataSource Start -->
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@61.75.69.43:1521:xe" />
+		<property name="username" value="project" />
+		<property name="password" value="delta" />
+	</bean>
+	<!-- DataSource End -->
+
+	<!-- SqlSessionFactory Start -->
+	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="mapperLocations">
+			<list>
+				<value>/WEB-INF/mappers/*-mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- SqlSessionFactory End -->
+
+	<!-- SqlSessionTemplate Start -->
+	<bean id="sqlTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="factory" />
+	</bean>
+	<!-- SqlSessionTemplate End -->
+
+	<!-- transaction setting Start -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds" />
+	</bean>
+	<tx:advice id="tx" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="tx" pointcut="bean(*Service)" />
+	</aop:config>
+	<!-- transaction setting End -->
+	<!-- Database Setting End -->
+
+	<!-- WebSocket Handle setting -->
+	<bean id="sessions" class="model.WebSocketMap" />
+
+	<websocket:handlers>
+		<websocket:mapping handler="wsController" path="/handle" />
+		<websocket:mapping handler="alertController" path="/alert" />
+		<websocket:handshake-interceptors>
+			<bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
+	<!-- mail sender setting -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		id="mailSender">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="username" value="ncs13master@gmail.com" />
+		<property name="password" value="1q2w3e4r~" />
+		<property name="port" value="587" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
+	
+	
