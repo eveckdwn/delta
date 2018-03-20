@@ -46,6 +46,9 @@ footer {
 </style>
 </head>
 <body>
+	<header class="container-fluid">
+		<tiles:insertAttribute name="menu"/>
+	</header>
 	<div class="container-fluid">
 		<div class="row content">
 			<div class="col-sm-3 sidenav">
@@ -59,7 +62,6 @@ footer {
 	<footer class="container-fluid">
 		<h2>Tiles Template Engine</h2>
 	</footer>
-
 </body>
 </html>
 

@@ -2,9 +2,23 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
+	<!-- Admin part Start -->
+	<definition name="admin" template="/WEB-INF/view/template/mainTemplate.jsp">
+		<put-attribute name="title" value="Admin"/>
+		<put-attribute name="menu" value="/WEB-INF/view/template/menu-admin.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-admin.jsp"/>
+	</definition>
+	
+	<definition name="admin_index" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp"/>
+	</definition>
+	<!-- Admin part End -->
+
+	<!-- Guest part Start -->	
 	<definition name="default" template="/WEB-INF/view/template/mainTemplate.jsp">
 		<put-attribute name="title" value="WELCOME TO SPRING"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/side-01.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-index.jsp"/>
 	</definition>
 	
 	<definition name="index" extends="default">
@@ -21,12 +35,14 @@
 	
 	<definition name="logons" template="/WEB-INF/view/template/mainTemplate.jsp">
 		<put-attribute name="title" value="Spring MVC"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/side-02.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-mypage.jsp"/>
 	</definition>
 	
 	<definition name="logon" extends="logons">
 		<put-attribute name="main" value="/WEB-INF/view/logon.jsp"/>
 	</definition>
+	<!-- Guest part End -->
 	
 	<!-- EL support -->
 	<definition name="t_el" extends="default">
