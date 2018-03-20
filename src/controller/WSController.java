@@ -13,15 +13,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 
 /*
- * ws 통신을 제어할용도의 컨트롤러 구현
- * 	1. WebSocketHandler (I) 를 implements 걸어서 목적에 개조해서 사용.
- * 	2. 목적에 맞는 WebSocketHandler를 extends 걸어서 사용
+ * ws �넻�떊�쓣 �젣�뼱�븷�슜�룄�쓽 而⑦듃濡ㅻ윭 援ы쁽
+ * 	1. WebSocketHandler (I) 瑜� implements 嫄몄뼱�꽌 紐⑹쟻�뿉 媛쒖“�빐�꽌 �궗�슜.
+ * 	2. 紐⑹쟻�뿉 留욌뒗 WebSocketHandler瑜� extends 嫄몄뼱�꽌 �궗�슜
  * 		- TextWebSocketHandler  / BinaryWebSocketHandler
  * 
- *  WebSocket Handler 의 매핑은, spring 설정파일에.
+ *  WebSocket Handler �쓽 留ㅽ븨��, spring �꽕�젙�뙆�씪�뿉.
  */
 
-@Controller("wsController")	//scan 으로 등록되는 빈은 클래스명으로 등록됨. 바꿀수 있음.	 
+@Controller("wsController")	//scan �쑝濡� �벑濡앸릺�뒗 鍮덉� �겢�옒�뒪紐낆쑝濡� �벑濡앸맖. 諛붽��닔 �엳�쓬.	 
 public class WSController extends TextWebSocketHandler {
 	
 	Set<WebSocketSession> wsSessions;
@@ -31,19 +31,19 @@ public class WSController extends TextWebSocketHandler {
 		wsSessions = new LinkedHashSet<>();
 	}
 
-	@Override	//	클라측에서 웹소켓 연결되었을 때
+	@Override	//	�겢�씪痢≪뿉�꽌 �쎒�냼耳� �뿰寃곕릺�뿀�쓣 �븣
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//	System.out.println("afterConnectionEstablished.." + session.getId());
-		//	System.out.println(session.getRemoteAddress().getAddress().getHostAddress());	//	접속자 IP주소
+		//	System.out.println(session.getRemoteAddress().getAddress().getHostAddress());	//	�젒�냽�옄 IP二쇱냼
 		if(!wsSessions.contains(session)) {
 			wsSessions.add(session);
 		}
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
-		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "에서 접속합니다.");
-		//	port가 달라서 cnt가 올라감.
-		//	확인 : map.put("info", session.getRemoteAddress().toString() + "에서 접속합니다.");
+		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "이 접속하였습니다.");
+		//	port媛� �떖�씪�꽌 cnt媛� �삱�씪媛�.
+		//	�솗�씤 : map.put("info", session.getRemoteAddress().toString() + "�뿉�꽌 �젒�냽�빀�땲�떎.");
 				
 		
 		Gson gson = new Gson();
@@ -55,19 +55,19 @@ public class WSController extends TextWebSocketHandler {
 		
 	}
 
-	@Override	//	클라측에서 메세지가 들어올 때
+	@Override	//	�겢�씪痢≪뿉�꽌 硫붿꽭吏�媛� �뱾�뼱�삱 �븣
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("handleTextMessage.." + session +" / " + message);
 	}
 
-	@Override	//	클라측과 연결이 해제될 때 	
+	@Override	//	�겢�씪痢↔낵 �뿰寃곗씠 �빐�젣�맆 �븣 	
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//	System.out.println("afterConnectionClosed.." + session);
 		wsSessions.remove(session);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
-		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "에서 접속을 종료합니다.");
+		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "이 접속을 해제하였습니다.");
 		Gson gson = new Gson();
 		
 		for(WebSocketSession ws : wsSessions) {

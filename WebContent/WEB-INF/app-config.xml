@@ -18,6 +18,14 @@
 	<context:component-scan base-package="controller" />
 	<context:component-scan base-package="service" />
 
+	<!-- multipart -->
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver">
+
+		<property value="/temp" name="uploadTempDir" />
+
+	</bean>
 	<!-- view setting -->
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<property name="order" value="1"></property>

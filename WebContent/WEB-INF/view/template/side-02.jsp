@@ -4,7 +4,7 @@
 <h4>Welcome to Spring</h4>
 <hr/>
 <ul class="nav nav-pills nav-stacked">
-  <li class="active"><a href="/">My Page</a></li>
+  <li class="active"><a href="/mypage">My Page</a></li>
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Friends
     <span class="caret"></span></a>

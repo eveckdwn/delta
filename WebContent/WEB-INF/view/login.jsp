@@ -35,9 +35,8 @@ input {
 					style="width: 330px; text-align: left; line-height: 34px;"
 					autocomplete="off">
 					<p>
-						<b>ID(*)</b> <small id="checkrst"></small><br /> <input
-							type="text" name="id" id="id" pattern="[a-zA-Z]+"
-							value="${param.id }">
+						<b>ID(*)</b> <small id="checkrst"></small><br />
+						 <input	type="text" name="id" id="id" />
 					</p>
 					<p>
 						<b>PASS(*)</b><br /> <input type="password" name="pass">

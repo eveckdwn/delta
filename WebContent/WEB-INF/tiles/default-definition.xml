@@ -28,6 +28,10 @@
 		<put-attribute name="main" value="/WEB-INF/view/logon.jsp"/>
 	</definition>
 	
+	<definition name="mypage" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/mypage.jsp"/>
+	</definition>
+	
 	<!-- EL support -->
 	<definition name="t_el" extends="default">
 		<put-attribute name="main" expression="/WEB-INF/view/${main}"/>
