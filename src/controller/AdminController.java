@@ -1,14 +1,20 @@
 package controller;
 
-import org.omg.CORBA.Request;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import service.UsersService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	@Autowired
+	UsersService usersService;
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String adminHandle() {
 		return "admin_index";
@@ -24,9 +30,24 @@ public class AdminController {
 		return "";
 	}
 	
-	@RequestMapping("/user")
-	public String userHandle() {
-		return "";
-	}
 
+
+	@RequestMapping("/user")
+	public String selectAll(Model model) {
+		
+			model.addAttribute("select", usersService.selectAll());
+			model.addAttribute("foul", usersService.foulUsers());
+		return "admin";
+	}
+	
+	@RequestMapping("/ban")
+	public String BanUsers(Model model, @RequestParam String id) {
+		
+		model.addAttribute("ban" , usersService.banUsers(id));
+		
+		return "ban";
+		
+		
+	}
+	
 }
