@@ -12,6 +12,11 @@
 	<definition name="admin_index" extends="admin">
 		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp"/>
 	</definition>
+	
+	<definition name="admin_users" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/users.jsp"/>
+	</definition>
+	
 	<!-- Admin part End -->
 
 	<!-- Guest part Start -->	

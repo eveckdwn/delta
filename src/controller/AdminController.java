@@ -32,12 +32,12 @@ public class AdminController {
 	
 
 
-	@RequestMapping("/user")
+	@RequestMapping("/users")
 	public String selectAll(Model model) {
 		
 			model.addAttribute("select", usersService.selectAll());
 			model.addAttribute("foul", usersService.foulUsers());
-		return "admin";
+		return "admin_users";
 	}
 	
 	@RequestMapping("/ban")
