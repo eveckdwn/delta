@@ -48,11 +48,12 @@ public class AdminController {
 		
 		try {
 			
-			
+			model.addAttribute("select", usersService.selectAll());
+			model.addAttribute("foul", usersService.foulUsers());
 			model.addAttribute("ban" , usersService.banUsers(id));
 			
 			
-			return "/admin/ban";
+			return "admin_users";
 			
 		}catch(Exception e){
 			e.printStackTrace();
