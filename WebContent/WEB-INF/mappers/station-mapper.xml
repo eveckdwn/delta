@@ -14,4 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readOne" resultType="hashmap">
 		select * from station where name = #{name}
 	</select>
+	
+	<update id="update" parameterType="hashmap">
+		update station set name=#{name}, map=#{map}, addr=#{addr}, contact=#{contact} where name=#{name}
+	</update>
+	
+	<delete id="delete" parameterType="hashmap">
+		delete from station where name=#{name}
+	</delete>
 </mapper>

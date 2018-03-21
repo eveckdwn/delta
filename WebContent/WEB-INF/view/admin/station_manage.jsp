@@ -5,6 +5,7 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <title>Spring - managed by GIT</title>
 </head>
 <style>
@@ -24,29 +25,199 @@ input {
 			<hr />
 			<c:if test="${!empty info }">
 				<script>
-					alert('${err }');
+					alert('${info }');
 				</script>
 			</c:if>
-			<table border="1">
+		</div>
+		<div class="row">
+			<table id="example-table-1" width="100%"
+				class="table table-bordered table-hover text-center">
 				<colgroup>
-					<col width="20%"/>
-					<col width=""/>
-					<col width="20%"/>
+					<col width="" />
+					<col width="15%" />
+					<col width="" />
+					<col width="" />
+					<col width="10%" />
 				</colgroup>
-				<tr>
-					<th>역 이름</th>
-					<th>주소</th>
-					<th>연락처</th>
-				</tr>
-				<c:forEach items="${station }" var="s">
-				<tr>
-					<td>${s.NAME }</td>
-					<td>${s.ADDR }</td>
-					<td>${s.CONTACT }</td>
-				</tr>
-				</c:forEach>
+				<thead>
+					<tr>
+						<th>선택</th>
+						<th>역 이름</th>
+						<th>네이버 지도상 링크
+							<button type="button" onclick="howto()">?</button> <br /> <span
+							class="howto" style="color: red; display: none">수정시 네이버
+								지도에서 주소을 검색하고 주소부분을 우클릭하여 검사를 누르신 뒤, 영역표시 되어있는 부분을 복사(Ctrl +
+								c)해서 넣어주세요.</span>
+						</th>
+						<th>주소</th>
+						<th>연락처</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${station }" var="s" varStatus="sts">
+						<tr class="data">
+							<td class="rselect"><c:choose>
+									<c:when test="${sts.index ==0 }">
+										<input type="radio" name="select" class="select" checked />
+									</c:when>
+									<c:otherwise>
+										<input type="radio" name="select" class="select" />
+									</c:otherwise>
+								</c:choose></td>
+							<td>${s.NAME }</td>
+							<td>${s.MAP }</td>
+							<td>${s.ADDR }</td>
+							<td>${s.CONTACT }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+			<button id="modify" type="button">수정</button>
+			<button id="delete" type="button">삭제</button>
 		</div>
 	</div>
+	<script>
+		$(".data").click(function select() {
+			for(var i = 0; i < $(".select").length; i++){
+				var select = $(".select").eq(i);
+				if(select.prop("checked")){
+					select.attr("checked", false);
+				}
+			}
+			var tr = $(this);
+			var td = tr.children();
+			var radio = td.eq(0).children();
+			radio.attr("checked", true);
+		});
+		
+		function howto() {
+			$(".howto").toggle();
+		}
+		
+		function apply() {
+			var src = $(".mapaddr").val();
+			var srccommit = src.substring(src.indexOf('\"') + 1, src.indexOf("\"", 30));
+			$(".mapaddr").val(srccommit);
+		}
+		
+		$("#modify")
+				.click(
+						function() {
+							for(var i = 0; i < $(".select").length; i++){
+								var select = $(".select").eq(i);
+								if(select.prop("checked")){
+									var tr = select.parent().parent();
+									var td = tr.children();
+									
+									td.each(function(i) {
+										if($(this).attr("class") != "rselect"){
+											$(this).html("<input type=\"text\" value=\""+$(this).text() +" \"/>");
+										}
+									});
+								}
+							}
+							
+							$(this).html("확인");
+							$(this).attr("id", "confirm");
+							
+							$("#delete").html("취소");
+							$("#delete").attr("id", "cancel");
+						});
+		$("#cancel")
+			.click(
+				function() {
+					for(var i = 0; i < $(".select").length; i++){
+						var select = $(".select").eq(i);
+						if(select.prop("checked")){
+							var tr = select.parent().parent();
+							var td = tr.children();
+							td.each(function(i) {
+								if($(this).attr("class") != "map"){
+									if($(this).children().attr("class") != "checkBtn"){
+										$(this).html($(this).text());
+									}else{
+										$(this).html("<button type=\"button\" class=\"checkBtn\">확인</button>");
+									}
+								}else{
+									$(this).html("<input type=\"text\" class=\"mapaddr\" value=\""+$(this).text() +" \" onchange=\"apply()\"/>");
+								}
+							});
+						}
+					}
+				});
+		
+		$("#confirm")
+			.click(
+				function() {
+					console.log($(this));
+					for(var i = 0; i < $(".select").length; i++){
+						var select = $(".select").eq(i);
+						if(select.prop("checked")){
+							var tr = select.parent().parent();
+							var td = tr.children();
+							
+							$.post("/admin/station_update", {
+								name : td.eq(1).text(),
+								map : td.eq(2).text(),
+								addr : td.eq(3).text(),
+								contact : td.eq(4).text()
+								},
+									function(rst){
+										console.log(rst);
+										if(rst){
+											alert("데이터 수정에 성공했습니다.");
+										}else{
+											alert("데이터 수정에 실패했습니다. \\n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
+										}
+									});
+							
+							td.each(function(i) {
+								if($(this).attr("class") != "map"){
+									if($(this).children().attr("class") != "checkBtn"){
+										$(this).html($(this).text());
+									}else{
+										$(this).html("<button type=\"button\" class=\"checkBtn\">확인</button>");
+									}
+								}else{
+									$(this).html("<input type=\"text\" class=\"mapaddr\" value=\""+$(this).text() +" \" onchange=\"apply()\"/>");
+								}
+							});
+						}
+					}
+					
+					$(this).html("수정");
+					$(this).attr("id", "modify");
+					
+					$("#cancel").html("삭제");
+					$("#cancel").attr("id", "delete");
+				});
+		
+		$("#delete")
+		.click(
+				function() {
+					for(var i = 0; i < $(".select").length; i++){
+						var select = $(".select").eq(i);
+						if(select.prop("checked")){
+							var tr = select.parent().parent();
+							var td = tr.children();
+							
+							$.post("/admin/station_delete", {
+								name : td.eq(1).text(),
+								},
+									function(rst){
+										console.log(rst);
+										if(rst){
+											alert("데이터 삭제에 성공했습니다.");
+											location.reload();
+										}else{
+											alert("데이터 삭제에 실패했습니다. \\n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
+											location.reload();
+										}
+									});
+							
+						}
+					}
+				});
+	</script>
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.StationService;
 import service.UsersService;
@@ -33,7 +34,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(path="/station_add", method=RequestMethod.POST)
-	public String addstationPostHandle(@RequestParam Map param, Model model) {
+	public String addStationPostHandle(@RequestParam Map param, Model model) {
 		if(stationService.addStation(param)) {
 			model.addAttribute("info", "기차역정보가 성공적으로 입력되었습니다.");
 		}else {
@@ -43,25 +44,37 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/station_manage")
-	public String managestationHandle(Model model) {
+	public String manageStationHandle(Model model) {
 		List station = stationService.readAllStation();
 		model.addAttribute("station", station);
 		return "admin_managestation";
 	}
 	
+	@RequestMapping("/station_update")
+	@ResponseBody
+	public String updateStation(@RequestParam Map param) {
+		return String.valueOf(stationService.updateStation(param));
+	}
+	
+	@RequestMapping("/station_delete")
+	@ResponseBody
+	public String deleteStation(@RequestParam Map param) {
+		return String.valueOf(stationService.deleteStation(param));
+	}
+	
 	
 	@RequestMapping(path="/travel_add", method=RequestMethod.GET)
-	public String addtravelGetHandle() {
+	public String addTravelGetHandle() {
 		return "admin_addtravel";
 	}
 	
 	@RequestMapping(path="/travel_add", method=RequestMethod.POST)
-	public String addtravelPostHandle() {
+	public String addTravelPostHandle() {
 		return "admin_addtravel";
 	}
 	
 	@RequestMapping("/travel_manage")
-	public String managetravelHandle() {
+	public String manageTravelHandle() {
 		return "admin_managestation";
 	}
 	
