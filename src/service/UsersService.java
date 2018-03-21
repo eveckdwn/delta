@@ -2,6 +2,9 @@ package service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -28,23 +31,50 @@ public class UsersService {
 	}
 
 	public boolean addNewOne(Map map) {
+		Date d = new Date();
+		SimpleDateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
+		String date = dd.format(d);
+		System.out.println(date);
+		map.put("lastlog", date);
+
 		return template.insert("users.addNewOne", map) == 1;
 	}
 
 	public int loginCheck(Map map) {
-		Map users = template.selectOne("users.loginInfo", map.get("id"));
-		if (users == null) {
-			return 1;
-		} else if (map.get("pass").equals(users.get("PASS"))) {
-			return 0;
+
+		Date d = new Date();
+		SimpleDateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
+		String date = dd.format(d);
+
+		String id = (String) map.get("id");
+
+		Map log = new HashMap<>();
+		log.put("lastlog", date);
+		log.put("id", id);
+		int rst = template.update("users.lastlogUpdate", log);
+		if (rst == 1) {
+			Map users = template.selectOne("users.loginInfo", map.get("id"));
+			if (users == null) {
+				return 1;
+			} else if (map.get("pass").equals(users.get("PASS"))) {
+				return 0;
+			} else {
+				return 2;
+			}
 		} else {
-			return 2;
+			return 3;
 		}
 	}
 
 	public Map mypageInfo(Map map) {
+
 		Map myinfo = template.selectOne("users.loginInfo", map);
 		return myinfo;
+	}
+
+	public Map banInfo(Map map) {
+		Map ban = template.selectOne("users.banCnt", map);
+		return ban;
 	}
 
 	public Map readId(String id) {
@@ -53,12 +83,12 @@ public class UsersService {
 
 	public boolean updateAccount(Map map, MultipartFile photo) throws IOException {
 
-		if(!photo.isEmpty()) {
+		if (!photo.isEmpty()) {
 			File savedir = new File(ctx.getRealPath("/photo"), (String) map.get("id"));
 			if (!savedir.exists()) {
 				savedir.mkdirs();
 			}
-	
+
 			String filename = String.valueOf(map.get("id"));
 			photo.transferTo(new File(savedir, filename));
 			map.put("photo", filename);

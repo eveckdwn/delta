@@ -46,6 +46,7 @@ public class LogInOutController {
 		switch(result) {
 		case 0:
 			session.setAttribute("logon", map.get("id"));
+			
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", sessions.size());

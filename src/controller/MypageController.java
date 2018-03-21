@@ -27,10 +27,17 @@ public class MypageController {
 	public String mypageHandle(HttpSession session, Model model) {
 		
 		String id = (String)session.getAttribute("logon");
+		Map cnt = new HashMap<>();
+			cnt.put("id", id);
 		Map userid = new HashMap<>();
 			userid.put("id", id);
+			
 		Map user = users.mypageInfo(userid);
+		Map ban = users.banInfo(cnt);
 		
+		if(ban != null) {
+			model.addAttribute("ban",ban.values());
+		}
 		model.addAttribute("user", user);
 		return "mypage";
 	}
@@ -42,17 +49,23 @@ public class MypageController {
 		map.put("id", id);
 		Map iid = new HashMap<>();
 			iid.put("id", id);
+		Map cnt = new HashMap<>();
+			cnt.put("id", id);
 		System.out.println(map.toString());
 		
 		boolean rst = users.updateAccount(map, photo);
 			if(rst) {
 				model.addAttribute("succ","정보가 수정되었습니다");
 				Map user = users.mypageInfo(iid);
+				Map ban = users.banInfo(cnt);
+				model.addAttribute("ban",ban);
 				model.addAttribute("user", user);
 				return "mypage";
 			}else{
 				model.addAttribute("err","정보를 수정하는 중 오류가 생겼습니다.");
 				Map user = users.mypageInfo(iid);
+				Map ban = users.banInfo(cnt);
+				model.addAttribute("ban",ban);
 				model.addAttribute("user", user);
 				return "mypage";
 			}

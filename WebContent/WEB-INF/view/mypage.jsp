@@ -20,6 +20,7 @@
 		's PAGE
 	</h2>
 	<hr />
+
 	<form method="post" enctype="multipart/form-data" action="/updateUser">
 
 		<div align="center">
@@ -43,10 +44,16 @@
 						id="preview" onclick="document.getElementById('profile').click();" />
 				</c:if>
 				<c:if test="${user.PHOTO == null }">
-					<img
-						src="<%=request.getContextPath() %>/photo/default.jpg"
+					<img src="<%=request.getContextPath()%>/photo/default.jpg"
 						style="width: 200px; height: 200px; border-radius: 50%;"
 						id="preview" onclick="document.getElementById('profile').click();" />
+				</c:if>
+			</p>
+			<p>
+				<c:if test="${!empty ban }">
+					<a style="color: red">제재 기간이 <b>${ban }</b>일 남았습니다.<br/>
+					제재 기간동안에는 해당 서비스를 이용하실 수 없습니다.
+					</a>
 				</c:if>
 			</p>
 			<p>
@@ -93,21 +100,23 @@
 			</table>
 			<div>
 				<c:if test="${user.LV == 0 }">
-				<small style="color: red">이메일 인증을 받아야 다양한 서비스를 이용할 수 있습니다.</small>
+					<small style="color: red">이메일 인증을 받아야 다양한 서비스를 이용할 수 있습니다.</small>
 				</c:if>
 				<c:if test="${user.LV == 1 }">
-				<small style="color: blue">이메일 인증을 받은 사용자입니다. 다양한 서비스를 이용할 수 있습니다.</small>
+					<small style="color: blue">이메일 인증을 받은 사용자입니다. 다양한 서비스를 이용할
+						수 있습니다.</small>
 				</c:if>
 			</div>
 			<div>
 				<c:if test="${!empty er }">
-				<b><small style="color: red">${er }</small></b>
+					<b><small style="color: red">${er }</small></b>
 				</c:if>
 			</div>
 			<p>
 				<button type="submit">프로필 수정</button>
 				<c:if test="${user.LV == 0 }">
-				<button type="submit" formaction="/emailConfirm" name="email" value="${user.EMAIL }" >이메일 인증</button>
+					<button type="submit" formaction="/emailConfirm" name="email"
+						value="${user.EMAIL }">이메일 인증</button>
 				</c:if>
 			</p>
 		</div>
