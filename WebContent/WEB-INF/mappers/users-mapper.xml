@@ -5,8 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="users">
 	<insert id="addNewOne" parameterType="hashmap">
 		insert into users
-		values(#{id}, #{pass}, #{nick}, #{email}, 0, default.jpg, sysdate,
-		#{ban, jdbcType=VARCHAR}, 0)
+		values(#{id}, #{pass}, #{nick}, #{email}, 0, null, sysdate, #{ban, jdbcType=VARCHAR}, 0)
 	</insert>
 
 	<select id="checkId" resultType="hashmap">
@@ -32,5 +31,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="email != null and email != ''">email=#{email}</if>
 		</set>
 		where id=#{id }
+	</update>
+	
+	<!-- 이메일 인증을 통해 LV 등급 처리 -->
+	<update id="updateLv">
+		update users
+		<set>
+			lv=1
+		</set>
+		where id=#{id}
 	</update>
 </mapper>

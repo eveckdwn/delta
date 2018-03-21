@@ -62,7 +62,7 @@ public class LogInOutController {
 			return "t_el";
 		case 2:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "로그인 과정 중 서버응답에 오류가 발생하였습니다.");
+			model.addAttribute("err", "비밀번호가 틀렸거나 서버응답에 오류가 발생하였습니다.");
 			model.addAttribute("main", "login.jsp");
 			return "t_el";
 		default:

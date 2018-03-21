@@ -28,19 +28,33 @@
 					<p style="color: red">${err }</p>
 				</c:if>
 				<c:if test="${!empty succ }">
-					<p><h4 style="color: blue"><b>${succ }</b></h4></p>
-				</c:if>
+					<p>
+					<h4 style="color: blue">
+						<b>${succ }</b>
+					</h4>
+			</p>
+			</c:if>
 			</p>
 			<p>
-				<img src="<%=request.getContextPath() %>/photo/${user.ID }/${user.PHOTO }"
-					style="width: 200px; height: 200px; border-radius: 50%;"
-					id="preview" onclick="document.getElementById('profile').click();" />
+				<c:if test="${user.PHOTO != null }">
+					<img
+						src="<%=request.getContextPath() %>/photo/${user.ID }/${user.PHOTO }"
+						style="width: 200px; height: 200px; border-radius: 50%;"
+						id="preview" onclick="document.getElementById('profile').click();" />
+				</c:if>
+				<c:if test="${user.PHOTO == null }">
+					<img
+						src="<%=request.getContextPath() %>/photo/default.jpg"
+						style="width: 200px; height: 200px; border-radius: 50%;"
+						id="preview" onclick="document.getElementById('profile').click();" />
+				</c:if>
 			</p>
 			<p>
 				<input type="file" name="photo" placeholder="변경할 사진" id="profile"
 					style="display: none" />
 			</p>
-			<table style="width: 400px; height: 300px; margin-bottom: 10px;" border="2px">
+			<table style="width: 400px; height: 300px; margin-bottom: 10px;"
+				border="2px">
 				<tr>
 					<td align="center"><b>ID</b></td>
 					<td><c:out value="${user.ID }" /></td>
@@ -77,8 +91,24 @@
 					<td><c:out value="${user.FOUL }" /></td>
 				</tr>
 			</table>
+			<div>
+				<c:if test="${user.LV == 0 }">
+				<small style="color: red">이메일 인증을 받아야 다양한 서비스를 이용할 수 있습니다.</small>
+				</c:if>
+				<c:if test="${user.LV == 1 }">
+				<small style="color: blue">이메일 인증을 받은 사용자입니다. 다양한 서비스를 이용할 수 있습니다.</small>
+				</c:if>
+			</div>
+			<div>
+				<c:if test="${!empty er }">
+				<b><small style="color: red">${er }</small></b>
+				</c:if>
+			</div>
 			<p>
 				<button type="submit">프로필 수정</button>
+				<c:if test="${user.LV == 0 }">
+				<button type="submit" formaction="/emailConfirm" name="email" value="${user.EMAIL }" >이메일 인증</button>
+				</c:if>
 			</p>
 		</div>
 	</form>

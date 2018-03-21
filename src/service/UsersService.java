@@ -53,17 +53,16 @@ public class UsersService {
 
 	public boolean updateAccount(Map map, MultipartFile photo) throws IOException {
 
-
-		File savedir = new File(ctx.getRealPath("/photo"), (String) map.get("id"));
-		if (!savedir.exists()) {
-			savedir.mkdirs();
+		if(!photo.isEmpty()) {
+			File savedir = new File(ctx.getRealPath("/photo"), (String) map.get("id"));
+			if (!savedir.exists()) {
+				savedir.mkdirs();
+			}
+	
+			String filename = String.valueOf(map.get("id"));
+			photo.transferTo(new File(savedir, filename));
+			map.put("photo", filename);
 		}
-
-		String filename = String.valueOf(map.get("id"));
-		photo.transferTo(new File(savedir, filename));
-		map.put("photo", filename);
-
-		System.out.println("service = " + map.toString());
 		return template.update("users.updateAccount", map) == 1;
 	}
 

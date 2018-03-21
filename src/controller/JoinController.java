@@ -53,7 +53,7 @@ public class JoinController {
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", s.size());
-			data.put("info", param.get("id") + "님 어서오세요.");
+			data.put("info", param.get("id") + "�떂 �뼱�꽌�삤�꽭�슂.");
 			Gson gson = new Gson();
 			for(WebSocketSession ws : s) {
 				ws.sendMessage(new TextMessage(gson.toJson(data)));
@@ -61,17 +61,18 @@ public class JoinController {
 			
 			return "redirect:/";
 		} else {
-			model.addAttribute("err", "계정생성에서 문제가 있었습니다.");
+			model.addAttribute("err", "怨꾩젙�깮�꽦�뿉�꽌 臾몄젣媛� �엳�뿀�뒿�땲�떎.");
 			return "join";
 		}
 	}
-
-	@RequestMapping("/confirm")
-	@ResponseBody
-	public boolean confirmHandle(@RequestParam String id) {
-		Map confirm = (Map) memberService.confirmId(id);
-		BigDecimal bd = (BigDecimal)confirm.get("COUNT");
-		return 0 == bd.intValue(); 
-	}
+	
+	
+//	@RequestMapping("/confirm")
+//	@ResponseBody
+//	public boolean confirmHandle(@RequestParam String id) {
+//		Map confirm = (Map) memberService.confirmId(id);
+//		BigDecimal bd = (BigDecimal)confirm.get("COUNT");
+//		return 0 == bd.intValue(); 
+//	}
 
 }

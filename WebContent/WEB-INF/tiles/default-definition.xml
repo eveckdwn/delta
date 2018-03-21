@@ -3,37 +3,40 @@
 
 <tiles-definitions>
 	<definition name="default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="WELCOME TO SPRING"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/side-01.jsp"/>
+		<put-attribute name="title" value="WELCOME TO SPRING" />
+		<put-attribute name="side" value="/WEB-INF/view/template/side-01.jsp" />
 	</definition>
-	
+
 	<definition name="index" extends="default">
-		<put-attribute name="main" value="/WEB-INF/view/login.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/login.jsp" />
 	</definition>
-	
+
 	<definition name="login" extends="default">
-		<put-attribute name="main" value="/WEB-INF/view/login.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/login.jsp" />
 	</definition>
-	
+
 	<definition name="join" extends="default">
-		<put-attribute name="main" value="/WEB-INF/view/join.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/join.jsp" />
 	</definition>
-	
+
 	<definition name="logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Spring MVC"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/side-02.jsp"/>
+		<put-attribute name="title" value="Spring MVC" />
+		<put-attribute name="side" value="/WEB-INF/view/template/side-02.jsp" />
 	</definition>
-	
+
 	<definition name="logon" extends="logons">
-		<put-attribute name="main" value="/WEB-INF/view/logon.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/logon.jsp" />
 	</definition>
-	
+
 	<definition name="mypage" extends="logons">
-		<put-attribute name="main" value="/WEB-INF/view/mypage.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/mypage.jsp" />
 	</definition>
-	
+	<definition name="email" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/email.jsp" />
+	</definition>
+
 	<!-- EL support -->
 	<definition name="t_el" extends="default">
-		<put-attribute name="main" expression="/WEB-INF/view/${main}"/>
+		<put-attribute name="main" expression="/WEB-INF/view/${main}" />
 	</definition>
 </tiles-definitions>
