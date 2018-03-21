@@ -1,5 +1,8 @@
 package controller;
 
+import java.lang.ProcessBuilder.Redirect;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,11 +46,24 @@ public class AdminController {
 	@RequestMapping("/ban")
 	public String BanUsers(Model model, @RequestParam String id) {
 		
-		model.addAttribute("ban" , usersService.banUsers(id));
-		
-		return "ban";
-		
+		try {
+			
+			
+			model.addAttribute("ban" , usersService.banUsers(id));
+			
+			
+			return "/admin/ban";
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "/admin/fail";
+		}
 		
 	}
+	
+
+		
+	
+	
 	
 }
