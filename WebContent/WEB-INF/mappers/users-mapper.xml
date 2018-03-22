@@ -70,10 +70,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from users
 	</select>
 	<select id="FoulUsers" resultType="hashmap">
-		select * from users where foul >= 5
+		select * from users where foul >= 3
 	</select>
 
 	<update id="BanUsers">
-		update users set id = #{id} where ban =#{sysdate +7}
+		update users set ban = #{ban},lv = 4,foul=0 where id = #{id}
 	</update>
+
+	
+	
+	
 </mapper>

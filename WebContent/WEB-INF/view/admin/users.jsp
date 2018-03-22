@@ -1,28 +1,29 @@
+<%@page import="java.awt.Window"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<style>
+th {
+	text-align: center;
+}
+</style>
 <title>관리자</title>
 </head>
 <body>
-	<style>
-table {
-	width: 770;
-	height: 350;
-	
-}
 
 
-</style>
 
-	<h2>관리자 모드</h2>
+	<h2>회원 관리</h2>
 
 	<hr />
 
-<!-- 신고 당한 횟수 많은 유저들  -->
+	<!-- 신고 당한 횟수 많은 유저들  -->
 	<div align="center">
-		<h2><b>신고 당한 횟수 많은 유저들</b></h2>
+		<h2>
+			<b>신고 당한 횟수 많은 유저들</b>
+		</h2>
 		<table border="1">
 			<tr>
 				<th>아이디</th>
@@ -38,7 +39,6 @@ table {
 			</tr>
 			<c:forEach var="i" items="${foul }">
 				<tr>
-				<form ></form>
 					<th>${i.ID }</th>
 					<th>${i.PASS }</th>
 					<th>${i.NICK }</th>
@@ -48,16 +48,18 @@ table {
 					<th>${i.LASTLOG }</th>
 					<th>${i.BAN }</th>
 					<th>${i.FOUL }</th>
-					<th><button type="button">차단하기</button></th>
+					<th><button type="button" class="btn1" value="${i.ID }">차단하기</button></th>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-<!-- 신고 당한 횟수 많은 유저들  -->
-	
-<!-- 전체 사용자  -->
+	<!-- 신고 당한 횟수 많은 유저들  -->
+
+	<!-- 전체 사용자  -->
 	<div align="center">
-		<h2><b>전체 목록</b></h2>
+		<h2>
+			<b>전체 목록</b>
+		</h2>
 		<table border="1">
 			<tr>
 				<th>아이디</th>
@@ -85,16 +87,32 @@ table {
 			</c:forEach>
 		</table>
 	</div>
-<!-- 전체 사용자  -->
-
+	<!-- 전체 사용자  -->
 
 
 </body>
 </html>
 
+	<script>
+		$(".btn1").on("click", function() {
 
-<script>
+			var pass = "1111"
+			var msg = prompt("비밀번호를 입력하세요.");
+			if (msg != pass) {	
+				alert("틀렸습니다.");
 
+			} else {
+				alert("작업을 시작합니다.");
+				$.post("/admin/ban",
+						{id : $(this).val()},
+						function(rst){
+							if(rst){
+								location.reload();
+							}
+					
+				});
+				
+			}
 
-
-</script>
+		});
+	</script>

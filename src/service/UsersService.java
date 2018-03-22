@@ -1,5 +1,8 @@
 package service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
@@ -104,10 +107,20 @@ public class UsersService {
 		return template.selectList("users.FoulUsers");
 	}
 
-	public int banUsers(String id) {
-
-		return template.update("users.BanUsers", id);
+	public boolean banUsers(String id) {
+		Date today = new Date();
+		Date d = new Date(today.getTime ( ) + (long) ( 1000 * 60 * 60 * 24 * 3 ));
+		SimpleDateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
+		String date=dd.format(d);
+		
+		Map ban =new HashMap<>();
+		 ban.put("id", id);
+		 ban.put("ban", date);
+		
+		return template.update("users.BanUsers", ban) == 1;
 	}
+	
+
 
 	public boolean updateAccount(Map map, MultipartFile photo) throws IOException {
 
@@ -126,36 +139,4 @@ public class UsersService {
 
 }
 
-/*
- * package service;
- * 
- * import java.util.List; import java.util.Map;
- * 
- * import org.mybatis.spring.SqlSessionTemplate; import
- * org.springframework.beans.factory.annotation.Autowired; import
- * org.springframework.stereotype.Service;
- * 
- * @Service public class UsersService {
- * 
- * @Autowired SqlSessionTemplate template;
- * 
- * 
- * public List<Map> selectAll () {
- * 
- * return template.selectList("users.select");
- * 
- * }
- * 
- * public List<Map> FoulUsers() {
- * 
- * return template.selectList("users.FoulUsers"); }
- * 
- * 
- * public int BanUsers(String id) {
- * 
- * return template.update("users.BanUsers", id); }
- * 
- * 
- * 
- * }
- */
+
