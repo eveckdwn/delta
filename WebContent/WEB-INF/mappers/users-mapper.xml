@@ -5,8 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="users">
 	<insert id="addNewOne" parameterType="hashmap">
 		insert into users
-		values(#{id}, #{pass}, #{nick}, #{email}, 0, default.jpg, sysdate,
-		#{ban, jdbcType=VARCHAR}, 0)
+		values(#{id}, #{pass}, #{nick}, #{email}, 0, null, #{lastlog}, #{ban, jdbcType=VARCHAR}, 0)
 	</insert>
 
 	<select id="checkId" resultType="hashmap">
@@ -14,6 +13,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		users.pass, users.lv, users.photo COUNT(*) as count from users where
 		id = #{id} group by users.id, users.pass, users.email, users.lv,
 		users.photo
+	</select>
+
+	<!-- 로그인 시 사용하는 mapper & mypage에서 정보 뿌려주는 역할 -->
+	<select id="loginInfo" resultType="hashmap">
+		select * from users where
+		id=#{id}
+	</select>
+
+	<!-- 프로필 수정 -->
+	<update id="updateAccount">
+		update users
+		<set>
+			<if test="nick != null and nick != ''">nick =#{nick},</if>
+			<if test="photo != null and photo != ''">photo =#{photo},</if>
+			<if test="pass != null and pass != ''">pass=#{pass},</if>
+			<if test="email != null and email != ''">email=#{email}</if>
+		</set>
+		where id=#{id }
+	</update>
+	
+	<!-- 이메일 인증을 통해 LV 등급 처리 -->
+	<update id="updateLv">
+		update users
+		<set>
+			lv=1
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- last log 로그인시 마다 변경 -->
+	<update id="lastlogUpdate">
+		update users
+		<set>
+			lastlog=#{lastlog}
+		</set>
+		where id=#{id}
+	</update>
+	
+		<!-- ban시 lv4를 lv1로 변경 -->
+	<update id="banOut">
+		update users
+		<set>
+			lv=1,
+			ban=null
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- BAN처리 일수 계산 -->
+	<select id="banCnt" resultType="hashmap">
+	select ban-lastlog from users where id=#{id}
 	</select>
 
 	<select id="select" resultType="hashmap">

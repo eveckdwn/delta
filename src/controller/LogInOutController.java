@@ -27,54 +27,55 @@ import service.UsersService;
 public class LogInOutController {
 	@Autowired
 	GreetService greetService;
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public String loginHandle(Model model) {
 		model.addAttribute("ment", greetService.make());
 		return "login";
 	}
-	
+
 	@Autowired
 	UsersService memberService;
-	
+
 	@Autowired
 	WebSocketMap sessions;
-	
-	@RequestMapping(method=RequestMethod.POST)
+
+	@RequestMapping(method = RequestMethod.POST)
 	public String loginPHandle(@RequestParam Map map, HttpSession session, Model model) throws IOException {
 		int result = memberService.loginCheck(map);
-		switch(result) {
+		switch (result) {
 		case 0:
 			session.setAttribute("logon", map.get("id"));
+
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", sessions.size());
-			data.put("info", map.get("id") + "님 어서오세요.");
+			data.put("info", map.get("id") + " 님이 접속하였습니다.");
 			Gson gson = new Gson();
-			for(WebSocketSession ws : s) {
+			for (WebSocketSession ws : s) {
 				ws.sendMessage(new TextMessage(gson.toJson(data)));
 			}
 			return "redirect:/";
 		case 1:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "로그인하는 과정에서 문제가 있었습니다.\n아이디가 없습니다.");
-			model.addAttribute("main", "login.jsp");
+			model.addAttribute("err", "회원 정보가 존재하지 않습니다.\n회원가입을 해주세요.");
+			model.addAttribute("main", "join.jsp");
 			return "t_el";
 		case 2:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "로그인하는 과정에서 문제가 있었습니다.\n아이디 혹은 비밀번호를 확인해주세요.");
+			model.addAttribute("err", "비밀번호가 틀렸거나 서버응답에 오류가 발생하였습니다.");
 			model.addAttribute("main", "login.jsp");
 			return "t_el";
 		default:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "로그인하는 과정에서 문제가 있었습니다.");
+			model.addAttribute("err", "패스워드가 일치하지 않습니다.");
 			model.addAttribute("main", "login.jsp");
 			return "t_el";
 		}
 	}
-	
+
 	@RequestMapping("/out")
-	public String logoutHandle(HttpSession session, Model model){
+	public String logoutHandle(HttpSession session, Model model) {
 		session.removeAttribute("logon");
 		model.addAttribute("ment", greetService.make());
 		return "index";
