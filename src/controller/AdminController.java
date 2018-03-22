@@ -50,13 +50,16 @@ public class AdminController {
 		return "admin_managestation";
 	}
 	
-	@RequestMapping("/station_update")
+	@RequestMapping(path="/station_update", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String updateStation(@RequestParam Map param) {
-		return String.valueOf(stationService.updateStation(param));
+		
+		String rst = String.valueOf(stationService.updateStation(param));
+		System.out.println(rst);
+		return rst;
 	}
 	
-	@RequestMapping("/station_delete")
+	@RequestMapping(path="/station_delete", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String deleteStation(@RequestParam Map param) {
 		return String.valueOf(stationService.deleteStation(param));

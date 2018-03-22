@@ -25,9 +25,9 @@ input {
 			<div style="font-size: 17pt; margin-top: 50px;">기차역 정보를 추가하기 위해
 				(*) 표시가 있는 모든 항목을 입력해주세요.</div>
 			<div>
-				<c:if test="${!empty err }">
+				<c:if test="${!empty info }">
 					<script>
-						alert('${err }');
+						alert('${info }');
 					</script>
 				</c:if>
 				<form action="/admin/station_add" method="post"

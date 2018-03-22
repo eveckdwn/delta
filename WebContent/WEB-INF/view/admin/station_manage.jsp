@@ -78,6 +78,7 @@ input {
 	</div>
 	<script>
 		$(".data").click(function select() {
+			//	테이블의 열을 클릭시 해당 열의 라디오 체크시키기
 			for(var i = 0; i < $(".select").length; i++){
 				var select = $(".select").eq(i);
 				if(select.prop("checked")){
@@ -91,10 +92,12 @@ input {
 		});
 		
 		function howto() {
+			//	지도  src 주소 가져오는 법 토글
 			$(".howto").toggle();
 		}
 		
 		function apply() {
+			//	지도 주소 src 변환
 			var src = $(".mapaddr").val();
 			var srccommit = src.substring(src.indexOf('\"') + 1, src.indexOf("\"", 30));
 			$(".mapaddr").val(srccommit);
@@ -103,119 +106,82 @@ input {
 		$("#modify")
 				.click(
 						function() {
-							for(var i = 0; i < $(".select").length; i++){
-								var select = $(".select").eq(i);
-								if(select.prop("checked")){
-									var tr = select.parent().parent();
-									var td = tr.children();
-									
-									td.each(function(i) {
-										if($(this).attr("class") != "rselect"){
-											$(this).html("<input type=\"text\" value=\""+$(this).text() +" \"/>");
-										}
-									});
+							if($(this).html() == "수정"){
+								//	수정버튼 클릭시 작동
+								for(var i = 0; i < $(".select").length; i++){
+									var select = $(".select").eq(i);
+									if(select.prop("checked")){
+										var tr = select.parent().parent();
+										var td = tr.children();
+										
+										td.each(function(i) {
+											if($(this).attr("class") != "rselect"){
+												$(this).html("<input type=\"text\" value=\""+$(this).text() +"\"/>");
+											}
+										});
+									}
+								}
+								
+								$(this).html("확인");
+								$("#delete").html("취소");
+							}else{
+								//	확인 버튼 클릭시 작동
+								for(var i = 0; i < $(".select").length; i++){
+									var select = $(".select").eq(i);
+									if(select.prop("checked")){
+										var tr = select.parent().parent();
+										var td = tr.children();
+										
+										$.post("/admin/station_update", {
+											name : $(td[1]).children().val(),
+											map : $(td[2]).children().val(),
+											addr : $(td[3]).children().val(),
+											contact : $(td[4]).children().val()
+											},
+												function(rst){
+													if(rst){
+														alert("데이터 수정에 성공했습니다.");
+														location.reload();
+													}else{
+														alert("데이터 수정에 실패했습니다. \n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
+														location.reload();
+													}
+												});
+									}
 								}
 							}
-							
-							$(this).html("확인");
-							$(this).attr("id", "confirm");
-							
-							$("#delete").html("취소");
-							$("#delete").attr("id", "cancel");
 						});
-		$("#cancel")
-			.click(
-				function() {
-					for(var i = 0; i < $(".select").length; i++){
-						var select = $(".select").eq(i);
-						if(select.prop("checked")){
-							var tr = select.parent().parent();
-							var td = tr.children();
-							td.each(function(i) {
-								if($(this).attr("class") != "map"){
-									if($(this).children().attr("class") != "checkBtn"){
-										$(this).html($(this).text());
-									}else{
-										$(this).html("<button type=\"button\" class=\"checkBtn\">확인</button>");
-									}
-								}else{
-									$(this).html("<input type=\"text\" class=\"mapaddr\" value=\""+$(this).text() +" \" onchange=\"apply()\"/>");
-								}
-							});
-						}
-					}
-				});
-		
-		$("#confirm")
-			.click(
-				function() {
-					console.log($(this));
-					for(var i = 0; i < $(".select").length; i++){
-						var select = $(".select").eq(i);
-						if(select.prop("checked")){
-							var tr = select.parent().parent();
-							var td = tr.children();
-							
-							$.post("/admin/station_update", {
-								name : td.eq(1).text(),
-								map : td.eq(2).text(),
-								addr : td.eq(3).text(),
-								contact : td.eq(4).text()
-								},
-									function(rst){
-										console.log(rst);
-										if(rst){
-											alert("데이터 수정에 성공했습니다.");
-										}else{
-											alert("데이터 수정에 실패했습니다. \\n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
-										}
-									});
-							
-							td.each(function(i) {
-								if($(this).attr("class") != "map"){
-									if($(this).children().attr("class") != "checkBtn"){
-										$(this).html($(this).text());
-									}else{
-										$(this).html("<button type=\"button\" class=\"checkBtn\">확인</button>");
-									}
-								}else{
-									$(this).html("<input type=\"text\" class=\"mapaddr\" value=\""+$(this).text() +" \" onchange=\"apply()\"/>");
-								}
-							});
-						}
-					}
-					
-					$(this).html("수정");
-					$(this).attr("id", "modify");
-					
-					$("#cancel").html("삭제");
-					$("#cancel").attr("id", "delete");
-				});
 		
 		$("#delete")
 		.click(
 				function() {
-					for(var i = 0; i < $(".select").length; i++){
-						var select = $(".select").eq(i);
-						if(select.prop("checked")){
-							var tr = select.parent().parent();
-							var td = tr.children();
-							
-							$.post("/admin/station_delete", {
-								name : td.eq(1).text(),
-								},
-									function(rst){
-										console.log(rst);
-										if(rst){
-											alert("데이터 삭제에 성공했습니다.");
-											location.reload();
-										}else{
-											alert("데이터 삭제에 실패했습니다. \\n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
-											location.reload();
-										}
-									});
-							
+					//	삭제버튼 클릭시 동작
+					if($(this).html() == "삭제"){
+						for(var i = 0; i < $(".select").length; i++){
+							var select = $(".select").eq(i);
+							if(select.prop("checked")){
+								var tr = select.parent().parent();
+								var td = tr.children();
+								
+								$.post("/admin/station_delete", {
+									name : td.eq(1).text(),
+									},
+										function(rst){
+											console.log(rst);
+											if(rst){
+												alert("데이터 삭제에 성공했습니다.");
+												location.reload();
+											}else{
+												alert("데이터 삭제에 실패했습니다. \\n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
+												location.reload();
+											}
+										});
+								
+							}
 						}
+					}else{
+						//	취소버튼 클릭시 동작
+						location.reload();
 					}
 				});
 	</script>
