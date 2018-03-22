@@ -33,8 +33,8 @@ input {
 			<table id="example-table-1" width="100%"
 				class="table table-bordered table-hover text-center">
 				<colgroup>
-					<col width="" />
-					<col width="15%" />
+					<col width="5%" />
+					<col width="10%" />
 					<col width="" />
 					<col width="" />
 					<col width="10%" />

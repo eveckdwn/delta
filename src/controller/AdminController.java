@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.StationService;
+import service.TravelService;
 import service.UsersService;
 
 @Controller
@@ -23,9 +26,26 @@ public class AdminController {
 	@Autowired
 	StationService stationService;
 	
+	@Autowired
+	TravelService travelService;
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public String adminHandle() {
-		return "admin_index";
+	public String adminGetHandle(HttpSession session) {
+		if(session.getAttribute("auth") == null) {
+			return "admin_confirm";
+		}else {
+			return "admin_index";
+		}
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public String adminPostHandle(@RequestParam String pass, HttpSession session) {
+		if(pass.equals("1111")) {
+			session.setAttribute("auth", true);
+			return "admin_index";
+		}else {
+			return "admin_confirm";
+		}
 	}
 	
 	@RequestMapping(path="/station_add", method=RequestMethod.GET)
@@ -36,9 +56,9 @@ public class AdminController {
 	@RequestMapping(path="/station_add", method=RequestMethod.POST)
 	public String addStationPostHandle(@RequestParam Map param, Model model) {
 		if(stationService.addStation(param)) {
-			model.addAttribute("info", "기차역정보가 성공적으로 입력되었습니다.");
+			model.addAttribute("info", "기차역 정보가 성공적으로 입력되었습니다.");
 		}else {
-			model.addAttribute("info", "기차역정보가 입력하는데 실패했습니다.\n다음과 같은 상황이 반복될 경우, 개발자에게 문의해주세요.");
+			model.addAttribute("info", "기차역 정보가 입력하는데 실패했습니다.\n다음과 같은 상황이 반복될 경우, 개발자에게 문의해주세요.");
 		}
 		return "admin_addstation";
 	}
@@ -52,35 +72,55 @@ public class AdminController {
 	
 	@RequestMapping(path="/station_update", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String updateStation(@RequestParam Map param) {
-		
-		String rst = String.valueOf(stationService.updateStation(param));
-		System.out.println(rst);
-		return rst;
+	public String updateStationHandle(@RequestParam Map param) {
+		return String.valueOf(stationService.updateStation(param));
 	}
 	
 	@RequestMapping(path="/station_delete", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String deleteStation(@RequestParam Map param) {
+	public String deleteStationHandle(@RequestParam Map param) {
 		return String.valueOf(stationService.deleteStation(param));
 	}
 	
 	
 	@RequestMapping(path="/travel_add", method=RequestMethod.GET)
-	public String addTravelGetHandle() {
+	public String addTravelGetHandle(Model model) {
+		List station = stationService.readAllStation();
+		model.addAttribute("station", station);
 		return "admin_addtravel";
 	}
 	
 	@RequestMapping(path="/travel_add", method=RequestMethod.POST)
-	public String addTravelPostHandle() {
+	public String addTravelPostHandle(@RequestParam Map param, Model model) {
+		
+		System.out.println(param);
+		
+		if(travelService.addTravel(param)) {
+			model.addAttribute("info", "여행지 정보가 성공적으로 입력되었습니다.");
+		}else {
+			model.addAttribute("info", "여행지 정보가 입력하는데 실패했습니다.\n다음과 같은 상황이 반복될 경우, 개발자에게 문의해주세요.");
+		}
 		return "admin_addtravel";
 	}
 	
 	@RequestMapping("/travel_manage")
-	public String manageTravelHandle() {
-		return "admin_managestation";
+	public String manageTravelHandle(Model model) {
+		List station = travelService.readAllTravel();
+		model.addAttribute("travel", station);
+		return "admin_managetravel";
 	}
 	
+	@RequestMapping(path="/travel_update", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String updateTravelHandel(@RequestParam Map param) {
+		return String.valueOf(travelService.updateTravel(param));
+	}
+	
+	@RequestMapping(path="/travel_delete", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String deleteTravel(@RequestParam Map param) {
+		return String.valueOf(travelService.deleteTravel(param));
+	}
 
 	@RequestMapping("/users")
 	public String selectAll(Model model) {

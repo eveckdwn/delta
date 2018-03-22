@@ -9,6 +9,10 @@
 		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-admin.jsp"/>
 	</definition>
 	
+	<definition name="admin_confirm" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/certification.jsp"/>
+	</definition>
+	
 	<definition name="admin_index" extends="admin">
 		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp"/>
 	</definition>
