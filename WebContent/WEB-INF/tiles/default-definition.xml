@@ -4,42 +4,49 @@
 <tiles-definitions>
 	<!-- Admin part Start -->
 	<definition name="admin" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Admin"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-admin.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-admin.jsp"/>
+		<put-attribute name="title" value="Admin" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-admin.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/view/template/sidemenu-admin.jsp" />
 	</definition>
-	
+
 	<definition name="admin_index" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp" />
 	</definition>
-	
+
 	<definition name="admin_addstation" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/station_add.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/admin/station_add.jsp" />
 	</definition>
-	
+
 	<definition name="admin_managestation" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/station_manage.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/admin/station_manage.jsp" />
 	</definition>
-	
+
 	<definition name="admin_addtravel" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/travel_add.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/admin/travel_add.jsp" />
 	</definition>
-	
+
 	<definition name="admin_managetravel" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/travel_manage.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/admin/travel_manage.jsp" />
 	</definition>
-	
+
 	<definition name="admin_users" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/users.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/admin/users.jsp" />
 	</definition>
-	
+
 	<!-- Admin part End -->
 
-	<!-- Guest part Start -->	
+	<!-- Guest part Start -->
 	<definition name="default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="WELCOME TO SPRING"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-index.jsp"/>
+		<put-attribute name="title" value="WELCOME TO SPRING" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-user.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/view/template/sidemenu-index.jsp" />
 	</definition>
 
 	<definition name="index" extends="default">
@@ -53,18 +60,24 @@
 	<definition name="join" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/join.jsp" />
 	</definition>
+	
+	<definition name="findpass" extends="default">
+		<put-attribute name="main" value="/WEB-INF/view/findpass.jsp" />
+	</definition>
 
 	<definition name="logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Spring MVC"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-mypage.jsp"/>
+		<put-attribute name="title" value="Spring MVC" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-user.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/view/template/sidemenu-mypage.jsp" />
 	</definition>
 
 	<definition name="logon" extends="logons">
 		<put-attribute name="main" value="/WEB-INF/view/logon.jsp" />
 	</definition>
 	<!-- Guest part End -->
-	
+
 
 	<definition name="mypage" extends="logons">
 		<put-attribute name="main" value="/WEB-INF/view/mypage.jsp" />
@@ -72,6 +85,7 @@
 	<definition name="email" extends="logons">
 		<put-attribute name="main" value="/WEB-INF/view/email.jsp" />
 	</definition>
+
 
 	<!-- EL support -->
 	<definition name="t_el" extends="default">

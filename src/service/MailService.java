@@ -1,5 +1,7 @@
 package service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -18,27 +20,24 @@ public class MailService {
 
 	@Autowired
 	JavaMailSender mailsender;
-	
+
 	@Autowired
 	SqlSessionTemplate template;
 
-	public boolean sendMail(String email,HttpSession session) {
-		
+	public boolean sendMail(String email, HttpSession session) {
+
 		UUID uuid = UUID.randomUUID();
 		String[] uuids = uuid.toString().split("-");
 		String serial = uuids[0];
 		session.setAttribute("serial", serial);
-		
+
 		MimeMessage mail = mailsender.createMimeMessage();
 		try {
 			mail.setRecipient(RecipientType.TO, new InternetAddress(email));
-			// º¸³»´Â »ç¶÷ - google ¼­¹ö°°Àº °æ¿ì´Â ÀÌ ¼³Á¤À» ¹«½ÃÇÔ.
 			mail.setFrom(new InternetAddress("admin@spring.io"));
-			// Á¦¸ñ
-			mail.setSubject("[³»ÀÏ·Î ¿©Çà Á¤º¸°øÀ¯] °¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù");
-			// ³»¿ë
-			String content = "ÀÌ¸ŞÀÏ ÀÎÁõÀ» ¿äÃ»ÇÏ¼Ì½À´Ï´Ù.\nÀÎÁõÅ°¸¦ ÆäÀÌÁö¿¡ ÀÔ·ÂÇÏ¿© ÁÖ¼¼¿ä.\n";
-			content += "ÀÎÁõÅ° : " + serial;
+			mail.setSubject("[ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµå¸³ï¿½Ï´ï¿½");
+			String content = "ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.\nï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¿ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½.\n";
+			content += "ï¿½ï¿½ï¿½ï¿½Å° : " + serial;
 			mail.setContent(content, "text/html;charset=utf-8");
 
 			mailsender.send(mail);
@@ -48,9 +47,40 @@ public class MailService {
 			return false;
 		}
 	}
-	
-	public boolean updateLv(String id) {
+
+	public boolean findPass(Map<String,String> map) {
+
+		UUID uuid = UUID.randomUUID();
+		String[] uuids = uuid.toString().split("-");
+		String serial = uuids[0];
 		
-		return template.update("users.updateLv",id)==1;
+		map.put("pass", serial);
+		
+		String e = String.valueOf(map.get("email"));
+		int cnt = template.update("users.findPass", map);
+		if (cnt == 1) {
+			MimeMessage mail = mailsender.createMimeMessage();
+			try {
+				mail.setRecipient(RecipientType.TO, new InternetAddress(e));
+				mail.setFrom(new InternetAddress("admin@spring.io"));
+				mail.setSubject("[ë‚´ì¼ë¡œ ì—¬í–‰ ì •ë³´ ê³µìœ ] ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤.");
+				String content = "ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤.\nì„ì‹œ ë¹„ë°€ë²ˆí˜¸ëŠ” í”„ë¡œí•„ì—ì„œ ìˆ˜ì •í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\n";
+				content += "ì„ì‹œ ë¹„ë°€ ë²ˆí˜¸ : " + serial;
+				mail.setContent(content, "text/html;charset=utf-8");
+
+				mailsender.send(mail);
+				return true;
+			} catch (MessagingException me) {
+				me.printStackTrace();
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateLv(String id) {
+
+		return template.update("users.updateLv", id) == 1;
 	}
 }
