@@ -28,4 +28,13 @@ public class StationService {
 		return template.selectOne("station.readOne", id);
 	}
 
+	public boolean updateStation(Map param) {
+		System.out.println(param);
+		return template.update("station.update", param) == 1;
+	}
+
+	public boolean deleteStation(Map param) {
+		return template.delete("station.delete", param) == 1;
+	}
+
 }

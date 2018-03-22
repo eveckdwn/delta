@@ -13,6 +13,22 @@
 		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp"/>
 	</definition>
 	
+	<definition name="admin_addstation" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/station_add.jsp"/>
+	</definition>
+	
+	<definition name="admin_managestation" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/station_manage.jsp"/>
+	</definition>
+	
+	<definition name="admin_addtravel" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/travel_add.jsp"/>
+	</definition>
+	
+	<definition name="admin_managetravel" extends="admin">
+		<put-attribute name="main" value="/WEB-INF/view/admin/travel_manage.jsp"/>
+	</definition>
+	
 	<definition name="admin_users" extends="admin">
 		<put-attribute name="main" value="/WEB-INF/view/admin/users.jsp"/>
 	</definition>
