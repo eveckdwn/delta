@@ -98,7 +98,7 @@ th {
 
 			var pass = "1111"
 			var msg = prompt("비밀번호를 입력하세요.");
-			if (msg != pass) {
+			if (msg != pass) {	
 				alert("틀렸습니다.");
 
 			} else {
