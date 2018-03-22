@@ -1,3 +1,4 @@
+<%@page import="java.awt.Window"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -47,7 +48,7 @@ th {
 					<th>${i.LASTLOG }</th>
 					<th>${i.BAN }</th>
 					<th>${i.FOUL }</th>
-					<th><a href="/admin/ban?id=${i.ID }"><button type="button"id="btn1">차단하기</button></a>
+					<th><button type="button" class="btn1" value="${i.ID }">차단하기</button></th>
 				</tr>
 			</c:forEach>
 		</table>
@@ -89,13 +90,29 @@ th {
 	<!-- 전체 사용자  -->
 
 
-
 </body>
 </html>
 
-<script>
-	$("#btn1").on("click", function() {
+	<script>
+		$(".btn1").on("click", function() {
 
-	});
-</script>
+			var pass = "1111"
+			var msg = prompt("비밀번호를 입력하세요.");
+			if (msg != pass) {
+				alert("틀렸습니다.");
 
+			} else {
+				alert("작업을 시작합니다.");
+				$.post("/admin/ban",
+						{id : $(this).val()},
+						function(rst){
+							if(rst){
+								location.reload();
+							}
+					
+				});
+				
+			}
+
+		});
+	</script>

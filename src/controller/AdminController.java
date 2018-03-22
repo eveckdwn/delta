@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.UsersService;
 
@@ -43,22 +44,11 @@ public class AdminController {
 		return "admin_users";
 	}
 	
-	@RequestMapping("/ban")
-	public String BanUsers(Model model, @RequestParam String id) {
-		
-		try {
+	@RequestMapping(path="/ban", produces="application/json")
+	@ResponseBody
+	public String BanUsers(@RequestParam String id) {
 			
-			model.addAttribute("select", usersService.selectAll());
-			model.addAttribute("foul", usersService.foulUsers());
-			model.addAttribute("ban" , usersService.banUsers(id));
-			
-			
-			return "admin_users";
-			
-		}catch(Exception e){
-			e.printStackTrace();
-			return "/admin/fail";
-		}
+			return String.valueOf(usersService.banUsers(id));
 		
 	}
 	
