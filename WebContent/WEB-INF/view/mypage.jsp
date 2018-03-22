@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <title>SPRING - by git</title>
@@ -52,7 +53,9 @@
 			<p>
 				<c:if test="${!empty ban }">
 					<a style="color: red">제재 기간이 <b>${ban }</b>일 남았습니다.<br/>
-					제재 기간동안에는 해당 서비스를 이용하실 수 없습니다.
+					제재 기간동안에는 해당 서비스를 이용하실 수 없습니다.<br/>
+					<fmt:formatDate var="d" value="${user.BAN}" pattern="yyyy년 MM월 dd일"/>
+					제재가 풀리는 날은 <b>${d }</b> 입니다.
 					</a>
 				</c:if>
 			</p>

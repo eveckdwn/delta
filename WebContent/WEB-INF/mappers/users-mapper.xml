@@ -55,7 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="banOut">
 		update users
 		<set>
-			lv=1
+			lv=1,
+			ban=null
 		</set>
 		where id=#{id}
 	</update>

@@ -74,7 +74,18 @@ public class UsersService {
 
 	public Map banInfo(Map map) {
 		Map ban = template.selectOne("users.banCnt", map);
-		return ban;
+		if (ban != null) {
+			return ban;
+		} else {
+			return null;
+		}
+	}
+
+	public int banOut(String id) {
+
+		int out = template.update("users.banOut", id);
+
+		return out;
 	}
 
 	public Map readId(String id) {

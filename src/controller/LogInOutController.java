@@ -27,32 +27,32 @@ import service.UsersService;
 public class LogInOutController {
 	@Autowired
 	GreetService greetService;
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public String loginHandle(Model model) {
 		model.addAttribute("ment", greetService.make());
 		return "login";
 	}
-	
+
 	@Autowired
 	UsersService memberService;
-	
+
 	@Autowired
 	WebSocketMap sessions;
-	
-	@RequestMapping(method=RequestMethod.POST)
+
+	@RequestMapping(method = RequestMethod.POST)
 	public String loginPHandle(@RequestParam Map map, HttpSession session, Model model) throws IOException {
 		int result = memberService.loginCheck(map);
-		switch(result) {
+		switch (result) {
 		case 0:
 			session.setAttribute("logon", map.get("id"));
-			
+
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", sessions.size());
 			data.put("info", map.get("id") + " 님이 접속하였습니다.");
 			Gson gson = new Gson();
-			for(WebSocketSession ws : s) {
+			for (WebSocketSession ws : s) {
 				ws.sendMessage(new TextMessage(gson.toJson(data)));
 			}
 			return "redirect:/";
@@ -73,9 +73,9 @@ public class LogInOutController {
 			return "t_el";
 		}
 	}
-	
+
 	@RequestMapping("/out")
-	public String logoutHandle(HttpSession session, Model model){
+	public String logoutHandle(HttpSession session, Model model) {
 		session.removeAttribute("logon");
 		model.addAttribute("ment", greetService.make());
 		return "index";
