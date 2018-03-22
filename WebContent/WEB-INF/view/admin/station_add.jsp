@@ -31,10 +31,10 @@ input {
 					</script>
 				</c:if>
 				<form action="/admin/station_add" method="post"
-					style="width: 330px; text-align: left; line-height: 34px;"
+					style="width: 400px; text-align: left; line-height: 34px;"
 					autocomplete="off">
 					<p>
-						<b>기차역 이름(*)</b><br /> <input type="text" name="name">
+						<b>기차역 이름(*)</b><br /> <input type="text" name="name" autofocus="autofocus"/>
 					</p>
 					<p>
 						<b>네이버 지도상 링크(*)</b>
@@ -42,14 +42,14 @@ input {
 						<span id="howto" style="color: red; display: none">네이버 지도에서
 							주소을 검색하고 주소부분을 우클릭하여 검사를 누르신 뒤, 영역표시 되어있는 부분을 복사(Ctrl + c)해서
 							넣어주세요.</span><br /> <input type="text" name="map" id="map"
-							onchange="apply()">
+							onchange="apply()"/>
 					</p>
 					<p>
-						<b>기차역 주소(*)</b><br /> <input type="text" name="addr">
+						<b>기차역 주소(*)</b><br /> <input type="text" name="addr"/>
 					</p>
 					<p>
 						<b>기차역 연락처(*)</b><br /> <input type="text" name="contact" id="contact"
-							onkeyup="addhyphen()" maxlength="9">
+							onkeyup="addhyphen()" maxlength="9"/>
 					</p>
 					<p>
 						<button id="sbt" type="submit" style="width: 100%; height: 30px;">추가</button>
