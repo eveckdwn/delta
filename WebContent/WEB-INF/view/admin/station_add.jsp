@@ -37,12 +37,10 @@ input {
 						<b>기차역 이름(*)</b><br /> <input type="text" name="name" autofocus="autofocus"/>
 					</p>
 					<p>
-						<b>네이버 지도상 링크(*)</b>
-						<button type="button" onclick="howto()">?</button>
-						<span id="howto" style="color: red; display: none">네이버 지도에서
-							주소을 검색하고 주소부분을 우클릭하여 검사를 누르신 뒤, 영역표시 되어있는 부분을 복사(Ctrl + c)해서
-							넣어주세요.</span><br /> <input type="text" name="map" id="map"
-							onchange="apply()"/>
+						<b>위도(*)</b><br/><input type="text" name="lat"/>
+					</p>
+					<p>
+						<b>경도(*)</b><br/><input type="text" name="lng"/>
 					</p>
 					<p>
 						<b>기차역 주소(*)</b><br /> <input type="text" name="addr"/>
@@ -59,19 +57,6 @@ input {
 		</div>
 	</div>
 	<script>
-		function howto() {
-			$("#howto").toggle();
-		}
-
-		function apply() {
-			var src = $("#map").val();
-			console.log("--1)" + src);
-			var srccommit = src.substring(src.indexOf('\"') + 1, src.indexOf(
-					"\"", 30));
-			console.log("--2)" + srccommit);
-			$("#map").val(srccommit);
-		}
-		
 		function addhyphen() {
 			var x = $("#contact").val();
 			x = x.replace(/[^0-9]/g, '');

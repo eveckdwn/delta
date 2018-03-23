@@ -65,7 +65,8 @@ input {
 									</c:otherwise>
 								</c:choose></td>
 							<td>${s.NAME }</td>
-							<td>${s.MAP }</td>
+							<td>${s.LAT }</td>
+							<td>${s.LNG }</td>
 							<td>${s.ADDR }</td>
 							<td>${s.CONTACT }</td>
 						</tr>
@@ -90,18 +91,6 @@ input {
 			var radio = td.eq(0).children();
 			radio.attr("checked", true);
 		});
-		
-		function howto() {
-			//	지도  src 주소 가져오는 법 토글
-			$(".howto").toggle();
-		}
-		
-		function apply() {
-			//	지도 주소 src 변환
-			var src = $(".mapaddr").val();
-			var srccommit = src.substring(src.indexOf('\"') + 1, src.indexOf("\"", 30));
-			$(".mapaddr").val(srccommit);
-		}
 		
 		$("#modify")
 				.click(
@@ -134,9 +123,10 @@ input {
 										
 										$.post("/admin/station_update", {
 											name : $(td[1]).children().val(),
-											map : $(td[2]).children().val(),
-											addr : $(td[3]).children().val(),
-											contact : $(td[4]).children().val()
+											lat : $(td[2]).children().val(),
+											lng : $(td[3]).children().val(),
+											addr : $(td[4]).children().val(),
+											contact : $(td[5]).children().val()
 											},
 												function(rst){
 													if(rst){

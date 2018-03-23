@@ -24,8 +24,12 @@ public class TravelService {
 		return template.selectList("travel.readAll");
 	}
 	
-	public Map readTravel(String id) {
+	public Map readOne(String id) {
 		return template.selectOne("travel.readOne", id);
+	}
+	
+	public List readSome(String sname) {
+		return template.selectOne("travel.readSome", sname);
 	}
 
 	public boolean updateTravel(Map param) {

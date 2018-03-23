@@ -8,11 +8,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="readAll" resultType="hashmap">
-		select * from travel
+		select * from travel order by sname asc
 	</select>
 	
 	<select id="readOne" resultType="hashmap">
-		select * from travel where name = #{tname}
+		select * from travel where tname = #{tname}
+	</select>
+	
+	<select id="readSome" resultType="hashmap">
+		select * from travel where sname = #{sname} order by sname asc
 	</select>
 	
 	<update id="update" parameterType="hashmap">
