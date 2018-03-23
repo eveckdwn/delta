@@ -32,7 +32,7 @@
 </div>
 <script>
 	function popup(){
-		window.open('/message/box','쪽지 보내기','width=640, height=450, toolbar=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');
+		window.open('/message/box','쪽지 보내기','width=700, height=550, toolbar=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');
 	}
 
 </script>

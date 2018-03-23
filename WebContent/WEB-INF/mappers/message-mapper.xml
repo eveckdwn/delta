@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="message">
 	<insert id="sendMessage">
 		<!-- mid 시퀀스로 해야됨... -->
-		insert into message values(travel_seq.nextval,#{mnick}, #{receiver},
+		insert into message values(message_seq.nextval,#{mnick}, #{receiver},
 		#{content}, sysdate,
 		0)
 	</insert>
