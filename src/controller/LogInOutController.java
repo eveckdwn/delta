@@ -66,6 +66,9 @@ public class LogInOutController {
 			model.addAttribute("err", "비밀번호가 틀렸거나 서버응답에 오류가 발생하였습니다.");
 			model.addAttribute("main", "login.jsp");
 			return "t_el";
+		case 3:
+			session.setAttribute("logon", map.get("id"));
+			return "admin_index";
 		default:
 			model.addAttribute("ment", greetService.make());
 			model.addAttribute("err", "패스워드가 일치하지 않습니다.");

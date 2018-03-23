@@ -53,22 +53,24 @@ public class UsersService {
 		Map log = new HashMap<>();
 		log.put("lastlog", date);
 		log.put("id", id);
-		int rst = template.update("users.lastlogUpdate", log);
-		if (rst == 1) {
-			Map users = template.selectOne("users.loginInfo", map.get("id"));
-			if (users == null) {
-				return 1;
-			} else if (map.get("pass").equals(users.get("PASS"))) {
-				return 0;
+		Map users = template.selectOne("users.loginInfo", map.get("id"));
+		if (users == null) {
+			return 1;
+		} else if (map.get("pass").equals(users.get("PASS"))) {
+			int rst = template.update("users.lastlogUpdate", log);
+			if (rst == 1) {
+				if (users.get("ID").equals("admin")) {
+					return 3;
+				} else {
+					return 0;
+				}
 			} else {
 				return 2;
 			}
 		} else {
-			return 3;
+			return 2;
 		}
 	}
-
-	
 
 	public Map mypageInfo(Map map) {
 
@@ -109,18 +111,16 @@ public class UsersService {
 
 	public boolean banUsers(String id) {
 		Date today = new Date();
-		Date d = new Date(today.getTime ( ) + (long) ( 1000 * 60 * 60 * 24 * 3 ));
+		Date d = new Date(today.getTime() + (long) (1000 * 60 * 60 * 24 * 3));
 		SimpleDateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
-		String date=dd.format(d);
-		
-		Map ban =new HashMap<>();
-		 ban.put("id", id);
-		 ban.put("ban", date);
-		
+		String date = dd.format(d);
+
+		Map ban = new HashMap<>();
+		ban.put("id", id);
+		ban.put("ban", date);
+
 		return template.update("users.BanUsers", ban) == 1;
 	}
-	
-
 
 	public boolean updateAccount(Map map, MultipartFile photo) throws IOException {
 
@@ -138,5 +138,3 @@ public class UsersService {
 	}
 
 }
-
-

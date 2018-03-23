@@ -32,12 +32,12 @@ public class EmailController {
 			u.put("id", id);
 		
 		if(rst) {
-			model.addAttribute("su", "ÀÌ¸ŞÀÏ ÀÎÁõÅ°°¡ °¡ÀÔ½Ã µî·ÏÇÑ ÀÌ¸ŞÀÏ·Î ¹ß¼Û µÇ¾ú½À´Ï´Ù.");
+			model.addAttribute("su", "ê°€ì…ì‹œ ë“±ë¡ëœ ì´ë©”ì¼ ì£¼ì†Œë¡œ ì¸ì¦í‚¤ê°€ ì „ì†¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
 			return "email";
 		}else {
-			model.addAttribute("er","¼­¹ö¿¡ ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇÏ¿© ÁÖ½Ê½Ã¿À");
+			model.addAttribute("er","ì´ë©”ì¼ ì „ì†¡ì´ ì‹¤íŒ¨ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
 			return "mypage";
@@ -54,12 +54,12 @@ public class EmailController {
 			
 		if(key.equals(serial)) {
 			if(mailservice.updateLv(id)) 
-				model.addAttribute("t","ÀÌ¸ŞÀÏ ÀÎÁõÀÌ ¿Ï·á µÇ¾ú½À´Ï´Ù.");
+				model.addAttribute("t","ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 				Map user = users.mypageInfo(u);
 				model.addAttribute("user", user);
 				return "mypage";
 		}else {
-			model.addAttribute("f","ÀÌ¸ŞÀÏ ÀÎÁõÀÌ ½ÇÆĞµÇ¾ú½À´Ï´Ù. ´Ù½Ã ¿äÃ»µÈ ÀÎÁõÅ°¸¦ ÀÔ·Â ÇØÁÖ¼¼¿ä.");
+			model.addAttribute("f","ì¸ì¦í‚¤ ì¸ì¦ì´ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. í•´ë‹¹ ì´ë©”ì¼ë¡œ ë‹¤ì‹œ ë³´ë‚¸ ì¸ì¦í‚¤ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
 			return "email";
