@@ -10,9 +10,10 @@
 		<put-attribute name="side"
 			value="/WEB-INF/view/template/sidemenu-admin.jsp" />
 	</definition>
-	
+
 	<definition name="admin_confirm" extends="admin">
-		<put-attribute name="main" value="/WEB-INF/view/admin/certification.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/admin/certification.jsp" />
 	</definition>
 
 	<definition name="admin_index" extends="admin">
@@ -64,7 +65,7 @@
 	<definition name="join" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/join.jsp" />
 	</definition>
-	
+
 	<definition name="findpass" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/findpass.jsp" />
 	</definition>

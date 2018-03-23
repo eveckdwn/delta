@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.MessageService;
 
@@ -53,6 +54,13 @@ public class MessageController {
 	public String getMessagesByUser(Model model) {
 		model.addAttribute("msgs", messageService.getMessagesByReceiver("유저2"));
 		return "message/messageBox";
+	}
+	
+	@RequestMapping(path="/del",produces="application/json",method=RequestMethod.POST)
+	@ResponseBody
+	public String delMessage(@RequestParam(name="mid[]") String[] mid) {
+		System.out.println(mid[1]);
+		return String.valueOf(messageService.delMessage(mid));
 	}
 	
 	
