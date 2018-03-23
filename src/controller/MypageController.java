@@ -62,14 +62,14 @@ public class MypageController {
 
 		boolean rst = users.updateAccount(map, photo);
 		if (rst) {
-			model.addAttribute("succ", "Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù");
+			model.addAttribute("succ", "ì •ë³´ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			Map user = users.mypageInfo(iid);
 			Map ban = users.banInfo(cnt);
 			model.addAttribute("ban", ban);
 			model.addAttribute("user", user);
 			return "mypage";
 		} else {
-			model.addAttribute("err", "Á¤º¸¸¦ ¼öÁ¤ÇÏ´Â Áß ¿À·ù°¡ »ı°å½À´Ï´Ù.");
+			model.addAttribute("err", "ì •ë³´ ìˆ˜ì •ì´ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 			Map user = users.mypageInfo(iid);
 			Map ban = users.banInfo(cnt);
 			model.addAttribute("ban", ban);

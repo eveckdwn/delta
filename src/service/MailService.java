@@ -35,9 +35,9 @@ public class MailService {
 		try {
 			mail.setRecipient(RecipientType.TO, new InternetAddress(email));
 			mail.setFrom(new InternetAddress("admin@spring.io"));
-			mail.setSubject("[���Ϸ� ���� ��������] ������ ���ϵ帳�ϴ�");
-			String content = "�̸��� ������ ��û�ϼ̽��ϴ�.\n����Ű�� �������� �Է��Ͽ� �ּ���.\n";
-			content += "����Ű : " + serial;
+			mail.setSubject("[내일로 여행 정보 공유] 이메일 인증번호 입니다.");
+			String content = "인증키를 페이지에 입력하십시오.\n이메일 인증 후 다양한 서비스를 이용하실 수 있습니다.\n";
+			content += "인증키 : " + serial;
 			mail.setContent(content, "text/html;charset=utf-8");
 
 			mailsender.send(mail);

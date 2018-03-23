@@ -32,12 +32,12 @@ public class EmailController {
 			u.put("id", id);
 		
 		if(rst) {
-			model.addAttribute("su", "�̸��� ����Ű�� ���Խ� ����� �̸��Ϸ� �߼� �Ǿ����ϴ�.");
+			model.addAttribute("su", "가입시 등록된 이메일 주소로 인증키가 전송되었습니다.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
 			return "email";
 		}else {
-			model.addAttribute("er","������ ������ �߻��Ͽ����ϴ�. �ٽ� �õ��Ͽ� �ֽʽÿ�");
+			model.addAttribute("er","이메일 전송이 실패되었습니다. 다시 시도하여 주십시오.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
 			return "mypage";
@@ -59,7 +59,7 @@ public class EmailController {
 				model.addAttribute("user", user);
 				return "mypage";
 		}else {
-			model.addAttribute("f","�̸��� ������ ���еǾ����ϴ�. �ٽ� ��û�� ����Ű�� �Է� ���ּ���.");
+			model.addAttribute("f","인증키 인증이 실패했습니다. 해당 이메일로 다시 보낸 인증키를 입력하여 주십시오.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
 			return "email";
