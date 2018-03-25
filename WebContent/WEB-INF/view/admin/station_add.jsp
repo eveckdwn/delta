@@ -27,7 +27,7 @@ input {
 			<div>
 				<c:if test="${!empty info }">
 					<script>
-						alert('${err }');
+						alert('${info }');
 					</script>
 				</c:if>
 				<form action="/admin/station_add" method="post"

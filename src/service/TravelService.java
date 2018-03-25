@@ -29,7 +29,7 @@ public class TravelService {
 	}
 	
 	public List readSome(String sname) {
-		return template.selectOne("travel.readSome", sname);
+		return template.selectList("travel.readSome", sname);
 	}
 
 	public boolean updateTravel(Map param) {

@@ -129,7 +129,7 @@ public class AdminController {
 		return "admin_users";
 	}
 
-	@RequestMapping(path = "/ban", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(path = "/ban", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String BanUsers(@RequestParam String id) {
 		return String.valueOf(usersService.banUsers(id));

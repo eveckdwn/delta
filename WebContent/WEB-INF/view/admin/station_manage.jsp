@@ -35,20 +35,17 @@ input {
 				<colgroup>
 					<col width="5%" />
 					<col width="10%" />
-					<col width="" />
-					<col width="" />
 					<col width="10%" />
+					<col width="10%" />
+					<col width="" />
+					<col width="15%" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th>선택</th>
 						<th>역 이름</th>
-						<th>네이버 지도상 링크
-							<button type="button" onclick="howto()">?</button> <br /> <span
-							class="howto" style="color: red; display: none">수정시 네이버
-								지도에서 주소을 검색하고 주소부분을 우클릭하여 검사를 누르신 뒤, 영역표시 되어있는 부분을 복사(Ctrl +
-								c)해서 넣어주세요.</span>
-						</th>
+						<th>위도</th>
+						<th>경도</th>
 						<th>주소</th>
 						<th>연락처</th>
 					</tr>

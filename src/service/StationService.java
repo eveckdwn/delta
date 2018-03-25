@@ -29,7 +29,6 @@ public class StationService {
 	}
 
 	public boolean updateStation(Map param) {
-		System.out.println(param);
 		return template.update("station.update", param) == 1;
 	}
 

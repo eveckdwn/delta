@@ -1,7 +1,7 @@
 package controller;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -45,10 +45,14 @@ public class TravelController {
 			session.setAttribute("now_page", split);
 		}
 		
-		return "service_travel";
+		if(session.getAttribute("logon") == null) {
+			return "service_travel_default";
+		}else {
+			return "service_travel_logons";
+		}
 	}
 	
-	@RequestMapping(path="/travel", produces="application/json")
+	@RequestMapping(path="/travel", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String travelHandle(@RequestParam String sname) {
 		List travels = travelService.readSome(sname);
@@ -58,8 +62,13 @@ public class TravelController {
 	
 	
 	@RequestMapping("/detail")
-	public String detailHandle() {
-		
-		return "service_travel_detail";
+	public String detailHandle(@RequestParam String tname, Model model, HttpSession session) {
+		Map travel = travelService.readOne(tname);
+		model.addAttribute("travel", travel);
+		if(session.getAttribute("logon") == null) {
+			return "service_travel_detail_default";
+		}else {
+			return "service_travel_detail_logons";
+		}
 	}
 }
