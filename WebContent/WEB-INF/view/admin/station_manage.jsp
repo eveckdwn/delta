@@ -35,20 +35,17 @@ input {
 				<colgroup>
 					<col width="5%" />
 					<col width="10%" />
-					<col width="" />
-					<col width="" />
 					<col width="10%" />
+					<col width="10%" />
+					<col width="" />
+					<col width="15%" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th>선택</th>
 						<th>역 이름</th>
-						<th>네이버 지도상 링크
-							<button type="button" onclick="howto()">?</button> <br /> <span
-							class="howto" style="color: red; display: none">수정시 네이버
-								지도에서 주소을 검색하고 주소부분을 우클릭하여 검사를 누르신 뒤, 영역표시 되어있는 부분을 복사(Ctrl +
-								c)해서 넣어주세요.</span>
-						</th>
+						<th>위도</th>
+						<th>경도</th>
 						<th>주소</th>
 						<th>연락처</th>
 					</tr>
@@ -65,7 +62,8 @@ input {
 									</c:otherwise>
 								</c:choose></td>
 							<td>${s.NAME }</td>
-							<td>${s.MAP }</td>
+							<td>${s.LAT }</td>
+							<td>${s.LNG }</td>
 							<td>${s.ADDR }</td>
 							<td>${s.CONTACT }</td>
 						</tr>
@@ -90,18 +88,6 @@ input {
 			var radio = td.eq(0).children();
 			radio.attr("checked", true);
 		});
-		
-		function howto() {
-			//	지도  src 주소 가져오는 법 토글
-			$(".howto").toggle();
-		}
-		
-		function apply() {
-			//	지도 주소 src 변환
-			var src = $(".mapaddr").val();
-			var srccommit = src.substring(src.indexOf('\"') + 1, src.indexOf("\"", 30));
-			$(".mapaddr").val(srccommit);
-		}
 		
 		$("#modify")
 				.click(
@@ -134,9 +120,10 @@ input {
 										
 										$.post("/admin/station_update", {
 											name : $(td[1]).children().val(),
-											map : $(td[2]).children().val(),
-											addr : $(td[3]).children().val(),
-											contact : $(td[4]).children().val()
+											lat : $(td[2]).children().val(),
+											lng : $(td[3]).children().val(),
+											addr : $(td[4]).children().val(),
+											contact : $(td[5]).children().val()
 											},
 												function(rst){
 													if(rst){

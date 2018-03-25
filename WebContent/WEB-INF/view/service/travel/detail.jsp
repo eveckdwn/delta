@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -53,7 +53,7 @@
 				<tr>
 					<th>연락처</th>
 					<td colspan="3"><c:choose>
-							<c:when test="${travel.CONTACT ne null }">${travel.CONTACT }</c:when>
+							<c:when test="${travel.CONTACT ne null }">${travel.MANAGER }</c:when>
 							<c:otherwise>-</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -68,12 +68,13 @@
 					<td>${travel.LNG }</td>
 				</tr>
 				<tr>
-					<th colspan="5">설명</tr>
-				
+					<th colspan="5">설명
+				</tr>
+
 				<tr>
 					<td colspan="5">
 						<c:choose>
-							<c:when test="${travel.CONTACT ne null }">${travel.CONTACT }</c:when>
+							<c:when test="${travel.DETAIL ne null }">${travel.MANAGER }</c:when>
 							<c:otherwise>-</c:otherwise>
 						</c:choose>
 					</td>

@@ -4,19 +4,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="travel">
 	<insert id="add" parameterType="hashmap">
-		insert into travel values(travel_seq.nextval, #{sname}, #{tname}, #{manager, jdbcType=VARCHAR}, #{taddr}, #{contact})
+		insert into travel values(travel_seq.nextval, #{sname}, #{tname}, #{cate}, #{lat}, #{lng}, #{taddr}, #{manager, jdbcType=VARCHAR}, #{contact, jdbcType=VARCHAR}, #{detail, jdbcType=VARCHAR})
 	</insert>
 
 	<select id="readAll" resultType="hashmap">
-		select * from travel
+		select * from travel order by sname asc
 	</select>
 	
 	<select id="readOne" resultType="hashmap">
-		select * from travel where name = #{tname}
+		select * from travel where tname = #{tname}
+	</select>
+	
+	<select id="readSome" resultType="hashmap">
+		select * from travel where sname = #{sname} order by sname asc
 	</select>
 	
 	<update id="update" parameterType="hashmap">
-		update travel set sname=#{sname}, tname=#{tname}, manager=#{manager, jdbcType=VARCHAR}, taddr=#{taddr}, contact=#{contact} where tname=#{tname}
+		update travel set sname=#{sname}, tname=#{tname}, cate=#{cate}, lat=#{lat}, lng=#{lng}, taddr=#{taddr}, manager=#{manager, jdbcType=VARCHAR}, contact=#{contact, jdbcType=VARCHAR}, detail=#{detail, jdbcType=VARCHAR} where tid=#{tid}
 	</update>
 	
 	<delete id="delete" parameterType="hashmap">

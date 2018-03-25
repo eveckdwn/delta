@@ -34,20 +34,30 @@ input {
 				class="table table-bordered table-hover text-center">
 				<colgroup>
 					<col width="5%" />
+					<col width="5%" />
 					<col width="10%" />
 					<col width="10%" />
+					<col width="10%" />
+					<col width="7%" />
+					<col width="7%" />
+					<col width="15%" />
+					<col width="7%" />
 					<col width="10%" />
 					<col width="" />
-					<col width="10%" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th>선택</th>
+						<th>등록번호</th>
 						<th>주변 기차역</th>
 						<th>여행지</th>
-						<th>관리자</th>
+						<th>분류</th>
+						<th>위도</th>
+						<th>경도</th>
 						<th>주소</th>
+						<th>관리자</th>
 						<th>연락처</th>
+						<th>설명</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,14 +71,25 @@ input {
 										<input type="radio" name="select" class="select" />
 									</c:otherwise>
 								</c:choose></td>
+							<td>${t.TID }</td>
 							<td>${t.SNAME }</td>
 							<td>${t.TNAME }</td>
+							<td>${t.CATE }</td>
+							<td>${t.LAT }</td>
+							<td>${t.LNG }</td>
+							<td>${t.TADDR }</td>
 							<td><c:choose>
 									<c:when test="${t.MANAGER ne null }">${t.MANAGER }</c:when>
 									<c:otherwise>-</c:otherwise>
 								</c:choose></td>
-							<td>${t.TADDR }</td>
-							<td>${t.CONTACT }</td>
+							<td><c:choose>
+									<c:when test="${t.CONTACT ne null }">${t.CONTACT }</c:when>
+									<c:otherwise>-</c:otherwise>
+								</c:choose></td>
+								<td><c:choose>
+									<c:when test="${t.DETAIL ne null }">${t.DETAIL }</c:when>
+									<c:otherwise>-</c:otherwise>
+								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -106,13 +127,27 @@ input {
 										td
 												.each(function(i) {
 													if ($(this).attr("class") != "rselect") {
-														$(this)
+														if(i == 1){
+															$(this)
 																.html(
 																		"<input type=\"text\" value=\""
 																				+ $(
 																						this)
 																						.text()
-																				+ "\"/>");
+																				+ "\" disabled/>");
+														}else if(i == td.length-1){
+															var text = "<textarea rows=\"5\">" + $(this).text() + "</textarea>";
+															$(this)
+															.html(text);
+														}else{
+															$(this)
+															.html(
+																	"<input type=\"text\" value=\""
+																			+ $(
+																					this)
+																					.text()
+																			+ "\"/>");	
+														}
 													}
 												});
 									}
@@ -127,27 +162,33 @@ input {
 									if (select.prop("checked")) {
 										var tr = select.parent().parent();
 										var td = tr.children();
-										var manager = $(td[3]).children().val();
-										if ($(td[3]).children().val() == "") {
+										var manager = $(td[8]).children().val();
+										if (manager == "-") {
 											manager = null;
 										}
+										var contact = $(td[9]).children().val();
+										if (contact == "-") {
+											contact = null;
+										}
+										var detail = $(td[10]).children().val();
+										if (detail == "-") {
+											detail = null;
+										}
+										console.log(manager + " / " + contact + " / " + detail);
 										$
 												.post(
 														"/admin/travel_update",
 														{
-															sname : $(td[1])
-																	.children()
-																	.val(),
-															tname : $(td[2])
-																	.children()
-																	.val(),
+															tid : $(td[1]).children().val(),
+															sname : $(td[2]).children().val(),
+															tname : $(td[3]).children().val(),
+															cate : $(td[4]).children().val(),
+															lat : $(td[5]).children().val(),
+															lng : $(td[6]).children().val(),
+															taddr : $(td[7]).children().val(),
 															manager : manager,
-															taddr : $(td[4])
-																	.children()
-																	.val(),
-															contact : $(td[5])
-																	.children()
-																	.val()
+															contact : contact,
+															detail : detail
 														},
 														function(rst) {
 															if (rst) {

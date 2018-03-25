@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GreetService {
 	public String make() {
-		String[] ments = "¾î¼­¿À¼¼¿ä,WELCOME".split(",");
+		String[] ments = "ì–´ì„œì˜¤ì„¸ìš”,WELCOME".split(",");
 				
 		return ments[(int)(Math.random()*ments.length)];
 	}
