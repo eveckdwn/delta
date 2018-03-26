@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<script async defer
-								src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_R96Ncu_I2ntMuWfqXmvAsTKqklpj0JU&callback=initMap"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_R96Ncu_I2ntMuWfqXmvAsTKqklpj0JU&callback=initMap"></script>
 <title>Travel</title>
 </head>
 <body>
@@ -38,27 +38,31 @@
 						<td>${s.CONTACT }</td>
 					</tr>
 					<tr id="${sts.index }" style="height: 300px; display: none;">
-						<td id="${sts.index }${s.CONTACT}" colspan="3"><script>
-							function initMap() {
-								var uluru = {
-									lat : ${s.LAT},
-									lng : ${s.LNG}
-								};
-								var map = new google.maps.Map(document
-										.getElementById("${sts.index}${s.CONTACT}"), {
-									zoom : 17,
-									center : uluru
-								});
-								var marker = new google.maps.Marker({
-									position : uluru,
-									map : map
-								});
-							}
-						</script></td>
+						<td id="${sts.index }${s.CONTACT}" colspan="3"></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<script>
+			function initMap() {
+				<c:forEach items="${station }" var="s" varStatus="sts">
+				var uluru_${sts.index} = {
+					lat : ${s.LAT},
+					lng : ${s.LNG}
+				};
+				var map_${sts.index} = new google.maps.Map(document
+						.getElementById("${sts.index}${s.CONTACT}"), {
+						zoom : 17,
+					center : uluru_${sts.index}
+				});
+				var marker = new google.maps.Marker({
+					position : uluru_${sts.index},
+					map : map_${sts.index}
+					});
+			</c:forEach>
+			}
+				
+		</script>
 		<table align="center">
 			<tr>
 				<td style="margin: 5px; padding: 5px"><a
