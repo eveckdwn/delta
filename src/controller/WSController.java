@@ -55,10 +55,12 @@ public class WSController extends TextWebSocketHandler {
 		
 	}
 
+	/*
 	@Override	//	�겢�씪痢≪뿉�꽌 硫붿꽭吏�媛� �뱾�뼱�삱 �븣
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("handleTextMessage.." + session +" / " + message);
 	}
+	*/
 
 	@Override	//	�겢�씪痢↔낵 �뿰寃곗씠 �빐�젣�맆 �븣 	
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
