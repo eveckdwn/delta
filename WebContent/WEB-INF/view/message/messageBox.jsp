@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <html>
@@ -30,7 +31,13 @@
 								value="${msg.MID }" /></td>
 							<td><b>${msg.MNICK}</b></td>
 							<!-- 여기도 프로필 띄우기 -->
-							<td><b><a href="/message/view?mid=${msg.MID }">${msg.CONTEXT}</a></b></td>
+							<c:set var="context" value="${msg.CONTEXT }" />
+							<c:if test="${fn:length(context)<5 }">
+								<td><b><a href="/message/view?mid=${msg.MID }">${fn:substring(context,0,5)}</a></b></td>
+							</c:if>
+							<c:if test="${fn:length(context)>5 }">
+								<td><b><a href="/message/view?mid=${msg.MID }">${fn:substring(context,0,5)}...</a></b></td>
+							</c:if>
 							<!-- 최대 길이 정해줘야됨. 나머지는 ...으로 표현. 새 창으로? 팝업으로? 띄우게 링크 넣어줘야됨-->
 							<td><b>${msg.MDATE}</b></td>
 							<td><b>읽지 않음</b></td>
@@ -42,7 +49,13 @@
 								value="${msg.MID }" /></td>
 							<td>${msg.MNICK}</td>
 							<!-- 여기도 프로필 띄우기 -->
-							<td><a href="/message/view?mid=${msg.MID }">${msg.CONTEXT}</a></td>
+							<c:set var="context" value="${msg.CONTEXT }" />
+							<c:if test="${fn:length(context)<5 }">
+								<td><b><a href="/message/view?mid=${msg.MID }">${fn:substring(context,0,5)}</a></b></td>
+							</c:if>
+							<c:if test="${fn:length(context)>5 }">
+								<td><b><a href="/message/view?mid=${msg.MID }">${fn:substring(context,0,5)}...</a></b></td>
+							</c:if>
 							<!-- 최대 길이 정해줘야됨. 나머지는 ...으로 표현. 새 창으로? 팝업으로? 띄우게 링크 넣어줘야됨-->
 							<td>${msg.MDATE}</td>
 							<td>읽음</td>

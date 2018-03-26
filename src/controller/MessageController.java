@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -8,10 +9,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import service.MessageService;
 import service.UsersService;
@@ -26,6 +30,13 @@ public class MessageController {
 
 	@RequestMapping(path = "/send", method = RequestMethod.GET)
 	public String sendHandle() {
+		return "message/messageSend";
+	}
+	
+	// 답장으로 보낼때 sendController
+	@RequestMapping(path = "/rsend", method = RequestMethod.GET)
+	public String resendHandle(@RequestParam(name = "receiver") String receiver, Model model) {
+		model.addAttribute("re", receiver);
 		return "message/messageSend";
 	}
 
@@ -69,9 +80,44 @@ public class MessageController {
 
 	@RequestMapping(path = "/del", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
+	// public String delMessage(@RequestParam MultiValueMap<String,String> multiMap)
+	// {
+	// System.out.println(multiMap.get("mid[]"));
+	// return String.valueOf(messageService.delMessage(multiMap));
+	// }
 	public String delMessage(@RequestParam(name = "mid[]") String[] mid) {
 		System.out.println(mid[1]);
 		return String.valueOf(messageService.delMessage(mid));
+	}
+
+	@RequestMapping(path = "/resend", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String messageResendHandle(@RequestParam(name = "receiver") String receiver, Model model) {
+		System.out.println(receiver);
+		Map map = new HashMap<>();
+			map.put("receiver", receiver);
+		Gson g = new Gson();
+		return g.toJson(map);
+	}
+	
+	@RequestMapping(path="/cnt", produces= "application/json;charset=utf-8", method=RequestMethod.POST)
+	@ResponseBody
+	public String messageCntHandle(@RequestParam(name="id") String id) {
+		Map log = new HashMap<>();
+		log.put("id", id);
+		Map my = users.mypageInfo(log);
+		
+		List<Map> map2 = messageService.getMessagesByReceiver((String)my.get("NICK"));
+		int cnt=0;
+		for(int i =0 ; i<map2.size(); i++) {
+			if(Integer.parseInt(String.valueOf(map2.get(i).get("STATUS")))==0) {
+				cnt++;	
+			}
+		}
+		Map count = new HashMap<>();
+			count.put("cnt", cnt);
+		Gson g = new Gson();
+		return g.toJson(count);
 	}
 
 }

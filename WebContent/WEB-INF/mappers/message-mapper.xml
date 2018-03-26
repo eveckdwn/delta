@@ -26,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from message
 		<where>
 			mid in
-			<foreach collection="m" item="mid" index="index" open="("
-				close=")" separator=",">
+			<foreach collection="m" item="mid" open="(" close=")"
+				separator=",">
 				#{mid}
 			</foreach>
 		</where>

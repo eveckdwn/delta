@@ -1,12 +1,13 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.converters.IntegerArrayConverter;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
 @Service
 public class MessageService {
@@ -30,9 +31,14 @@ public class MessageService {
 	}
 	
 	public boolean delMessage(String[] mid) {
-		int[] m = (int[]) new IntegerArrayConverter().convert(null, mid);
-		System.out.println(m[0] + " , " + m[1]);
-		int r = template.delete("message.delMassage", m);
+		Map m = new HashMap();
+		m.put("m", mid);
+		int r = template.delete("message.delMessage", m);
 		return mid.length == r;
 	}
+	
+//	public boolean delMessage(MultiValueMap<String,String>  map) {
+//		int r = template.delete("message.delMessage", map);
+//		return map.get("mid[]").size() == r;
+//	}
 }

@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<%
+	String logon = (String)session.getAttribute("logon");	
+%>
 <h4>Welcome to Spring</h4>
 <hr />
 <ul class="nav nav-pills nav-stacked">
@@ -10,7 +13,7 @@
 	<li><a>MY PAGE</a>
 		<ul>
 			<li><a href="/mypage">PROFILE</a></li>
-			<li><a onclick="popup();">MESSAGE</a></li>
+			<li><a onclick="popup();">MESSAGE <span id="cnt"></span></a></li>
 		</ul></li>
 	<li class="dropdown"><a class="dropdown-toggle"
 		data-toggle="dropdown" href="#">Friends <span class="caret"></span></a>
@@ -31,8 +34,22 @@
 	</span>
 </div>
 <script>
-	function popup(){
-		window.open('/message/box','쪽지 보내기','width=700, height=550, toolbar=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');
+	function popup() {
+		window
+				.open(
+						'/message/box',
+						'쪽지 보내기',
+						'width=700, height=550, toolbar=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');
 	}
-
+	cnt();
+	
+	function cnt() {
+		var log = "<%=logon%>";
+		$.post("/message/cnt",{
+			id : log
+		},function(data){
+			$("#cnt").html("<b>("+data.cnt+")</b>");
+		})
+	}
+	setInterval(cnt,5000);
 </script>

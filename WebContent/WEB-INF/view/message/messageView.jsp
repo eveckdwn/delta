@@ -21,11 +21,25 @@
 			</tr>
 			<tr>	
 				<th style="width: 20%;">내용</th>
-				<td style="height: 300px;"> ${msg.CONTEXT }</td>
+				<td style="height: 300px; word-break:break-all;" >${msg.CONTEXT }</td>
 			</tr>
 		</table>
 		<a href="/message/box"><button type="button">목록</button></a>
-		<button type="button" formaction="" value="${msg.MNICK }">답장</button>
+		<button type="button" onclick="resend()" id="re" value="${msg.MNICK }">답장</button>
 	</div>
 </body>
+<script>
+	function resend() {
+		var re = $("#re").val();
+		console.log($("#re").val());
+
+		$.get("/message/resend", {
+			receiver : re
+		}, function(data) {
+			location.replace("/message/rsend?receiver="+data.receiver);
+		})
+	}
+</script>
+
+
 </html>
