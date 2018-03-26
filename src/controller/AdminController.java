@@ -95,6 +95,9 @@ public class AdminController {
 
 	@RequestMapping(path = "/travel_add", method = RequestMethod.POST)
 	public String addTravelPostHandle(@RequestParam Map param, Model model) {
+		List station = stationService.readAllStation();
+		model.addAttribute("station", station);
+		
 		if (travelService.addTravel(param)) {
 			model.addAttribute("info", "여행지 정보가 성공적으로 입력되었습니다.");
 		} else {
@@ -104,9 +107,21 @@ public class AdminController {
 	}
 
 	@RequestMapping("/travel_manage")
-	public String manageTravelHandle(HttpSession session, Model model) {
-		List station = travelService.readAllTravel();
-		model.addAttribute("travel", station);
+	public String manageTravelHandle(@RequestParam String page, HttpSession session, Model model) {
+		List travel = travelService.readAllTravel();
+		
+		int p = Integer.parseInt(page);		//	현재 페이지
+		int split = travel.size() / 5;	//	전체 데이터 / 보여 줄 만큼의 양 = 페이지수 
+		int remain = travel.size() % 5;	//	나머지 데이터
+			session.setAttribute("all_page", split);
+		if(p <= split) {
+			model.addAttribute("travel", travel.subList((p-1)*5, (p-1)*5+5));
+			session.setAttribute("now_page", p);
+		}else {
+			model.addAttribute("travel", travel.subList(split*5, split*5+remain));
+			session.setAttribute("now_page", split);
+		}
+		
 		return "admin_managetravel";
 	}
 

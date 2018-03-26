@@ -34,7 +34,7 @@ footer {
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 20%) {
 	.sidenav {
 		height: auto;
 		padding: 15px;
@@ -51,10 +51,10 @@ footer {
 	</header>
 	<div class="container-fluid">
 		<div class="row content">
-			<div class="col-sm-3 sidenav">
+			<div class="col-sm-2 sidenav">
 				<tiles:insertAttribute name="side"/>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-sm-10">
 				<tiles:insertAttribute name="main"/>
 			</div>
 		</div>
@@ -64,4 +64,3 @@ footer {
 	</footer>
 </body>
 </html>
-
