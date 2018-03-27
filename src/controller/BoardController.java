@@ -16,23 +16,17 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-	
+
 	@RequestMapping("/board_list")
 	public String BoardHandle(Model model) {
 		model.addAttribute("board", boardService.findAll());
 		return "test";
 	}
-	
+
 	@RequestMapping("/main")
-	public String Board01(HttpSession session) {
-		if (session.getAttribute("logon") == null) {
+	public String Board01() {
 
-			return "/board/main_NoLogin";
-
-		} else {
-			return "/board/main_Login";
-
-		}
+		return "/board/main_Login";
 
 	}
 
@@ -59,6 +53,5 @@ public class BoardController {
 
 		return "/board/change";
 	}
-
 
 }

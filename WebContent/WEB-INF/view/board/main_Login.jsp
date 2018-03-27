@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <html>
 <head>
 
@@ -76,12 +77,8 @@ td {
 	
 	<button style="background-color: #58FA58; font-family: 바탕; font-size: 15px;">검색</button>
 	
-	
-	
 	</div>
-	
-	
-	
+
 </body>
 </html>
 
