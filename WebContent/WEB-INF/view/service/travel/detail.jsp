@@ -28,13 +28,13 @@ td{
 			</colgroup>
 			<tbody>
 				<tr>
-					<th>분류</th>
-					<td colspan="3" valign="middle">${travel.CATE }</td>
+					<th style="vertical-align :middle; text-align: center;">분류</th>
+					<td colspan="3" style="vertical-align :middle; text-align: center;">${travel.CATE }</td>
 					<th>지도</th>
 				</tr>
 				<tr>
-					<th>여행지</th>
-					<td colspan="3" valign="middle">${travel.TNAME }</td>
+					<th style="vertical-align :middle; text-align: center;">여행지</th>
+					<td colspan="3" style="vertical-align :middle; text-align: center;">${travel.TNAME }</td>
 					<td id="map" rowspan="5" height="400px"><script>
 				function initMap() {
 					var uluru = {lat: ${travel.LAT}, lng: ${travel.LNG}};
@@ -52,37 +52,37 @@ td{
 					</td>
 				</tr>
 				<tr>
-					<th>관리자</th>
-					<td colspan="3" valign="middle"><c:choose>
+					<th style="vertical-align :middle; text-align: center;">관리자</th>
+					<td colspan="3" style="vertical-align :middle; text-align: center;"><c:choose>
 							<c:when test="${travel.MANAGER ne null }">${travel.MANAGER }</c:when>
 							<c:otherwise>-</c:otherwise>
 						</c:choose></td>
 				</tr>
 				<tr>
-					<th>연락처</th>
-					<td colspan="3" valign="middle"><c:choose>
+					<th style="vertical-align :middle; text-align: center;">연락처</th>
+					<td colspan="3" style="vertical-align :middle; text-align: center;"><c:choose>
 							<c:when test="${travel.CONTACT ne null }">${travel.MANAGER }</c:when>
 							<c:otherwise>-</c:otherwise>
 						</c:choose></td>
 				</tr>
 				<tr>
-					<th>주소</th>
-					<td colspan="3" valign="middle">${travel.TADDR }</td>
+					<th style="vertical-align :middle; text-align: center;">주소</th>
+					<td colspan="3" style="vertical-align :middle; text-align: center;">${travel.TADDR }</td>
 				</tr>
 				<tr>
-					<th>위도</th>
-					<td>${travel.LAT }</td>
-					<th>경도</th>
-					<td>${travel.LNG }</td>
+					<th style="vertical-align :middle; text-align: center;">위도</th>
+					<td style="vertical-align :middle; text-align: center;">${travel.LAT }</td>
+					<th style="vertical-align :middle; text-align: center;">경도</th>
+					<td style="vertical-align :middle; text-align: center;">${travel.LNG }</td>
 				</tr>
 				<tr>
-					<th colspan="5" valign="middle">설명
+					<th colspan="5" style="vertical-align :middle; text-align: center;">설명
 				</tr>
 
 				<tr>
-					<td colspan="5" valign="baseline">
+					<td colspan="5" style="vertical-align :middle; text-align: justify;">
 						<c:choose>
-							<c:when test="${travel.DETAIL ne null }">${travel.MANAGER }</c:when>
+							<c:when test="${travel.DETAIL ne null }">${travel.DETAIL }</c:when>
 							<c:otherwise>-</c:otherwise>
 						</c:choose>
 					</td>
