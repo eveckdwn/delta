@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="readSome" resultType="hashmap">
-		select * from travel where sname = #{sname} order by sname asc
+		select * from travel where sname = #{sname} order by tname asc
 	</select>
 	
 	<update id="update" parameterType="hashmap">
@@ -24,6 +24,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="delete" parameterType="hashmap">
-		delete from travel where tname=#{tname}
+		delete from travel where tid=#{tid}
 	</delete>
 </mapper>

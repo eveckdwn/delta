@@ -86,13 +86,29 @@ input {
 									<c:when test="${t.CONTACT ne null }">${t.CONTACT }</c:when>
 									<c:otherwise>-</c:otherwise>
 								</c:choose></td>
-								<td><c:choose>
+							<td><c:choose>
 									<c:when test="${t.DETAIL ne null }">${t.DETAIL }</c:when>
 									<c:otherwise>-</c:otherwise>
 								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</tbody>
+			</table>
+			<table align="center">
+				<tr>
+					<td style="margin: 5px; padding: 5px"><a
+						href="/travel/station?page=1">&lt;&lt;</a></td>
+					<%
+						for (int i = 1; i <= (int) session.getAttribute("all_page"); i++) {
+					%>
+					<td style="margin: 5px; padding: 5px"><a
+						href="/travel/station?page=<%=i%>"><%=i%></a></td>
+					<%
+						}
+					%>
+					<td style="margin: 5px; padding: 5px"><a
+						href="/travel/station?page=<%=(int) session.getAttribute("all_page")%>">&gt;&gt;</a></td>
+				</tr>
 			</table>
 			<button id="modify" type="button">수정</button>
 			<button id="delete" type="button">삭제</button>
@@ -127,26 +143,28 @@ input {
 										td
 												.each(function(i) {
 													if ($(this).attr("class") != "rselect") {
-														if(i == 1){
+														if (i == 1) {
 															$(this)
-																.html(
-																		"<input type=\"text\" value=\""
-																				+ $(
-																						this)
-																						.text()
-																				+ "\" disabled/>");
-														}else if(i == td.length-1){
-															var text = "<textarea rows=\"5\">" + $(this).text() + "</textarea>";
+																	.html(
+																			"<input type=\"text\" value=\""
+																					+ $(
+																							this)
+																							.text()
+																					+ "\" disabled/>");
+														} else if (i == td.length - 1) {
+															var text = "<textarea rows=\"5\">"
+																	+ $(this)
+																			.text()
+																	+ "</textarea>";
+															$(this).html(text);
+														} else {
 															$(this)
-															.html(text);
-														}else{
-															$(this)
-															.html(
-																	"<input type=\"text\" value=\""
-																			+ $(
-																					this)
-																					.text()
-																			+ "\"/>");	
+																	.html(
+																			"<input type=\"text\" value=\""
+																					+ $(
+																							this)
+																							.text()
+																					+ "\"/>");
 														}
 													}
 												});
@@ -174,18 +192,33 @@ input {
 										if (detail == "-") {
 											detail = null;
 										}
-										console.log(manager + " / " + contact + " / " + detail);
+										console.log(manager + " / " + contact
+												+ " / " + detail);
 										$
 												.post(
 														"/admin/travel_update",
 														{
-															tid : $(td[1]).children().val(),
-															sname : $(td[2]).children().val(),
-															tname : $(td[3]).children().val(),
-															cate : $(td[4]).children().val(),
-															lat : $(td[5]).children().val(),
-															lng : $(td[6]).children().val(),
-															taddr : $(td[7]).children().val(),
+															tid : $(td[1])
+																	.children()
+																	.val(),
+															sname : $(td[2])
+																	.children()
+																	.val(),
+															tname : $(td[3])
+																	.children()
+																	.val(),
+															cate : $(td[4])
+																	.children()
+																	.val(),
+															lat : $(td[5])
+																	.children()
+																	.val(),
+															lng : $(td[6])
+																	.children()
+																	.val(),
+															taddr : $(td[7])
+																	.children()
+																	.val(),
 															manager : manager,
 															contact : contact,
 															detail : detail
@@ -216,12 +249,11 @@ input {
 									if (select.prop("checked")) {
 										var tr = select.parent().parent();
 										var td = tr.children();
-
 										$
 												.post(
 														"/admin/travel_delete",
 														{
-															tname : td.eq(2)
+															tid : td.eq(1)
 																	.text(),
 														},
 														function(rst) {
