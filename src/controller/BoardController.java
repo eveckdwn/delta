@@ -1,5 +1,8 @@
 package controller;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,9 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BoardController {
 	
 	@RequestMapping("/main")
-	public String Board01() {
-		
-		return "/board/main_Login";
+	public String Board01(HttpSession session) {
+		if(session.getAttribute("logon")== null) {
+			
+			return"/board/main_NoLogin";
+			
+		}else {
+			return "/board/main_Login";
+			
+		}
 		
 	}
 	
