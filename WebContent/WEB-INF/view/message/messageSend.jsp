@@ -43,7 +43,7 @@
 		}, function(rst) {
 			if (rst) {
 				alert("쪽지를 보냈습니다.");
-				location.replace("/message/box");
+				location.replace("/message/box?page=1");
 			} else {
 				alert("전송을 실패하였습니다.");
 				location.reload();

@@ -69,12 +69,25 @@ public class MessageController {
 	@RequestMapping(path = "/box")
 	public String getMessagesByUser(@RequestParam String page, HttpSession session, Model model) {
 		
-		
 		String logon = (String) session.getAttribute("logon");
 		Map log = new HashMap<>();
 		log.put("id", logon);
 		Map my = users.mypageInfo(log);
-
+		
+		List msgs = messageService.getMessagesByReceiver((String) my.get("NICK"));
+		
+		int p = Integer.parseInt(page);
+		int p2 = msgs.size() / 5 ; 
+		int other = msgs.size() % 5;
+		session.setAttribute("all_page", p2);
+		if(p<=p2) {
+			model.addAttribute("msgbox",msgs.subList((p-1)*5, (p-1)*5+5));
+			session.setAttribute("now_page", p);
+		}else {
+			model.addAttribute("msgbox", msgs.subList(p2*5, p2*5+other));
+			session.setAttribute("now_page", p2);
+		}
+		
 		model.addAttribute("msgs", messageService.getMessagesByReceiver((String) my.get("NICK")));
 		return "message/messageBox";
 	}

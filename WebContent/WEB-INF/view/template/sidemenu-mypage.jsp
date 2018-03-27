@@ -37,7 +37,7 @@
 	function popup() {
 		window
 				.open(
-						'/message/box',
+						'/message/box?page=1',
 						'쪽지 보내기',
 						'width=700, height=550, toolbar=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');
 	}
