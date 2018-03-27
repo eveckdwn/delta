@@ -67,8 +67,9 @@ public class MessageController {
 	}
 
 	@RequestMapping(path = "/box")
-	public String getMessagesByUser(HttpSession session, Model model) {
-
+	public String getMessagesByUser(@RequestParam String page, HttpSession session, Model model) {
+		
+		
 		String logon = (String) session.getAttribute("logon");
 		Map log = new HashMap<>();
 		log.put("id", logon);

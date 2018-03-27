@@ -69,6 +69,17 @@
 				</tr>
 			</c:if>
 		</table>
+		<table>
+			<tr>
+				<td><a href="/message/box?page=1">&lt;&lt;</a></td>
+				<%
+					for(int i=1; i<=(int)session.getAttribute("all_page"); i++){
+				%>
+				<td><a href="/message/box?page=<%=i%>"><%=i %></a></td>
+				<%} %>
+				<td><a href="/message/box?page=<%=(int)session.getAttribute("all_page") %>">&gt;&gt;</a></td>
+			</tr>
+		</table>
 	</div>
 </body>
 <script>
