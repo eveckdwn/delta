@@ -120,19 +120,20 @@
 			$.post("/travel/travel", {
 				sname : station
 			}, function(rst) {
+				var text = "";
 				for (var i = 0; i < rst.length; i++) {
 					var manager = rst[i].MANAGER == undefined ? "-"
 							: rst[i].MANAGER;
 					var contact = rst[i].CONTACT == undefined ? "-"
 							: rst[i].CONTACT;
-					$("#travel_tbody").html(
-							"<tr>" + "<td><a href=\"/travel/detail?tname="
-									+ rst[i].TNAME + "\">" + rst[i].TNAME
-									+ "</a></td>" + "<td>" + rst[i].CATE
-									+ "</td>" + "<td>" + rst[i].TADDR + "</td>"
-									+ "<td>" + manager + "</td>" + "<td>"
-									+ contact + "</td>" + "</tr>");
+					text += "<tr>" + "<td><a href=\"/travel/detail?tname="
+					+ rst[i].TNAME + "\">" + rst[i].TNAME
+					+ "</a></td>" + "<td>" + rst[i].CATE
+					+ "</td>" + "<td>" + rst[i].TADDR + "</td>"
+					+ "<td>" + manager + "</td>" + "<td>"
+					+ contact + "</td>" + "</tr>";
 				};
+				$("#travel_tbody").html(text);
 			});
 		}
 	</script>

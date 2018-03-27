@@ -6,12 +6,3 @@
 <ul class="nav nav-pills nav-stacked">
 	<li><a href="/travel/content?page=1">여행 정보</a></li>
 </ul>
-<br>
-<div class="input-group">
-	<input type="text" class="form-control" placeholder="Search Blog..">
-	<span class="input-group-btn">
-		<button class="btn btn-default" type="button">
-			<span class="glyphicon glyphicon-search"></span>
-		</button>
-	</span>
-</div>
