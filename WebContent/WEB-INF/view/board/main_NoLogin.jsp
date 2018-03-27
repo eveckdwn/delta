@@ -7,10 +7,6 @@
 td {
 	text-align: center;
 }
-
-
-
-
 </style>
 
 <title>게시판</title>
@@ -20,7 +16,7 @@ td {
 
 	<p>
 	<hr style="border: solid 2px; color: #D8D8D8" />
-	<p/>
+	<p />
 
 	<div>
 		<table border="1" style="width: 100%; height: 200px;">
@@ -47,38 +43,44 @@ td {
 		<p />
 	</div>
 	<div align="center">
-	
-	<select style="font-size: 15px;, height: 24px;">
-		<option>전체기간</option>
-		<option>1일</option>
-		<option>1주일</option>
-		<option>1개월</option>
-		<option>6개월</option>
-		<option>1년</option>
-	</select>
-	
-	<select style="font-size: 15px;, height: 24px;">
-		<option>제목만</option>
-		<option>글작성자</option>
-		<option>댓글내용</option>
-		<option>댓글작성자</option>
-	</select>
-	
-	
-	<input type="text" style="height: 24px;">	
-	
-	<button style="background-color: #58FA58; font-family: 바탕; font-size: 15px;">검색</button>
-	
-	
-	
+
+		<select style="font-size: 15px; , height: 24px;">
+			<option>전체기간</option>
+			<option>1일</option>
+			<option>1주일</option>
+			<option>1개월</option>
+			<option>6개월</option>
+			<option>1년</option>
+		</select> <select style="font-size: 15px; , height: 24px;">
+			<option>제목만</option>
+			<option>글작성자</option>
+			<option>댓글내용</option>
+			<option>댓글작성자</option>
+		</select> <input type="text" style="height: 24px;">
+
+		<button
+			style="background-color: #58FA58; font-family: 바탕; font-size: 15px;">검색</button>
+
 	</div>
-	
-	
-	
+
+	<input type="button" onclick="login()" value="로그인" />
+
+
 </body>
 </html>
 
 <script>
+	function login() {
 
+		var url = "/login/popup";
+		var popOption = "width=600, height=600, resizable=no, scrollbars=no, status=no,";
+
+		
+		window.open(url, "popup", popOption);
+		if(${sessionScope.logon != null}) {
+			window.close();
+		}
+
+	}
 </script>
 

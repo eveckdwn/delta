@@ -83,5 +83,11 @@ public class LogInOutController {
 		model.addAttribute("ment", greetService.make());
 		return "index";
 	}
+	@RequestMapping("/popup")
+	public String loginPoupup(Model model) {
+		model.addAttribute("ment", greetService.make());
+		return "loginPopup";
+	}
+	
 
 }
