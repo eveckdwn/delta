@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BoardController {
 	
 	@RequestMapping("/main")
-	public String Board01(HttpSession session) {
-		if(session.getAttribute("logon")== null) {
+	public String Board01() {
 			
-			return"/board/main_NoLogin";
 			
-		}else {
 			return "/board/main_Login";
 			
-		}
+		
 		
 	}
 	
