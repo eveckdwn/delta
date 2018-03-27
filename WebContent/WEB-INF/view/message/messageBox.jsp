@@ -24,7 +24,7 @@
 				<th>매세지 상태</th>
 			</tr>
 			<c:if test="${!empty msgs }">
-				<c:forEach items="${msgs}" var="msg">
+				<c:forEach items="${msgbox}" var="msg">
 					<c:if test="${msg.STATUS == 0  }">
 						<tr>
 							<td><input type="checkbox" class="sel" name="mid"
