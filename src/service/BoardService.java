@@ -1,5 +1,6 @@
 package service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +56,7 @@ public class BoardService {
 		Update update = new Update();
 		update.set("title", (String)param.get("title"));
 		update.set("content", (String)param.get("content"));
+		update.set("wdate", new Date());
 		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
 		return us.getModifiedCount() == 1;
 	}
