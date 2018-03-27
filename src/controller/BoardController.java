@@ -5,16 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import service.HeroService;
+import service.BoardService;
 
 @Controller
-public class HeroController {
+public class BoardController {
 	@Autowired
-	HeroService heroService;
+	BoardService boardService;
 	
-	@RequestMapping("/hero")
+	@RequestMapping("/board_list")
 	public String HeroHandle(Model model) {
-		model.addAttribute("hero", heroService.findAll());
+		model.addAttribute("board", boardService.findAll());
 		return "test";
 	}
 
