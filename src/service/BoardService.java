@@ -37,6 +37,15 @@ public class BoardService {
 		return hero;
 	}
 	
+	public List find() {
+		Query q = new Query();
+		q.addCriteria(new Criteria().where("id"));
+		List find = mongoOperation.find(q, Board.class, "board");
+		
+		return find;
+	}
+	
+	
 	public void insert(Map param) {
 		board = new Board(param);
 		mongoOperation.insert(board);
@@ -54,7 +63,7 @@ public class BoardService {
 		q.addCriteria(new Criteria().where("_id").is((String)param.get("id")));
 		Update update = new Update();
 		update.set("title", (String)param.get("title"));
-		update.set("content", (String)param.get("content"));
+		update.set("content", (String)param.get("context"));
 		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
 		return us.getModifiedCount() == 1;
 	}

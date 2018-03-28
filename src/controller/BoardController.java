@@ -1,56 +1,71 @@
 package controller;
 
+import java.io.WriteAbortedException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import service.BoardService;
+import service.StationService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+	@Autowired
+	StationService stationservice;
 
 	@Autowired
 	BoardService boardService;
 
-
 	@RequestMapping("/main")
-	public String Board01() {
+	public String Board01(Model model) {
+
+		model.addAttribute("find", boardService.findAll());
 
 		return "/board/main";
 
 	}
 
 	@RequestMapping("/write")
-	public String Write(@RequestParam Map param, Model model) {
-		
-		try {
-			
-			boardService.insert(param);
-			
-			return "/board/write";
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "";
-		}
-		
-		
-		
+	public String WriteGET(Model model) {
+
+		model.addAttribute("station", stationservice.readAllStation());
+		model.addAttribute("read", boardService.find());
+
+		return "/board/write";
+
 	}
 
-	@RequestMapping("/insert")
-	public String Insert(Model model, @RequestParam String title, @RequestParam String content) {
+	@RequestMapping("/result")
+	public String Result(@RequestParam Map param) {
 
-		model.addAttribute("title", title);
-		model.addAttribute("content", content);
+		System.out.println(param);
 
-		return "/board/insert";
+		try {
+			boardService.insert(param);
+
+			return "/board/result";
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return "admin/fail";
+		}
+
+	}
+	@RequestMapping("/read")
+	public String Read(Model model) {
+		
+		model.addAttribute("find", boardService.findAll());
+		
+		return "/board/read";
 	}
 
 	@RequestMapping("/change")

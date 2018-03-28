@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <html>
 <head>
 
@@ -24,6 +24,7 @@ td {
 	<p/>
 
 	<div>
+		<c:forEach var="i" items="${find }">
 		<table border="1" style="width: 100%; height: 200px;">
 			<thead>
 				<tr>
@@ -34,15 +35,16 @@ td {
 					<th>추천</th>
 				</tr>
 				<tr class="data">
-					<td style="width: 10%">156164</td>
-					<td><a href="/admin/users">어서오세요</a></td>
-					<td>아무개</td>
-					<td>03.22</td>
-					<td>1</td>
-					<td>0</td>
+					<td style="width: 10%"></td>
+					<td><a href="/board/read?title=${i.title }">${i.title }</a></td>
+					<td>${i.writer }</td>
+					<td>${i.wdate }</td>
+					<td>${i.readnum }</td>
+					<td>${i.like }</td>
 				</tr>
 			</thead>
 		</table>
+		</c:forEach>
 		<p>
 		<a href="/board/write"><button>글쓰기</button></a>
 		</p>
