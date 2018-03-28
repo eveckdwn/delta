@@ -14,7 +14,7 @@ public class Board {
 	public String context;
 	public int readnum;
 	public int like;
-	public String wdate;
+	public Date wdate;
 	public int type;
 	public String tab;
 
@@ -30,23 +30,16 @@ public class Board {
 			this.title = (String) param.get("title");
 		if(param.get("context") != null)
 			this.context = (String) param.get("context");
-		if(param.get("readnum") != null)
-			this.readnum = (int) param.get("readnum");
-		if(param.get("like") != null)
-			this.like = (int) param.get("like");
-		if(param.get("wdate") != null) {
-			this.wdate = (String) param.get("wdate");
-		}else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			this.wdate = sdf.format(new Date());
-		}
+		this.readnum = 0;
+		this.like = 0;
+		this.wdate = new Date();
 		if(param.get("type") != null)
 			this.type = (int) param.get("type");
 		if(param.get("tab") != null)
 			this.tab = (String) param.get("tab");
 	}
 	
-	public Board(ObjectId id, String writer, String title, String context, int readnum, int like, String wdate, int type,
+	public Board(ObjectId id, String writer, String title, String context, int readnum, int like, Date wdate, int type,
 			String tab) {
 		this.id = id;
 		this.writer = writer;
@@ -107,11 +100,11 @@ public class Board {
 		this.like = like;
 	}
 
-	public String getWdate() {
+	public Date getWdate() {
 		return wdate;
 	}
 
-	public void setWdate(String wdate) {
+	public void setWdate(Date wdate) {
 		this.wdate = wdate;
 	}
 
