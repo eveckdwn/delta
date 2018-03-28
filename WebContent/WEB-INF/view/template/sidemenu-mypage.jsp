@@ -15,13 +15,6 @@
 			<li><a href="/mypage">PROFILE</a></li>
 			<li><a onclick="popup();">MESSAGE <span id="cnt"></span></a></li>
 		</ul></li>
-	<li class="dropdown"><a class="dropdown-toggle"
-		data-toggle="dropdown" href="#">Friends <span class="caret"></span></a>
-		<ul class="dropdown-menu">
-			<li><a href="/friend/friends">lists</a></li>
-			<li><a href="/friend/follow">follow</a></li>
-			<li><a href="/friend/request">requests</a></li>
-		</ul></li>
 	<li><a href="/login/out">Log Out</a></li>
 </ul>
 <br>

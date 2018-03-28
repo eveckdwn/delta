@@ -24,6 +24,7 @@
 .sidenav {
 	background-color: #f1f1f1;
 	height: 100%;
+	border-radius : .5em;
 }
 
 /* Set black background color, white text and some padding */
