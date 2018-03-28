@@ -8,9 +8,9 @@
 <body>
 		<div
 			style="border-top: 1px groove; border-bottom: 1px groove; border-left: 1px groove; border-right: 1px groove; padding: 10px;">
-			<b>${title }</b>
+			<b></b>
 			<hr style="color: #E6E6E6;">
-			<p>${content }</p>
+			<p></p>
 			<p align="right">이 작성자의 게시글 더보기</p>
 			<hr style="color: #E6E6E6;" width="190px" align="right">
 			<p>

@@ -26,7 +26,7 @@ public class BoardController {
 	@RequestMapping("/main")
 	public String Board01() {
 
-		return "/board/main_Login";
+		return "/board/main";
 
 	}
 

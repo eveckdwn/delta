@@ -57,25 +57,14 @@ td {
 	<div align="center">
 	
 	<select style="font-size: 15px;, height: 24px;">
-		<option>전체기간</option>
-		<option>1일</option>
-		<option>1주일</option>
-		<option>1개월</option>
-		<option>6개월</option>
-		<option>1년</option>
-	</select>
-	
-	<select style="font-size: 15px;, height: 24px;">
 		<option>제목만</option>
 		<option>글작성자</option>
-		<option>댓글내용</option>
-		<option>댓글작성자</option>
 	</select>
 	
 	
 	<input type="text" style="height: 24px;">	
 	
-	<button style="background-color: #58FA58; font-family: 바탕; font-size: 15px;">검색</button>
+	<button style="background-color: #2E64FE; font-family: 바탕; font-size: 15px; color: white;">검색</button>
 	
 	</div>
 

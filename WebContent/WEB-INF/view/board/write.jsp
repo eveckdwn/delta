@@ -17,12 +17,12 @@
 <table width="100%">
         <tr>
             <td>제목</td>
-            <td><input type="text" id="title" name="title" style="width:650px"/></td>
+            <td><input type="text" id="title" name="title" style="width:500px"/></td>
         </tr>
         <tr>
             <td>내용</td>
             <td>
-                <textarea rows="10" cols="30" id="ir1" name="content" style="width:650px; height:350px; "></textarea>
+                <textarea rows="10" cols="30" id="ir1" name="content" style="width:500px; height:350px; "></textarea>
             </td>
         </tr>
         <tr>
