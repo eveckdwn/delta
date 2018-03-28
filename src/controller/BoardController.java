@@ -1,6 +1,7 @@
 package controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,6 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
-	@RequestMapping("/board_list")
-	public String BoardHandle(Model model) {
-		model.addAttribute("board", boardService.findAll());
-		return "test";
-	}
 
 	@RequestMapping("/main")
 	public String Board01() {
@@ -31,9 +27,21 @@ public class BoardController {
 	}
 
 	@RequestMapping("/write")
-	public String Write() {
-
-		return "/board/write";
+	public String Write(@RequestParam Map param, Model model) {
+		
+		try {
+			
+			boardService.insert(param);
+			
+			return "/board/write";
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+		
+		
+		
 	}
 
 	@RequestMapping("/insert")

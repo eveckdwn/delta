@@ -14,19 +14,19 @@
 
 <form id="frm" action="/board/insert" method="post" >
 <div align="center">
-<table width="100%">
+<table width="50%">
         <tr>
             <td>제목</td>
-            <td><input type="text" id="title" name="title" style="width:500px"/></td>
+            <td><input type="text" id="title" name="title" style="width:650px"/></td>
         </tr>
         <tr>
             <td>내용</td>
             <td>
-                <textarea rows="10" cols="30" id="ir1" name="content" style="width:500px; height:350px; "></textarea>
+                <textarea rows="10" cols="30" id="ir1" name="context" style="width:650px; height:350px; "></textarea>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="2" align="center">
                 <input type="button" id="save" value="저장"/>
                 <input type="button" value="취소"/>
             </td>
