@@ -12,10 +12,10 @@ public class Board {
 	public String writer;
 	public String title;
 	public String context;
-	public int readnum;
-	public int like;
+	public String readnum;
+	public String like;
 	public String wdate;
-	public int type;
+	public String type;
 	public String tab;
 
 	public Board() {
@@ -31,22 +31,22 @@ public class Board {
 		if(param.get("context") != null)
 			this.context = (String) param.get("context");
 		if(param.get("readnum") != null)
-			this.readnum = (int) param.get("readnum");
+			this.readnum = (String) param.get("readnum");
 		if(param.get("like") != null)
-			this.like = (int) param.get("like");
+			this.like = (String) param.get("like");
 		if(param.get("wdate") != null) {
 			this.wdate = (String) param.get("wdate");
 		}else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			this.wdate = sdf.format(new Date());
 		}
 		if(param.get("type") != null)
-			this.type = (int) param.get("type");
+			this.type = (String) param.get("type");
 		if(param.get("tab") != null)
 			this.tab = (String) param.get("tab");
 	}
 	
-	public Board(ObjectId id, String writer, String title, String context, int readnum, int like, String wdate, int type,
+	public Board(ObjectId id, String writer, String title, String context, String readnum, String like, String wdate, String type,
 			String tab) {
 		this.id = id;
 		this.writer = writer;
@@ -91,19 +91,19 @@ public class Board {
 		this.context = context;
 	}
 
-	public int getReadnum() {
+	public String getReadnum() {
 		return readnum;
 	}
 
-	public void setReadnum(int readnum) {
+	public void setReadnum(String readnum) {
 		this.readnum = readnum;
 	}
 
-	public int getLike() {
+	public String getLike() {
 		return like;
 	}
 
-	public void setLike(int like) {
+	public void setLike(String like) {
 		this.like = like;
 	}
 
@@ -115,11 +115,11 @@ public class Board {
 		this.wdate = wdate;
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

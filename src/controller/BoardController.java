@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,46 +11,79 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import service.BoardService;
+import service.StationService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+	@Autowired
+	StationService stationservice;
 
 	@Autowired
 	BoardService boardService;
-	
-	@RequestMapping("/board_list")
-	public String BoardHandle(Model model) {
-		model.addAttribute("board", boardService.findAll());
-		return "test";
-	}
-	
+
 	@RequestMapping("/main")
-	public String Board01(HttpSession session) {
-		if (session.getAttribute("logon") == null) {
+	public String Board01(Model model, HttpSession session) {
 
-			return "/board/main_NoLogin";
-
-		} else {
-			return "/board/main_Login";
-
+		model.addAttribute("find", boardService.findAll());
+		
+		if(session.getAttribute("logon") == null) {
+			return "board_default";
+		}else {
+			return "board_logon";
+			
 		}
+
 
 	}
 
 	@RequestMapping("/write")
-	public String Write() {
+	public String WriteGET(Model model, @RequestParam(required=false) String id, HttpSession session) {
 
-		return "/board/write";
+		model.addAttribute("station", stationservice.readAllStation());
+		model.addAttribute("find", boardService.find(id));
+		
+		if(session.getAttribute("logon") == null) {
+			return "write_default";
+		}else {
+			return "write_logon";
+			
+		}
+
 	}
 
-	@RequestMapping("/insert")
-	public String Insert(Model model, @RequestParam String title, @RequestParam String content) {
+	@RequestMapping("/result")
+	public String Result(@RequestParam Map param, Model model, String id, HttpSession session) {
 
-		model.addAttribute("title", title);
-		model.addAttribute("content", content);
+		System.out.println(param);
+		
+		try {
+			boardService.insert(param);
+			
+			model.addAttribute("find", boardService.find(id));
+			
+			return "result";
 
-		return "/board/insert";
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return "admin/fail";
+		}
+
+	}
+	
+	@RequestMapping("/read")
+	public String Read(Model model, @RequestParam String id, HttpSession session) {
+		
+		model.addAttribute("read", boardService.find(id));
+		
+		if(session.getAttribute("logon") == null) {
+			return "read_default";
+		}else {
+			return "read_logon";
+			
+		}
 	}
 
 	@RequestMapping("/change")
@@ -59,6 +94,5 @@ public class BoardController {
 
 		return "/board/change";
 	}
-
 
 }
