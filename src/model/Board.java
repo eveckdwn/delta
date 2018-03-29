@@ -17,7 +17,7 @@ public class Board {
 	public String wdate;
 	public String type;
 	public String tab;
-
+	
 	public Board() {
 	}
 	

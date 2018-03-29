@@ -46,6 +46,14 @@ public class BoardService {
 		return find;
 	}
 	
+	public List Search(String mode, String value) {
+		Query q = new Query();
+			q.addCriteria(new Criteria().where(mode).regex(value));
+		List find = mongoOperation.find(q, Board.class, "board");
+		
+		return find;
+	}
+	
 	
 
 	public void insert(Map param) {

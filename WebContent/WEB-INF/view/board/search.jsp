@@ -33,7 +33,7 @@
 					<th>추천</th>
 				</tr>
 				</thead>
-		<c:forEach var="i" items="${find }">
+		<c:forEach var="i" items="${board }">
 			<tbody>
 				<tr>
 					<td></td>
@@ -59,17 +59,17 @@
 	
 	
 	<div align="center">
-	<form action="/board/main" method="post">
-	<select style="font-size: 15px;, height: 24px;" name="mode" >	
-		<option value="title">제목만</option>
-		<option value="writer">글작성자</option>
+	
+	<select style="font-size: 15px;, height: 24px;">
+		<option>제목만</option>
+		<option>글작성자</option>
 	</select>
 	
 	
-	<input type="text" style="height: 24px" name="value">	
+	<input type="text" style="height: 24px;">	
 	
-	<button type="submit" style="background-color: #2E64FE; font-family: 바탕; font-size: 15px; color: white;">검색</button>
-	</form>
+	<button style="background-color: #2E64FE; font-family: 바탕; font-size: 15px; color: white;">검색</button>
+	
 	</div>
 
 </body>
@@ -78,3 +78,4 @@
 <script>
 
 </script>
+
