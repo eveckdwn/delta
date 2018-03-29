@@ -64,21 +64,27 @@
 				
 		</script>
 		<table align="center">
-			<tr>
-				<td style="margin: 5px; padding: 5px"><a
-					href="/travel/station?page=1">&lt;&lt;</a></td>
-				<%
-					for (int i = 1; i <= (int) session.getAttribute("all_page"); i++) {
-				%>
-				<td style="margin: 5px; padding: 5px"><a
-					href="/travel/station?page=<%=i%>"><%=i%></a></td>
-				<%
+		<tr>
+			<td style="margin: 5px; padding: 5px"><a
+				href="/travel/station?page=1">&lt;&lt;</a></td>
+			<%
+				for (int i = 1; i <= (int) session.getAttribute("all_page"); i++) {
+					if( i == Integer.parseInt(request.getParameter("page"))){
+						%>
+						<td style="margin: 5px; padding: 5px"><b><%=i%></b></td>
+						<%			
+					}else{
+						%>
+						<td style="margin: 5px; padding: 5px"><a
+							href="/travel/station?page=<%=i%>"><%=i%></a></td>
+						<%
 					}
-				%>
-				<td style="margin: 5px; padding: 5px"><a
-					href="/travel/station?page=<%=(int) session.getAttribute("all_page")%>">&gt;&gt;</a></td>
-			</tr>
-		</table>
+				}
+			%>
+			<td style="margin: 5px; padding: 5px"><a
+				href="/travel/station?page=<%=(int) session.getAttribute("all_page")%>">&gt;&gt;</a></td>
+		</tr>
+	</table>
 	</div>
 	<hr />
 	<h3 id="info">여행지 정보</h3>

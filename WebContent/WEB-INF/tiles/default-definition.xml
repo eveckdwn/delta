@@ -126,25 +126,27 @@
 	<!-- Service part End -->
 	<!-- Board part Start  -->
 	<definition name="board_default" extends="default">
-		<put-attribute name="main" value="/WEB-INF/view/board/main.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/main.jsp"/>
 	</definition>
 	
 	<definition name="board_logon" extends="logons">
-		<put-attribute name="main" value="/WEB-INF/view/board/main.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/main.jsp"/>
 	</definition>
 	
 	<definition name="read_default" extends="default">
-		<put-attribute name="main" value="/WEB-INF/view/board/read.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/read.jsp"/>
 	</definition>
 	<definition name="read_logon" extends="logons">
-		<put-attribute name="main" value="/WEB-INF/view/board/read.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/read.jsp"/>
 	</definition>
-	
 	<definition name="write_default" extends="default">
-		<put-attribute name="main" value="/WEB-INF/view/board/write.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/write.jsp"/>
 	</definition>
 	<definition name="write_logon" extends="logons">
-		<put-attribute name="main" value="/WEB-INF/view/board/write.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/write.jsp"/>
+	</definition>
+	<definition name="change_logon" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/change.jsp"/>
 	</definition>
 	<!-- Board part End  -->
 

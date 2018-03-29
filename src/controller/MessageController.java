@@ -77,14 +77,14 @@ public class MessageController {
 		List msgs = messageService.getMessagesByReceiver((String) my.get("NICK"));
 
 		int p = Integer.parseInt(page);
-		int p2 = msgs.size() / 5;
+		int p2 = msgs.size() / 5 + 1;
 		int other = msgs.size() % 5;
 		session.setAttribute("all_page", p2);
-		if (p <= p2) {
+		if (p < p2) {
 			model.addAttribute("msgbox", msgs.subList((p - 1) * 5, (p - 1) * 5 + 5));
 			session.setAttribute("now_page", p);
 		} else {
-			model.addAttribute("msgbox", msgs.subList(p2 * 5, p2 * 5 + other));
+			model.addAttribute("msgbox", msgs.subList((p2 - 1) * 5, (p2 - 1) * 5 + other));
 			session.setAttribute("now_page", p2);
 		}
 
