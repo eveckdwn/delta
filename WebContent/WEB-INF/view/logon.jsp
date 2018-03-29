@@ -31,8 +31,8 @@
     top: 0;
     left: 0;
     background-image: url('test.jpg'); 
-    width: 97%;
-    height: 97%;
+    width: 100%;
+    height: 100%;
     opacity : 0.4;
     z-index: -1;
 }
@@ -53,7 +53,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body >
 	<div style="height: 570px;" id="wrapper" align="center">
 		<table style="text-align: center;">
 			<tr class="font">
