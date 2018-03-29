@@ -36,7 +36,7 @@ public class AlertController extends TextWebSocketHandler {
 		
 		for(String k : sessions.keySet() ) {
 			int size = sessions.get(k).size();
-			System.out.println("→ " + k + " / ("+size+")" );
+			//	System.out.println("→ " + k + " / ("+size+")" );
 		}
 	}
 

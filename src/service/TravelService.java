@@ -24,9 +24,6 @@ public class TravelService {
 		return template.selectList("travel.readAll");
 	}
 	
-	public Map readOne(String id) {
-		return template.selectOne("travel.readOne", id);
-	}
 	
 	public List readSome(String sname) {
 		return template.selectList("travel.readSome", sname);
@@ -38,6 +35,22 @@ public class TravelService {
 
 	public boolean deleteTravel(Map param) {
 		return template.delete("travel.delete", param) == 1;
+	}
+	
+	public List readAllC(String tname) {
+		return template.selectList("travel.readAllC", tname);
+	}
+	
+	public boolean addTcomments(Map param) {
+		return template.insert("travel.addC", param) == 1;
+	}
+	
+	public boolean updateTcomments(Map param) {
+		return template.update("travel.updateC", param) == 1;
+	}
+	
+	public boolean deleteTcomments(Map param) {
+		return template.delete("travel.deleteC", param) == 1;
 	}
 
 }
