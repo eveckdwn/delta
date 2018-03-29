@@ -24,7 +24,8 @@ th {
 		<h2>
 			<b>신고 당한 횟수 많은 유저들</b>
 		</h2>
-		<table border="1">
+		<table border="1" class="table">
+			<thead>
 			<tr>
 				<th>아이디</th>
 				<th>비밀번호</th>
@@ -37,7 +38,9 @@ th {
 				<th>신고 당한 횟수</th>
 				<th>제재</th>
 			</tr>
+			</thead>
 			<c:forEach var="i" items="${foul }">
+				<tbody>
 				<tr>
 					<th>${i.ID }</th>
 					<th>${i.PASS }</th>
@@ -50,6 +53,7 @@ th {
 					<th>${i.FOUL }</th>
 					<th><button type="button" class="btn1" value="${i.ID }">차단하기</button></th>
 				</tr>
+				</tbody>
 			</c:forEach>
 		</table>
 	</div>
@@ -60,7 +64,8 @@ th {
 		<h2>
 			<b>전체 목록</b>
 		</h2>
-		<table border="1">
+		<table border="1" class="table">
+			<thead>
 			<tr>
 				<th>아이디</th>
 				<th>비밀번호</th>
@@ -72,7 +77,9 @@ th {
 				<th>사용 제한 날짜</th>
 				<th>신고 당한 횟수</th>
 			</tr>
+			</thead>
 			<c:forEach var="i" items="${select }">
+				<tbody>
 				<tr>
 					<th>${i.ID }</th>
 					<th>${i.PASS }</th>
@@ -84,6 +91,7 @@ th {
 					<th>${i.BAN }</th>
 					<th>${i.FOUL }</th>
 				</tr>
+				</tbody>
 			</c:forEach>
 		</table>
 	</div>

@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<p align="right">
-			<c:if test="${sessionScope.logon == ${ }">
+			<c:if test="${sessionScope.logon }">
 			<input type="button" value="수정하기" onclick="location.href='/board/change?no=3';"/>
 			</c:if>
 		</p>

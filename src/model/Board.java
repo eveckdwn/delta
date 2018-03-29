@@ -103,7 +103,7 @@ public class Board {
 		return like;
 	}
 
-	public void setLike(int like) {
+	public void setLike(String like) {
 		this.like = like;
 	}
 

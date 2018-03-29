@@ -94,6 +94,7 @@
 	</definition>
 	<!-- Guest part End -->
 	
+	
 	<!-- Service part Start -->
 	<definition name="service_default" template="/WEB-INF/view/template/mainTemplate.jsp">
 		<put-attribute name="title" value="Spring MVC"/>
@@ -123,7 +124,11 @@
 		<put-attribute name="main" value="/WEB-INF/view/service/travel/detail.jsp" />
 	</definition>
 	<!-- Service part End -->
-
+	<!-- Board part Start  -->
+	<definition name="board" template="/WEB-INF/view/template/mainTemplate.jsp">
+		<put-attribute name="main" value="/WEB-INF/view/board/main.jsp"/>
+	</definition>
+	<!-- Board part End  -->
 
 	<!-- EL support -->
 	<definition name="t_el" extends="default">

@@ -61,7 +61,7 @@ public class BoardController {
 
 	}
 	@RequestMapping("/read")
-	public String Read(Model model) {
+	public String Read(Model model, @RequestParam Map param) {
 		
 		model.addAttribute("find", boardService.findAll());
 		
