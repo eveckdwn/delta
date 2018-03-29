@@ -73,15 +73,8 @@ h3 {
 				<td style="vertical-align: middle; text-align: center;">${travel[0].LNG }</td>
 			</tr>
 			<tr>
-				<th colspan="5" style="vertical-align: middle; text-align: center;">설명
-
-
-
-
-
-				
+				<th colspan="5" style="vertical-align: middle; text-align: center;">설명</th>
 			</tr>
-
 			<tr>
 				<td colspan="5" style="vertical-align: middle; text-align: justify;">
 					<c:choose>
@@ -186,29 +179,75 @@ h3 {
 		</tr>
 		<c:forEach items="${travel }" var="t">
 			<tr>
-				<th style="display: none">${t.COMMENTNO }</th>
-				<td class="score">${t.TRASCORE }</td>
-				<td>${t.USERID }</td>
+				<td style="display: none">${t.COMMENTNO }</td>
+				<td id="userscore" class="score">${t.TRASCORE }</td>
+				<td id="userid">${t.USERID }</td>
 				<td style="text-align: left;">${t.TRACOMMENT }&nbsp;<small>(${t.LEFTDATE })</small>
 					<c:if test="${t.USERID eq sessionScope.logon}">
 						<br />
-						<button type="button" onclick="commentProcess()">수정</button>&nbsp;<button
-							type="button" onclick="commentProcess()">삭제</button>
+						<button type="button" onclick="commentProcess(this)">수정</button>&nbsp;<button
+							type="button" onclick="commentProcess(this)">삭제</button>
 					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<script>
-		function commentProcess(){
-			//	TODO: 처리하기
-			var tr = $(this).parent();
-			tr.html("??");
-			console.log(tr);
-			console.log($(tr));
-			var td = tr.children();
-			console.log(td);
-			console.log($(td));
+		function commentProcess(target){
+			var button = $(target);
+			var tr = $(target).parent().parent();
+			var td = $(tr).children();
+			
+			if(button.html() == "수정"){
+				for(var i = 0; i < td.length; i++){
+					switch(i){
+					case 0:	//	commentno
+						$(td[0]).html("<input type=\"text\" name=\"commentno\" value=\""+$(td[0]).text() +"\"/>");
+						break;
+					case 1:	//	userscore
+						$(td[1]).html("<input type=\"text\" name=\"troscore\" value=\""+$(td[1]).text().length +"\"/>");
+						break;
+					case 2:	//	userid
+						$(td[2]).html("<input type=\"text\" name=\"userid\" value=\""+$(td[2]).text() +"\" disabled/>");
+						break;
+					case 3:	//	comment
+						$(td[3]).html("<input type=\"text\" name=\"tracomment\" value=\""+$(td[3]).text().substring(0, $(td[3]).text().indexOf("(")) +"\"/><button type=\"button\" onclick=\"commentProcess(this)\">확인</button>");
+						break;
+					default:
+						break;
+					}
+				}
+			}else if(button.html() == "확인"){
+				$.post("/travel/comment_update", {
+					commentno : $(td[0]).children().val(),
+					trascore : $(td[1]).children().val(),
+					tracomment : $(td[3]).children().val(),
+					},
+					function(rst){
+						if(rst){
+							alert("데이터 수정에 성공했습니다.");
+							location.reload();
+						}else{
+							alert("데이터 수정에 실패했습니다. \n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
+							location.reload();
+						}
+					});
+			}else{
+				console.log($(td[0]).children().val());
+				$.post("/travel/comment_delete", {
+					commentno : $(td[0]).text(),
+					},
+					function(rst){
+						if(rst){
+							alert("데이터를 삭제했습니다.");
+							location.reload();
+						}else{
+							alert("데이터 삭제에 실패했습니다. \n같은 현상이 반복될 경우, 개발자에게 문의바랍니다.");
+							location.reload();
+						}
+					});
+			}
+			
 		}
 	
 		function checkId(){

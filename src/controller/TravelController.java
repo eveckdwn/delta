@@ -87,4 +87,16 @@ public class TravelController {
 
 		return "redirect:/travel/detail";
 	}
+	
+	@RequestMapping(path="/comment_update", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String commentUpdateHandle(@RequestParam Map param) {
+		return new Gson().toJson(travelService.updateTcomments(param));
+	}
+	
+	@RequestMapping(path="/comment_delete", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String commentDeleteHandle(@RequestParam Map param) {
+		return new Gson().toJson(travelService.deleteTcomments(param));
+	}
 }
