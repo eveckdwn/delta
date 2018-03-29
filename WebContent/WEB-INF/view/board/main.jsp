@@ -37,7 +37,7 @@
 			<tbody>
 				<tr>
 					<td></td>
-					<td><a href="/board/read?_id=ObjectId(${i.id })">${i.title }</a></td>
+					<td><a href="/board/read?id=${i.id }">${i.title }</a></td>
 					<td>${i.writer }</td>
 					<td>${i.wdate }</td>
 					<td>${i.readnum }</td>

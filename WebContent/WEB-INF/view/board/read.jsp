@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<title>내용</title>
+<c:forEach var="i" items="${read }">
+<title>${i.title }</title>
+</c:forEach>
 </head>
 <body>
 		<div
@@ -11,12 +13,13 @@
 			<c:forEach var="i" items="${read }">
 			<b>${i.title }</b>
 			<hr style="color: #E6E6E6;">
-			${i.context }
+			<p align="right">조회수(${i.readnum }) | ${i.wdate }</p>
+			<p>${i.context }</p>
 			<p align="right">이 작성자의 게시글 더보기</p>
 			<hr style="color: #E6E6E6;" width="190px" align="right">
+			<p align="center"><button style="width: 100px; height: 100px"><img src="/image/like2.jpg" style="width: 100%; height: 100%" align="top">${i.like }</button></p>
 			<p>
-				<b><a style="color: #FE642E;">댓글()</a></b> | <a>등록순</a> | <a>조회수(${i.readnum })</a>
-				| <a>추천(${i.like })</a>
+				<b><a style="color: #FE642E;">댓글()</a></b>
 			</p>
 			</c:forEach>
 			<div style="background-color: #E6E6E6;">

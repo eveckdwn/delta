@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <html>
 <head>
 <title>결과</title>
 </head>
 <body>
 
-	<h2>성공</h2>
+<%String number = request.getParameter("id");
 
-	<a href="/board/main">메인으로</a>
+	response.sendRedirect("/board/read?id="+number);
+%>
 
 </body>
 </html>

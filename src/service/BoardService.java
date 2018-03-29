@@ -37,15 +37,16 @@ public class BoardService {
 		return hero;
 	}
 	
-	public List find() {
+	public List find(String id) {
 		Query q = new Query();
-		q.addCriteria(new Criteria().where("id"));
+		q.addCriteria(new Criteria().where("_id").is(id));
 		List find = mongoOperation.find(q, Board.class, "board");
 		
 		return find;
 	}
 	
 	
+
 	public void insert(Map param) {
 		board = new Board(param);
 		mongoOperation.insert(board);

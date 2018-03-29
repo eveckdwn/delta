@@ -125,8 +125,26 @@
 	</definition>
 	<!-- Service part End -->
 	<!-- Board part Start  -->
-	<definition name="board" template="/WEB-INF/view/template/mainTemplate.jsp">
+	<definition name="board_default" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/board/main.jsp"/>
+	</definition>
+	
+	<definition name="board_logon" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/board/main.jsp"/>
+	</definition>
+	
+	<definition name="read_default" extends="default">
+		<put-attribute name="main" value="/WEB-INF/view/board/read.jsp"/>
+	</definition>
+	<definition name="read_logon" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/board/read.jsp"/>
+	</definition>
+	
+	<definition name="write_default" extends="default">
+		<put-attribute name="main" value="/WEB-INF/view/board/write.jsp"/>
+	</definition>
+	<definition name="write_logon" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/board/write.jsp"/>
 	</definition>
 	<!-- Board part End  -->
 

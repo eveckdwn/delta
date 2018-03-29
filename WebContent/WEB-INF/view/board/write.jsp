@@ -12,6 +12,12 @@
 <html>
 <head>
 <title>글쓰기</title>
+
+<c:if test="${find ne null }">
+	<script>
+	
+	</script>
+</c:if>
 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
 <script type="text/javascript" src="/SE2/js/service/HuskyEZCreator.js"
 	charset="utf-8"></script>
@@ -23,7 +29,6 @@
 
 </head>
 <body>
-
 
 
 	<form id="frm"   action="/board/result" method="post">
@@ -103,6 +108,9 @@
 		$("#save").click(function() {
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
+			
 		});
+		
+		
 	});
 </script>

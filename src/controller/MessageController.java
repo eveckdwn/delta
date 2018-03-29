@@ -32,7 +32,7 @@ public class MessageController {
 	public String sendHandle() {
 		return "message/messageSend";
 	}
-	
+
 	// 답장으로 보낼때 sendController
 	@RequestMapping(path = "/rsend", method = RequestMethod.GET)
 	public String resendHandle(@RequestParam(name = "receiver") String receiver, Model model) {
@@ -68,26 +68,26 @@ public class MessageController {
 
 	@RequestMapping(path = "/box")
 	public String getMessagesByUser(@RequestParam String page, HttpSession session, Model model) {
-		
+
 		String logon = (String) session.getAttribute("logon");
 		Map log = new HashMap<>();
 		log.put("id", logon);
 		Map my = users.mypageInfo(log);
-		
+
 		List msgs = messageService.getMessagesByReceiver((String) my.get("NICK"));
-		
+
 		int p = Integer.parseInt(page);
-		int p2 = msgs.size() / 5 ; 
+		int p2 = msgs.size() / 5;
 		int other = msgs.size() % 5;
 		session.setAttribute("all_page", p2);
-		if(p<=p2) {
-			model.addAttribute("msgbox",msgs.subList((p-1)*5, (p-1)*5+5));
+		if (p <= p2) {
+			model.addAttribute("msgbox", msgs.subList((p - 1) * 5, (p - 1) * 5 + 5));
 			session.setAttribute("now_page", p);
-		}else {
-			model.addAttribute("msgbox", msgs.subList(p2*5, p2*5+other));
+		} else {
+			model.addAttribute("msgbox", msgs.subList(p2 * 5, p2 * 5 + other));
 			session.setAttribute("now_page", p2);
 		}
-		
+
 		model.addAttribute("msgs", messageService.getMessagesByReceiver((String) my.get("NICK")));
 		return "message/messageBox";
 	}
@@ -109,29 +109,30 @@ public class MessageController {
 	public String messageResendHandle(@RequestParam(name = "receiver") String receiver, Model model) {
 		System.out.println(receiver);
 		Map map = new HashMap<>();
-			map.put("receiver", receiver);
+		map.put("receiver", receiver);
 		Gson g = new Gson();
 		return g.toJson(map);
 	}
-	
-	@RequestMapping(path="/cnt", produces= "application/json;charset=utf-8", method=RequestMethod.POST)
+
+	@RequestMapping(path = "/cnt", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String messageCntHandle(@RequestParam(name="id") String id) {
+	public String messageCntHandle(@RequestParam(name = "id") String id) {
 		Map log = new HashMap<>();
 		log.put("id", id);
 		Map my = users.mypageInfo(log);
-		
-		List<Map> map2 = messageService.getMessagesByReceiver((String)my.get("NICK"));
-		int cnt=0;
-		for(int i =0 ; i<map2.size(); i++) {
-			if(Integer.parseInt(String.valueOf(map2.get(i).get("STATUS")))==0) {
-				cnt++;	
+
+		Gson g = new Gson();
+		List<Map> map2 = (List<Map>) messageService.getMessagesByReceiver((String) my.get("NICK"));
+		int cnt = 0;
+		for (int i = 0; i < map2.size(); i++) {
+			if (Integer.parseInt(String.valueOf(map2.get(i).get("STATUS"))) == 0) {
+				cnt++;
 			}
 		}
 		Map count = new HashMap<>();
-			count.put("cnt", cnt);
-		Gson g = new Gson();
+		count.put("cnt", cnt);
 		return g.toJson(count);
+
 	}
 
 }
