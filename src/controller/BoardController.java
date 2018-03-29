@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import service.BoardService;
+import service.ReplyService;
 import service.StationService;
 
 @Controller
@@ -24,6 +25,9 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
+	@Autowired
+	ReplyService replyService;
+	
 	@RequestMapping(path="/main", method=RequestMethod.GET)
 	public String Board01(Model model, HttpSession session) {
 
@@ -89,17 +93,52 @@ public class BoardController {
 
 	}
 	
-	@RequestMapping("/read")
-	public String Read(Model model, @RequestParam String id, HttpSession session) {
+	@RequestMapping(path="/read", method=RequestMethod.GET)
+	public String ReadGET(Model model, @RequestParam String id, HttpSession session , @RequestParam Map param) {
+
 		
-		model.addAttribute("read", boardService.find(id));
-		
-		if(session.getAttribute("logon") == null) {
-			return "read_default";
-		}else {
-			return "read_logon";
+		try {
 			
+			
+			
+			model.addAttribute("read", boardService.find(id));
+			
+			if(session.getAttribute("logon") == null) {
+				return "read_default";
+			}else {
+				return "read_logon";
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			return "admin/fail";
 		}
+		
+	}
+	@RequestMapping(path="/read", method=RequestMethod.POST)
+	public String ReadPOST(Model model, @RequestParam String id, HttpSession session , @RequestParam Map param) {
+		
+		
+		try {
+			
+			replyService.insert(param);
+			
+			
+			model.addAttribute("read", boardService.find(id));
+			
+			if(session.getAttribute("logon") == null) {
+				return "read_default";
+			}else {
+				return "read_logon";
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			return "admin/fail";
+		}
+		
 	}
 
 	@RequestMapping("/change")
