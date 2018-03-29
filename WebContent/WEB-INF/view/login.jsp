@@ -86,7 +86,7 @@ input {
 						<b class="arial">PASS(*)</b><br /> <input type="password" name="pass">
 					</p>
 					<p>
-						<button id="sbt" type="submit" style="width: 100%; height: 30px;">로
+						<button id="sbt" type="submit" style="width: 100%; height: 30px;" >로
 							그 인</button>
 						<c:if test="${!empty err }">
 							<a href="/findpass"><button type="button"

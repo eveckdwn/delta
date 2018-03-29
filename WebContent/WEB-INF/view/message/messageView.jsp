@@ -24,7 +24,7 @@
 				<td style="height: 300px; word-break:break-all;" >${msg.CONTEXT }</td>
 			</tr>
 		</table>
-		<a href="/message/box"><button type="button">목록</button></a>
+		<a href="/message/box?page=1"><button type="button">목록</button></a>
 		<button type="button" onclick="resend()" id="re" value="${msg.MNICK }">답장</button>
 	</div>
 </body>
