@@ -17,6 +17,7 @@ public class Board {
 	public String wdate;
 	public String type;
 	public String tab;
+	public String photos;
 
 	public Board() {
 	}
@@ -44,6 +45,8 @@ public class Board {
 			this.type = (String) param.get("type");
 		if(param.get("tab") != null)
 			this.tab = (String) param.get("tab");
+		if(param.get("photos") != null)
+			this.photos = (String) param.get("photos");
 	}
 	
 	public Board(ObjectId id, String writer, String title, String context, String readnum, String like, String wdate, String type,

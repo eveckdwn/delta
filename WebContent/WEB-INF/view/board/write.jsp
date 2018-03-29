@@ -15,7 +15,7 @@
 
 <c:if test="${find ne null }">
 	<script>
-	
+		
 	</script>
 </c:if>
 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
@@ -30,12 +30,13 @@
 </head>
 <body>
 
-
-	<form id="frm"   action="/board/result" method="post">
+	<h2>글 쓰 기</h2>
+	<hr />
+	<form id="frm" enctype="multipart/form-data" action="/board/result" method="post">
 		<div align="center">
-			<table width="50%">
+			<table width="100%">
 				<tr>
-					<td>내용 유형</td>
+					<td align="right" style="padding-right: 10px;">내용 유형</td>
 					<td><select name="type">
 							<option id="type" value="일반">일반</option>
 							<option id="type" value="이벤트">이벤트</option>
@@ -43,34 +44,39 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>기차역</td>
+					<td align="right" style="padding-right: 10px;">기차역</td>
 					<td><select name="tab">
 							<c:forEach var="i" items="${station }">
-								<option  value="${i.NAME }">${i.NAME }</option>
+								<option value="${i.NAME }">${i.NAME }</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
-					<td>제목</td>
+					<td align="right" style="padding-right: 10px;">제목</td>
 					<td><input type="text" id="title" name="title"
 						style="width: 650px" /></td>
 				</tr>
 				<tr>
-					<td>내용</td>
+					<td align="right" style="padding-right: 10px;">내용</td>
 					<td><textarea rows="10" cols="30" id="ir1" name="context"
 							style="width: 650px; height: 350px;"></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center">
-						<button type="submit"id="save">저장</button>
-						<button type="button">취소</button>
-					</td>
+					<td align="right" style="padding-right: 10px;">첨부 파일</td>
+					<td><input type="file" name="photos" id="p" multiple /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><img id="preview" style="width:50px; height:50px;"></img></td>
 				</tr>
 			</table>
+			<div align="center">
+				<button type="submit" id="save">저장</button>
+				<button type="button">취소</button>
+			</div>
 			<input type="hidden" name="writer" value="${sessionScope.logon }" />
-			<input type="hidden" name="readnum" value="0" /> <input type="hidden"
-				name="like" value="0" /> <input type="hidden" name="wdate"
-				value="<%=str%>" />
+			<input type="hidden" name="readnum" value="0" /> <input
+				type="hidden" name="like" value="0" /> <input type="hidden"
+				name="wdate" value="<%=str%>" />
 		</div>
 	</form>
 
@@ -108,9 +114,24 @@
 		$("#save").click(function() {
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
-			
+
 		});
-		
-		
+
 	});
+</script>
+<script>
+	document.getElementById("p").onchange = function() {
+		console.log(this.files[0]);
+		if (!this.files[0].type.startsWith("image")) {
+			window.alert("jpg, gif, bmp, tif, png 형식의 파일만 첨부하실 수 있습니다.");
+			this.value = "";
+			return;
+		}
+		var reader = new FileReader();
+		reader.onload = function() {
+			console.log(reader);
+			document.getElementById("preview").src = this.result;
+		}
+		reader.readAsDataURL(this.files[0]);
+	}
 </script>

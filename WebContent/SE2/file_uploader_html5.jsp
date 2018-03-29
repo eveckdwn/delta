@@ -66,5 +66,4 @@
         out.println(sFileInfo);
     }
 %>
-[출처] [JSP] 스마트에디터(smarteditor)의 싱글/멀티 이미지업로드하기 |작성자 자바킹
 
