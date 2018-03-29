@@ -19,6 +19,7 @@ public class Board {
 	public String tab;
 	
 	public Board() {
+		
 	}
 	
 	public Board(Map param) {

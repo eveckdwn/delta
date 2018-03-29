@@ -15,7 +15,7 @@
 
 <c:if test="${find ne null }">
 	<script>
-	
+		
 	</script>
 </c:if>
 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
@@ -24,14 +24,9 @@
 <!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-
-
-
 </head>
 <body>
-
-
-	<form id="frm"   action="/board/result" method="post">
+	<form id="frm" method="post">
 		<div align="center">
 			<table width="50%">
 				<tr>
@@ -46,7 +41,7 @@
 					<td>기차역</td>
 					<td><select name="tab">
 							<c:forEach var="i" items="${station }">
-								<option  value="${i.NAME }">${i.NAME }</option>
+								<option value="${i.NAME }">${i.NAME }</option>
 							</c:forEach>
 					</select></td>
 				</tr>
@@ -61,16 +56,16 @@
 							style="width: 650px; height: 350px;"></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center">
-						<button type="submit"id="save">저장</button>
-						<button type="button">취소</button>
-					</td>
+					<td colspan="2" align="center"><input type="hidden"
+						name="page" value="1" />
+						<button type="submit" id="save">저장</button>
+						<button type="button">취소</button></td>
 				</tr>
 			</table>
 			<input type="hidden" name="writer" value="${sessionScope.logon }" />
-			<input type="hidden" name="readnum" value="0" /> <input type="hidden"
-				name="like" value="0" /> <input type="hidden" name="wdate"
-				value="<%=str%>" />
+			<input type="hidden" name="readnum" value="0" /> <input
+				type="hidden" name="like" value="0" /> <input type="hidden"
+				name="wdate" value="<%=str%>" />
 		</div>
 	</form>
 
@@ -108,9 +103,8 @@
 		$("#save").click(function() {
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
-			
+
 		});
-		
-		
+
 	});
 </script>

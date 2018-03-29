@@ -34,14 +34,15 @@ public class TravelController {
 		List stations = stationService.readAllStation();
 
 		int p = Integer.parseInt(page); // 현재 페이지
-		int split = stations.size() / 5; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수
-		int remain = stations.size() % 5; // 나머지 데이터
+		int division = 5;	//	페이지당 보여줄 컨텐츠 수
+		int split = stations.size() / division + 1; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수
+		int remain = stations.size() % division; // 나머지 데이터
 		session.setAttribute("all_page", split);
-		if (p <= split) {
-			model.addAttribute("station", stations.subList((p - 1) * 5, (p - 1) * 5 + 5));
+		if (p < split) {
+			model.addAttribute("station", stations.subList((p - 1) * division, (p - 1) * division + division));
 			session.setAttribute("now_page", p);
-		} else {
-			model.addAttribute("station", stations.subList(split * 5, split * 5 + remain));
+		}else {
+			model.addAttribute("station", stations.subList((split - 1) * division, (split - 1) * division + remain));
 			session.setAttribute("now_page", split);
 		}
 
