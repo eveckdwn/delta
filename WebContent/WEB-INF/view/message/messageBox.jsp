@@ -29,7 +29,7 @@
 						<tr>
 							<td><input type="checkbox" class="sel" name="mid"
 								value="${msg.MID }" /></td>
-							<td><b>${msg.MNICK}</b></td>
+							<td><b>${msg.MNICK}(${msg.ID})</b></td>
 							<!-- 여기도 프로필 띄우기 -->
 							<c:set var="context" value="${msg.CONTEXT }" />
 							<c:if test="${fn:length(context)<5 }">
@@ -47,7 +47,7 @@
 						<tr>
 							<td><input type="checkbox" class="sel" name="mid"
 								value="${msg.MID }" /></td>
-							<td>${msg.MNICK}</td>
+							<td>${msg.MNICK}(${msg.ID})</td>
 							<!-- 여기도 프로필 띄우기 -->
 							<c:set var="context" value="${msg.CONTEXT }" />
 							<c:if test="${fn:length(context)<5 }">

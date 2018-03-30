@@ -87,7 +87,7 @@ public class MessageController {
 			model.addAttribute("msgbox", msgs.subList((p2 - 1) * 5, (p2 - 1) * 5 + other));
 			session.setAttribute("now_page", p2);
 		}
-
+		
 		model.addAttribute("msgs", messageService.getMessagesByReceiver((String) my.get("NICK")));
 		return "message/messageBox";
 	}
