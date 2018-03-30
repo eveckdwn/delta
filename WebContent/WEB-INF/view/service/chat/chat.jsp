@@ -72,8 +72,8 @@
 				<col width="" />
 			</colgroup>
 			<tr>
-				<td><div id="chatMessage" style="height: 500px;"></div></td>
-				<td><div id="online" style="height: 500px;"></div></td>
+				<td><div id="chatMessage" style="overflow:auto; height: 500px;"></div></td>
+				<td><div id="online" style="overflow:auto; height: 500px;"></div></td>
 			</tr>
 			<tr>
 				<td colspan="2"><div>

@@ -85,8 +85,7 @@ public class ChatController extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// System.out.println("로그인 한 닉네임 : " + getName(session.getAttributes()));
-		String name = "닉네임";
+		String name = getName(session.getAttributes());
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		channel.add(session);
@@ -103,8 +102,7 @@ public class ChatController extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		// System.out.println("로그인 한 닉네임 : " + getName(session.getAttributes()));
-		String name = "닉네임";
+		String name = getName(session.getAttributes());
 
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
@@ -115,8 +113,7 @@ public class ChatController extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		// System.out.println("로그인 한 닉네임 : " + getName(session.getAttributes()));
-		String name = "닉네임";
+		String name = getName(session.getAttributes());
 
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
