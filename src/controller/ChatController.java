@@ -69,7 +69,13 @@ public class ChatController extends TextWebSocketHandler {
 	public String chat(HttpSession session, Model model) {
 		List stations = stationService.readAllStation();
 		model.addAttribute("station", stations);
-		return "chat";
+		
+		if(session.getAttribute("logon") == null) {
+			model.addAttribute("ment", "채팅서비스는 로그인 후 이용이 가능합니다.");
+			return "index";
+		}else {
+			return "chat";
+		}
 	}
 
 	@RequestMapping(path = "/chatroom")
