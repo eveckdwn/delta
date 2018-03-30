@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" >
+<script type="text/javascript">
 	var cws = new WebSocket("ws://${pageContext.request.serverName}/chat-ws?id=" + ${crid});
 	// 연결이 됬을때. 
 	cws.onopen = function() {
@@ -60,13 +60,36 @@
             cws.send($("#message").val());
             $("#message").val("");
         }
-	};
+	}
 	
 </script>
 </head>
 <body>
-	<div id="chatMessage" style="height: 500px;"></div>
-    <input type="text" id="message" placeholder="메시지"/>
-    <input type="button" id="sendMessage" value="전송" onclick="send()"/>
+	<div align="center" style="width: 80%; min-width: 800px">
+		<table class="table table-bordered">
+			<colgroup>
+				<col width="80%" />
+				<col width="" />
+			</colgroup>
+			<tr>
+				<td><div id="chatMessage" style="height: 500px;"></div></td>
+				<td><div id="online" style="height: 500px;"></div></td>
+			</tr>
+			<tr>
+				<td colspan="2"><div>
+						<input type="text" id="message" placeholder="메시지"
+							style="width: 100%" />
+					</div></td>
+			</tr>
+		</table>
+	</div>
+	<script>
+	$("#message").keydown(function(event) {
+	    if(event.keyCode == 13){
+	    	send();
+	    }
+	});
+	</script>
 </body>
 </html>
+

@@ -77,11 +77,6 @@ input {
 					});
 			}
 		});
-		
-		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
-		ws2.onmessage = function(rst) {
-			console.log(rst);
-		}
 	</script>
 </body>
 </html>

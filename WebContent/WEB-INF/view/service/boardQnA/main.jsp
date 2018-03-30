@@ -31,7 +31,7 @@
 				<tr>
 					<td>${(division * (now_page-1)) + bs.index + 1 }</td>
 					<td><a href="/board/read?id=${b.id }">${b.title }</a></td>
-					<td>${b.writer }</td>
+					<td>$(b.nick }(${b.writer })</td>
 					<td>${b.wdate }</td>
 					<td>${b.readnum }</td>
 					<td>${b.like }</td>

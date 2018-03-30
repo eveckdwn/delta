@@ -65,7 +65,7 @@ public class TravelController {
 	public String detailGetHandle(@RequestParam Map param, Model model, HttpSession session) {
 		List travel = travelService.readAllC((String)param.get("tname"));
 		model.addAttribute("travel", travel);
-
+		model.addAttribute("commentSize", travel.size());
 		if(param.get("info") != null) {
 			model.addAttribute("info", (String) param.get("info"));
 		}

@@ -114,8 +114,6 @@
 	<bean id="sessions" class="model.WebSocketMap" />
 
 	<websocket:handlers>
-		<websocket:mapping handler="wsController" path="/handle" />
-		<websocket:mapping handler="alertController" path="/alert" />
 		<websocket:mapping handler="chatController" path="/chat-ws"/>
 		<websocket:handshake-interceptors>
 			<bean

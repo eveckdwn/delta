@@ -39,34 +39,5 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		var ws1 = new WebSocket("ws://${pageContext.request.serverName}/handle");
-		// 연결이 됬을때. 
-		ws1.onopen = function() {
-			//console.log("opened ");
-			console.log(this);
-		}
-		// 메시지가 들어올때. 
-		ws1.onmessage = function(resp) {
-			console.log(resp);
-			var obj = JSON.parse(resp.data);
-			$("#cnt").html(obj.cnt);
-			$("#info").html(obj.info);
-		}
-		// 연결이 끊길때. 
-		ws1.onclose = function() {
-			window.alert("연결이 해제되었습니다.");
-		}
-
-		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
-		// 메시지가 들어올때. 
-		ws2.onmessage = function(rst) {
-			console.log(rst);
-			var obj = JSON.parse(rst.data);
-			$("#cnt").html(obj.cnt);
-			$("#info").html(obj.info);
-			$("#warn").show();
-		}
-	</script>
 </body>
 </html>

@@ -16,6 +16,7 @@
           <li><a href="#">여행 후기</a></li>
         </ul>
       </li>
+      <li><a href="/chat">여행 후기</a></li>
       <li><a href="/board/main?page=1">여행 Q&A</a></li>
     </ul>
   </div>

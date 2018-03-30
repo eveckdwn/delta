@@ -13,7 +13,7 @@ h3 {
 			alert('${info }');
 		</script>
 	</c:if>
-	<h2>${travel[0].TNAME }상세정보</h2>
+	<h2>${travel[0].TNAME } 상세정보</h2>
 	<hr />
 	<table class="table table-bordered table-hover text-center">
 		<colgroup>
@@ -104,8 +104,9 @@ h3 {
 			<tr>
 				<td><input type="hidden" name="trano" value="${travel[0].TID }" />
 					<input type="hidden" name="userid" value="${sessionScope.logon}" />
-					<input id="score" type="number" min="1" max="5" value="5"
-					name="trascore"
+					<input type="hidden" name="userid"
+					value="${sessionScope.logonNick}" /> <input id="score"
+					type="number" min="1" max="5" value="5" name="trascore"
 					style="padding: 12px; width: 100%; height: 100%; text-align: center;"
 					disabled="disabled" /></td>
 				<td><textarea name="tracomment"
@@ -167,30 +168,39 @@ h3 {
 	<table class="table table-bordered table-hover text-center">
 		<colgroup>
 			<col width="5%" />
-			<col width="20%" />
-			<col width="20%" />
+			<col width="5%" />
+			<col width="10%" />
 			<col width="" />
 		</colgroup>
 		<tr>
 			<th style="display: none">No.</th>
 			<th>점수</th>
-			<th>닉네임</th>
+			<th>닉네임(아이디)</th>
 			<th>평가</th>
 		</tr>
-		<c:forEach items="${travel }" var="t">
-			<tr>
-				<td style="display: none">${t.COMMENTNO }</td>
-				<td id="userscore" class="score">${t.TRASCORE }</td>
-				<td id="userid">${t.USERID }</td>
-				<td style="text-align: left;">${t.TRACOMMENT }&nbsp;<small>(${t.LEFTDATE })</small>
-					<c:if test="${t.USERID eq sessionScope.logon}">
-						<br />
-						<button type="button" onclick="commentProcess(this)">수정</button>&nbsp;<button
-							type="button" onclick="commentProcess(this)">삭제</button>
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
+		<c:choose>
+			<c:when test="${commentSize ne 0 }">
+				<c:forEach items="${travel }" var="t">
+					<tr>
+						<td style="display: none">${t.COMMENTNO }</td>
+						<td id="userscore" class="score" style="vertical-align: middle;">${t.TRASCORE }</td>
+						<td id="userid" style="vertical-align: middle;">${t.NICK }(${t.USERID })</td>
+						<td style="text-align: left; vertical-align: middle;">${t.TRACOMMENT }&nbsp;<small>(${t.LEFTDATE })</small>
+							<c:if test="${t.USERID eq sessionScope.logon}">
+								<br />
+								<button type="button" onclick="commentProcess(this)">수정</button>&nbsp;<button
+									type="button" onclick="commentProcess(this)">삭제</button>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="4" style="vertical-align: middle;">코멘트가 없습니다. 코멘트를 통해 다른 여행자가 참고할 수 있게 도와주세요.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 	</table>
 	<script>
 		function commentProcess(target){

@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="readAllC" resultType="hashmap">
-		select * from travel left join tcomments on travel.tid = tcomments.trano where tname = #{tname} order by commentno asc
+		select * from travel left join tcomments on travel.tid = tcomments.trano left join users on tcomments.userid = users.id where tname = #{tname} order by commentno asc
 	</select>
 	
 	<update id="updateC" parameterType="hashmap">

@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,10 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-
-import com.google.gson.Gson;
 
 import model.WebSocketMap;
 import service.GreetService;
@@ -45,17 +40,15 @@ public class LogInOutController {
 		int result = memberService.loginCheck(map);
 		switch (result) {
 		case 0:
-			session.setAttribute("logon", map.get("id"));
-
-			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
-			Map data = new HashMap();
-			data.put("cnt", sessions.size());
-			data.put("info", map.get("id") + " 님이 접속하였습니다.");
-			Gson gson = new Gson();
-			for (WebSocketSession ws : s) {
-				ws.sendMessage(new TextMessage(gson.toJson(data)));
+			Map info = memberService.mypageInfo(map);
+			session.setAttribute("logon", info.get("ID"));
+			session.setAttribute("logonNick", info.get("NICK"));
+			BigDecimal bd = (BigDecimal)info.get("LV");
+			if(bd.intValue()==3) {
+				return "redirect:/admin";
+			}else {
+				return "redirect:/";
 			}
-			return "redirect:/";
 		case 1:
 			model.addAttribute("ment", greetService.make());
 			model.addAttribute("err", "회원 정보가 존재하지 않습니다.\n회원가입을 해주세요.");

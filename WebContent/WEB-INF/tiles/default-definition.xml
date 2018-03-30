@@ -149,6 +149,16 @@
 		<put-attribute name="main" value="/WEB-INF/view/service/boardQnA/change.jsp"/>
 	</definition>
 	<!-- Board part End  -->
+	
+	<definition name="chat" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/service/chat/list.jsp"/>
+	</definition>
+	<definition name="chatroom" extends="logons">
+		<put-attribute name="main" value="/WEB-INF/view/service/chat/chat.jsp"/>
+	</definition>
+	<!-- Chat part Start -->
+	
+	<!-- Chat part End -->
 
 	<!-- EL support -->
 	<definition name="t_el" extends="default">
