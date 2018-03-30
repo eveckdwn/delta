@@ -1,15 +1,17 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +26,19 @@ import com.google.gson.Gson;
 import service.StationService;
 import service.UsersService;
 
-@RequestMapping("/chat")
-@Controller
+
+class ChatRoom {
+	String name;
+	ArrayList<WebSocketSession> sessions;
+	ArrayList<String> users;
+	
+	ChatRoom(String name) {
+		this.name = name;
+		sessions = new ArrayList<WebSocketSession>();
+		users = new ArrayList<String>();
+	}
+}
+
 public class ChatController extends TextWebSocketHandler {
 
 	@Autowired
@@ -34,14 +47,21 @@ public class ChatController extends TextWebSocketHandler {
 	@Autowired
 	StationService stationService;
 
-	private LinkedHashMap<String, List<WebSocketSession>> connectedUsers;
+	private LinkedHashMap<String, ChatRoom> connectedUsers;
 
 	public ChatController() {
-		connectedUsers = new LinkedHashMap<String, List<WebSocketSession>>();
-
-		connectedUsers.put("1", new ArrayList<>());
+		connectedUsers = new LinkedHashMap<String, ChatRoom>();
 	}
 
+	@PostConstruct
+	public void init() {
+		List<HashMap> stations = stationService.readAllStation();
+		for (HashMap station : stations) {
+			connectedUsers.put((String) station.get("NAME"), new ChatRoom(station.get("NAME") + " 채팅방"));
+		}
+	}
+
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String chat(HttpSession session, Model model) {
 		List stations = stationService.readAllStation();
@@ -51,24 +71,29 @@ public class ChatController extends TextWebSocketHandler {
 
 	@RequestMapping(path = "/chatroom")
 	public String chatRoom(HttpSession session, @RequestParam String id, Model model) {
+		if (connectedUsers.get(id) == null) {
+			return "";
+		}
 		model.addAttribute("crid", id);
+		model.addAttribute("crname", connectedUsers.get(id).name);
 		return "chatroom";
 	}
-
+	
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// System.out.println("로그인 한 닉네임 : " + getName(session.getAttributes()));
 		String name = "닉네임";
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
-
-		List<WebSocketSession> channel = connectedUsers.get(crid);
+		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		channel.add(session);
+		String message = addUser(crid, name);
+
 		for (WebSocketSession webSocketSession : channel) {
 			if (!session.getId().equals(webSocketSession.getId())) {
-				webSocketSession.sendMessage(new TextMessage(addUser(name)));
+				webSocketSession.sendMessage(new TextMessage(message));
 			} else {
-				// webSocketSession.sendMessage(new TextMessage(createUserList(crid))); // 접속중
-				// 유저 리스트
+				webSocketSession.sendMessage(new TextMessage(createUserList(crid))); // 접속중 유저 리스트
 			}
 		}
 	}
@@ -79,7 +104,7 @@ public class ChatController extends TextWebSocketHandler {
 		String name = "닉네임";
 
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
-		List<WebSocketSession> channel = connectedUsers.get(crid);
+		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		for (WebSocketSession webSocketSession : channel) {
 			webSocketSession.sendMessage(new TextMessage(createJsonMessage(name, message.getPayload())));
 		}
@@ -91,10 +116,12 @@ public class ChatController extends TextWebSocketHandler {
 		String name = "닉네임";
 
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
-		List<WebSocketSession> channel = connectedUsers.get(crid);
+		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		channel.remove(session);
+		String message = delUser(crid, name);
+
 		for (WebSocketSession webSocketSession : channel) {
-			webSocketSession.sendMessage(new TextMessage(delUser(name)));
+			webSocketSession.sendMessage(new TextMessage(message));
 		}
 	}
 
@@ -111,7 +138,8 @@ public class ChatController extends TextWebSocketHandler {
 		Map data = new HashMap();
 		data.put("type", "message");
 		data.put("name", name);
-		data.put("time", System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("a hh:mm");
+		data.put("time", sdf.format(new Date(System.currentTimeMillis())));
 		data.put("message", message);
 		Gson gson = new Gson();
 		return gson.toJson(data);
@@ -120,16 +148,14 @@ public class ChatController extends TextWebSocketHandler {
 	public String createUserList(String crid) {
 		Map data = new HashMap();
 		data.put("type", "userlist");
-		data.put("names", new ArrayList<>());
-		List<WebSocketSession> channel = connectedUsers.get(crid);
-		for (WebSocketSession webSocketSession : channel) {
-			((ArrayList) data.get("names")).add(getName(webSocketSession.getAttributes())); // 될려나?
-		}
+		data.put("names", connectedUsers.get(crid).users);
+
 		Gson gson = new Gson();
 		return gson.toJson(data);
 	}
 
-	public String addUser(String name) {
+	public String addUser(String crid, String name) {
+		connectedUsers.get(crid).users.add(name);
 		Map data = new HashMap();
 		data.put("type", "userAdd");
 		data.put("name", name);
@@ -137,7 +163,8 @@ public class ChatController extends TextWebSocketHandler {
 		return gson.toJson(data);
 	}
 
-	public String delUser(String name) {
+	public String delUser(String crid, String name) {
+		connectedUsers.get(crid).users.remove(name);
 		Map data = new HashMap();
 		data.put("type", "userDel");
 		data.put("name", name);
