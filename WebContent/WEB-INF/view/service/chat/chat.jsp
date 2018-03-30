@@ -32,7 +32,8 @@
 		// 그냥 유저 관련된걸 어디 변수에 저장해서 직접 뿌려주는게 더 나은가?
 		// 그렇게 하면 근데 계속 업데이트해주는게 되나?
 		case "userList" :
-			for (var i=0; i<obj.names; i++) {
+			console.log(obj.names);
+			for (var i=0; i<obj.names.length; i++) {
 				$("#online").append(obj.names[i]);
 	        	$("#online").append("<br />");
 			}
@@ -42,8 +43,10 @@
 	        $("#online").append("<br />");
 			break;
 		case "userDel" :
-			// 흐음
-			// 그냥 지워준다고 치면 '별빛'이 나가면 실제로 별빛<br/> 으로 닉네임을 지은 애가 사라지면?
+			console.log($("#online").html());
+			console.log(obj.name+"<br>");
+			$("#online").html($("#online").html().replace(obj.name+"<br>", ""));
+			console.log($("#online").html());
 			break;
 		}
 		

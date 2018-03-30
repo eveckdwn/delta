@@ -59,8 +59,10 @@ public class ChatController extends TextWebSocketHandler {
 	@PostConstruct
 	public void init() {
 		List<HashMap> stations = stationService.readAllStation();
+		int n = 0;
 		for (HashMap station : stations) {
-			connectedUsers.put((String) station.get("NAME"), new ChatRoom(station.get("NAME") + " 채팅방"));
+//			connectedUsers.put((String) station.get("NAME"), new ChatRoom(station.get("NAME") + " 채팅방"));
+			connectedUsers.put(Integer.toString(n++), new ChatRoom(station.get("NAME") + " 채팅방"));
 		}
 	}
 
@@ -86,6 +88,7 @@ public class ChatController extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		String name = getName(session.getAttributes());
+		System.out.println(session.getUri().toString());
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		channel.add(session);
@@ -129,7 +132,6 @@ public class ChatController extends TextWebSocketHandler {
 		String logon = (String) map.get("logon");
 		Map log = new HashMap<>();
 		log.put("id", logon);
-		System.out.println(log);
 		Map my = users.mypageInfo(log);
 		return (String) my.get("NICK");
 	}
@@ -147,7 +149,7 @@ public class ChatController extends TextWebSocketHandler {
 
 	public String createUserList(String crid) {
 		Map data = new HashMap();
-		data.put("type", "userlist");
+		data.put("type", "userList");
 		data.put("names", connectedUsers.get(crid).users);
 
 		Gson gson = new Gson();

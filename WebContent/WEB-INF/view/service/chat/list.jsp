@@ -29,7 +29,7 @@
 				<tr>
 					<td>${s.NAME }</td>
 					<td>${s.ADDR }</td>
-					<td><a href="/chat/chatroom?id=${s.NAME }"><button style="width:100%; cursor: pointer;">채팅방 입장하기</button></a></td>
+					<td><a href="/chat/chatroom?id=${sts.index }"><button style="width:100%; cursor: pointer;">채팅방 입장하기</button></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
