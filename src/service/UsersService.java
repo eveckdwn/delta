@@ -73,7 +73,6 @@ public class UsersService {
 	}
 
 	public Map mypageInfo(Map map) {
-
 		Map myinfo = template.selectOne("users.loginInfo", map);
 		return myinfo;
 	}
