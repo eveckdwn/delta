@@ -2,28 +2,31 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type='text/css'>
-	#slidebox {
-		position:relative;
-		width:480px;
-		height:270px;
-		overflow:hidden;
-		white-space:nowrap;
-		border:1px solid #000;
-	}
-	#slidebox ul#slider {
-		list-style:none;
-		margin:0;
-		padding:0;
-	}
-	#slidebox ul li {
-		position:absolute;
-		width:480px;
-		height:270px;
-	}
-	#slidebox ul li img {
-		width:480px;
-		height:270px;
-	}
+#slidebox {
+	position: relative;
+	width: 480px;
+	height: 270px;
+	overflow: hidden;
+	white-space: nowrap;
+	border: 1px solid #000;
+}
+
+#slidebox ul#slider {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#slidebox ul li {
+	position: absolute;
+	width: 480px;
+	height: 270px;
+}
+
+#slidebox ul li img {
+	width: 480px;
+	height: 270px;
+}
 </style>
 
 <html>
@@ -33,54 +36,48 @@
 </c:forEach>
 </head>
 <body>
-	<div
-		style="border-top: 1px groove; border-bottom: 1px groove; border-left: 1px groove; border-right: 1px groove; padding: 10px;">
+	<form method="post">
 		<c:forEach var="i" items="${read }">
-			<b>${i.title }</b>
-			<hr style="color: #E6E6E6;">
-			<p align="right">조회수(${i.readnum }) | ${i.wdate }</p>
+			<div
+				style="border-top: 1px groove; border-bottom: 1px groove; border-left: 1px groove; border-right: 1px groove; padding: 10px;">
+				<b>${i.title }</b>
+				<hr style="color: #E6E6E6;">
+				<p align="right">조회수(${i.readnum }) | ${i.wdate }</p>
 
-			<c:if test="${!empty i.photos }">
-				<div id="slidebox">
-					<ul id="slider">
-						<c:forEach var="photo" items="${i.photos }">
-							<li>
-							<img
-								src="<%=request.getContextPath() %>/board/${i.writer }/${photo }" />
-							</li>
-						</c:forEach>
-					</ul>
-				</div>
-				<small style="color: #848484">[사진이 여러개 일경우 클릭하면 다음 사진으로 넘어갑니다.]</small>
-			</c:if>
-			<p>${i.context }</p>
-			<p align="right">이 작성자의 게시글 더보기</p>
-			<hr style="color: #E6E6E6;" width="190px" align="right">
-			<p align="center">
-				<button style="width: 100px; height: 100px">
-					<img src="/image/like2.jpg" style="width: 100%; height: 100%"
-						align="top">${i.like }</button>
-			</p>
-			<p>
-				<b><a style="color: #FE642E;">댓글()</a></b>
-			</p>
+				<c:if test="${!empty i.photos }">
+					<div id="slidebox">
+						<ul id="slider">
+							<c:forEach var="photo" items="${i.photos }">
+								<li><img
+									src="<%=request.getContextPath() %>/board/${i.writer }/${photo }" />
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+					<small style="color: #848484">[사진이 여러개 일경우 클릭하면 다음 사진으로
+						넘어갑니다.]</small>
+				</c:if>
+				<p>${i.context }</p>
+				<p align="right">이 작성자의 게시글 더보기</p>
+				<hr style="color: #E6E6E6;" width="190px" align="right">
+				<p align="center">
+					<button style="width: 100px; height: 100px">
+						<img src="/image/like2.jpg" style="width: 100%; height: 100%"
+							align="top">${i.like }</button>
+				</p>
+				<p>
+					<b><a style="color: #FE642E;">댓글()</a></b>
+				</p>
+			</div>
+			<div style="margin-top: 10px;" align="right">
+				<c:if test="${sessionScope.logon == i.writer }">
+					<button type="submit" formaction="/boardEdit">수정</button>
+					<input type="hidden" name="id" value="${i.id }" />
+					<button type="submit" formaction="/board/boardDel">삭제</button>
+				</c:if>
+			</div>
 		</c:forEach>
-		<div style="background-color: #E6E6E6;">
-			으아
-			<hr style="color: #E6E6E6;">
-		</div>
-	</div>
-	<p align="right">
-		<c:if test="${sessionScope.logon }">
-			<input type="button" value="수정하기"
-				onclick="location.href='/board/change?no=3';" />
-		</c:if>
-	</p>
-
-	<div>
-		<textarea rows="10" cols="100" style="width: 100%;"></textarea>
-	</div>
-
+	</form>
 </body>
 </html>
 
