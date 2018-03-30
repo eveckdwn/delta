@@ -62,11 +62,8 @@
 							style="width: 650px; height: 350px;"></textarea></td>
 				</tr>
 				<tr>
-					<td align="right" style="padding-right: 10px;">첨부 파일</td>
+					<td align="right" style="padding-right: 10px;">첨부 사진</td>
 					<td><input type="file" name="photos" id="p" multiple /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><img id="preview" style="width:50px; height:50px;"></img></td>
 				</tr>
 			</table>
 			<div align="center">
@@ -127,11 +124,5 @@
 			this.value = "";
 			return;
 		}
-		var reader = new FileReader();
-		reader.onload = function() {
-			console.log(reader);
-			document.getElementById("preview").src = this.result;
-		}
-		reader.readAsDataURL(this.files[0]);
 	}
 </script>

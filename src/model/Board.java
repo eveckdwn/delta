@@ -17,7 +17,7 @@ public class Board {
 	public String wdate;
 	public String type;
 	public String tab;
-	public String photos;
+	public String[] photos;
 
 	public Board() {
 	}
@@ -46,11 +46,11 @@ public class Board {
 		if(param.get("tab") != null)
 			this.tab = (String) param.get("tab");
 		if(param.get("photos") != null)
-			this.photos = (String) param.get("photos");
+			this.photos = (String[]) param.get("photos");
 	}
 	
 	public Board(ObjectId id, String writer, String title, String context, String readnum, String like, String wdate, String type,
-			String tab) {
+			String tab,String[] photos) {
 		this.id = id;
 		this.writer = writer;
 		this.title = title;
@@ -60,8 +60,17 @@ public class Board {
 		this.wdate = wdate;
 		this.type = type;
 		this.tab = tab;
+		this.photos = photos;
 	}
-
+	
+	public String[] getPhotos() {
+		return photos;
+	}
+	
+	public void setPhotos(String[] Photos) {
+		this.photos = photos;
+	}
+	
 	public ObjectId getId() {
 		return id;
 	}

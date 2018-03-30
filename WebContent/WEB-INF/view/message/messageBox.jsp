@@ -14,6 +14,7 @@
 		<hr />
 		<div align="right" style="margin-bottom: 10px;">
 			<button type="button" onclick="del();">삭제</button>
+			
 			<a href="/message/send"><button type="button">쪽지 보내기</button></a>
 		</div>
 		<table style="width: 80%; height: 20%;" border="1">

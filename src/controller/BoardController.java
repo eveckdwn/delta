@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import service.BoardService;
 import service.StationService;
@@ -53,12 +54,13 @@ public class BoardController {
 	}
 
 	@RequestMapping("/result")
-	public String Result(@RequestParam Map param, Model model, String id, HttpSession session) {
+	public String Result(@RequestParam Map param, @RequestParam(name="photos") MultipartFile[] photos, Model model, String id, HttpSession session) {
 
 		System.out.println(param);
+		System.out.println(photos.length);
 		
 		try {
-			boardService.insert(param);
+			boardService.insert(param,photos);
 			
 			model.addAttribute("find", boardService.find(id));
 			

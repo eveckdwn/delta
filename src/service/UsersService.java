@@ -123,7 +123,6 @@ public class UsersService {
 	}
 
 	public boolean updateAccount(Map map, MultipartFile photo) throws IOException {
-
 		if (!photo.isEmpty()) {
 			File savedir = new File(ctx.getRealPath("/photo"), (String) map.get("id"));
 			if (!savedir.exists()) {

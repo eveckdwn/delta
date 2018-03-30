@@ -99,9 +99,19 @@ public class MessageController {
 	// System.out.println(multiMap.get("mid[]"));
 	// return String.valueOf(messageService.delMessage(multiMap));
 	// }
-	public String delMessage(@RequestParam(name = "mid[]") String[] mid) {
-		System.out.println(mid[1]);
-		return String.valueOf(messageService.delMessage(mid));
+	public String delMessage(@RequestParam(name = "mid[]") String[] mid, HttpSession session) {
+		
+		String logon = (String) session.getAttribute("logon");
+		Map log = new HashMap<>();
+		log.put("id", logon);
+		Map my = users.mypageInfo(log);
+		if(my.get("ID").equals(session.getAttribute("logon"))) {
+			return String.valueOf(messageService.delMessage(mid));
+		}else {
+			return String.valueOf(false);
+		}
+		
+		
 	}
 
 	@RequestMapping(path = "/resend", produces = "application/json;charset=utf-8")
