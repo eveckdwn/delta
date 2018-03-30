@@ -2,7 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2>여행 Q&A</h2>
+<c:choose>
+	<c:when test="${menu eq  1}">
+		<h2>여행 가요</h2>
+	</c:when>
+	<c:when test="${menu eq  2}">
+		<h2>여행 후기</h2>
+	</c:when>
+	<c:otherwise>
+		<h2>Q & A</h2>
+	</c:otherwise>
+</c:choose>
 <p>
 <hr style="border: solid 2px; color: #D8D8D8" />
 <p />
@@ -30,7 +40,7 @@
 			<tbody>
 				<tr>
 					<td>${(division * (now_page-1)) + bs.index + 1 }</td>
-					<td><a href="/board/read?id=${b.id }">${b.title }</a></td>
+					<td><a href="/board/read?id=${b.id }&code=${b.id }">${b.title }</a></td>
 					<td>${b.writer }</td>
 					<td>${b.wdate }</td>
 					<td>${b.readnum }</td>
@@ -42,7 +52,7 @@
 	<table align="center">
 		<tr>
 			<td style="margin: 5px; padding: 5px"><a
-				href="/board/main?page=1">&lt;&lt;</a></td>
+				href="/board/main?menu=${menu }&page=1">&lt;&lt;</a></td>
 			<%
 				for (int i = 1; i <= (int) session.getAttribute("all_page"); i++) {
 					if (i == Integer.parseInt(request.getParameter("page"))) {
@@ -52,13 +62,13 @@
 				} else {
 			%>
 			<td style="margin: 5px; padding: 5px"><a
-				href="/board/main?page=<%=i%>"><%=i%></a></td>
+				href="/board/main?menu=${menu }&page=<%=i%>"><%=i%></a></td>
 			<%
 				}
 				}
 			%>
 			<td style="margin: 5px; padding: 5px"><a
-				href="/board/main?page=<%=(int) session.getAttribute("all_page")%>">&gt;&gt;</a></td>
+				href="/board/main?menu=${menu }&page=<%=(int) session.getAttribute("all_page")%>">&gt;&gt;</a></td>
 		</tr>
 	</table>
 </div>
@@ -71,6 +81,7 @@
 
 <div align="center">
 	<form action="/board/main" method="post">
+		<input type="hidden" name="menu" value="${menu }"/>
 		<select style="font-size: 15px; , height: 24px;" name="mode">
 			<option value="title">제목만</option>
 			<option value="writer">글작성자</option>

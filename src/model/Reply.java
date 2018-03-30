@@ -10,25 +10,27 @@ public class Reply {
 	public String context;
 	public String like;
 	public String wdate;
+	public String code;
 
-	public Reply(Map param) {
-		if(param.get("id") != null)
-			this.id = (ObjectId) param.get("id");
-		if(param.get("writer") != null)
-			this.writer = (String) param.get("writer");
-		if(param.get("context") != null)
-			this.context = (String) param.get("context");
-		if(param.get("like") != null)
-			this.like = (String) param.get("like");
-		if(param.get("wdate") != null)
-			this.wdate = (String) param.get("wdate");
-		
+	public Reply() {
+
 	}
-	
-	
-	
 
-	public Object getId() {
+	public Reply(Map pop) {
+		if (pop.get("writer") != null)
+			this.writer = (String) pop.get("writer");
+		if (pop.get("context") != null)
+			this.context = (String) pop.get("context");
+		if (pop.get("like") != null)
+			this.like = (String) pop.get("like");
+		if (pop.get("wdate") != null)
+			this.wdate = (String) pop.get("wdate");
+		if (pop.get("code") != null)
+			this.code = (String) pop.get("code");
+
+	}
+
+	public ObjectId getId() {
 		return id;
 	}
 
@@ -67,14 +69,20 @@ public class Reply {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	@Override
 	public String toString() {
-		return "Reply [id=" + id + ", writer=" + writer + ", context" + context + ", like="
-				+ like + ", wdate" + wdate + "]";
+		return "Reply [id=" + id + ", writer=" + writer + ", context=" + context + ", like=" + like + ", wdate=" + wdate
+				+ ", code=" + code + "]";
 	}
-	
-	
-	
-}
 
+
+}

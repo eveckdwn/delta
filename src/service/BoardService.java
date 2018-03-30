@@ -38,10 +38,10 @@ public class BoardService {
 		return hero;
 	}
 	
-	public List find(String id) {
+	public Board find(String id) {
 		Query q = new Query();
 		q.addCriteria(new Criteria().where("_id").is(id));
-		List find = mongoOperation.find(q, Board.class, "board");
+		Board find = mongoOperation.findOne(q, Board.class, "board");
 		
 		return find;
 	}
