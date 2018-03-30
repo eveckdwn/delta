@@ -10,12 +10,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		0)
 	</insert>
 	<select id="getMessagesByReceiver" resultType="hashmap">
-		select * from
-		message where receiver=#{id}
+		select * from users inner join MESSAGE on users.nick=message.mnick 
+		where message.receiver=#{id}
 	</select>
 	<select id="getMessageByUid" resultType="hashmap">
-		select * from message
-		where mid=#{mid}
+		select * from message inner join users on users.nick=message.mnick 
+		where message.mid=#{mid}
 	</select>
 	<update id="readMessage">
 		update message set status = 1 where mid = #{mid}

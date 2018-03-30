@@ -13,7 +13,7 @@
 		<table style="width: 80%; height: 20%; margin-bottom: 15px;" border="1">
 			<tr>
 				<th style="width: 20%;">보낸 사람</th>
-				<td>${msg.MNICK }</td>
+				<td>${msg.MNICK }(${msg.ID })</td>
 			</tr>
 			<tr>
 				<th style="width: 20%;">보낸 시간</th>
@@ -24,7 +24,7 @@
 				<td style="height: 300px; word-break:break-all;" >${msg.CONTEXT }</td>
 			</tr>
 		</table>
-		<a href="/message/box"><button type="button">목록</button></a>
+		<a href="/message/box?page=1"><button type="button">목록</button></a>
 		<button type="button" onclick="resend()" id="re" value="${msg.MNICK }">답장</button>
 	</div>
 </body>
