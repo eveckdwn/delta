@@ -35,8 +35,20 @@ public class ReplyService {
 		return find;
 	}
 	
-	public void insert(Map param) {
-		reply = new Reply(param);
+	public List find(String code) {
+		Query q = new Query();
+		q.addCriteria(new Criteria().where("code").is(code));
+		List find = mongoOperation.find(q, Board.class, "reply");
+		
+		return find;
+	}
+	
+	
+	
+	
+	
+	public void insert(Map pop) {
+		reply = new Reply(pop);
 		mongoOperation.insert(reply);
 	}
 	

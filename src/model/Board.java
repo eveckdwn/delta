@@ -17,7 +17,20 @@ public class Board {
 	public String wdate;
 	public String type;
 	public String tab;
+	public String nick;
+	public String menu;
 	
+	
+	
+	
+	public String getMenu() {
+		return menu;
+	}
+
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+
 	public Board() {
 		
 	}
@@ -45,20 +58,19 @@ public class Board {
 			this.type = (String) param.get("type");
 		if(param.get("tab") != null)
 			this.tab = (String) param.get("tab");
+		if(param.get("nick") != null)
+			this.tab = (String) param.get("nick");
 	}
 	
-	public Board(ObjectId id, String writer, String title, String context, String readnum, String like, String wdate, String type,
-			String tab) {
-		this.id = id;
-		this.writer = writer;
-		this.title = title;
-		this.context = context;
-		this.readnum = readnum;
-		this.like = like;
-		this.wdate = wdate;
-		this.type = type;
-		this.tab = tab;
+	public String getNick() {
+		return nick;
 	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	
 
 	public ObjectId getId() {
 		return id;
@@ -135,7 +147,11 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [id=" + id + ", writer=" + writer + ", title=" + title + ", context=" + context + ", readnum="
-				+ readnum + ", like=" + like + ", wdate=" + wdate + ", type=" + type + ", tab=" + tab + "]";
+				+ readnum + ", like=" + like + ", wdate=" + wdate + ", type=" + type + ", tab=" + tab + ", nick=" + nick
+				+ ", menu=" + menu + "]";
 	}
+
+	
+	
 	
 }
