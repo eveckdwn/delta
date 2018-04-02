@@ -213,8 +213,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/write", method = RequestMethod.GET)
-	public String WriteGET(Model model,HttpSession session,
-			HttpServletRequest request, @RequestParam String menu) {
+	public String WriteGET(Model model, HttpSession session, HttpServletRequest request, @RequestParam String menu) {
 
 		model.addAttribute("station", stationservice.readAllStation());
 		model.addAttribute("findAll", boardService.findAll());
@@ -235,8 +234,8 @@ public class BoardController {
 		try {
 			boardService.insert(param, photos);
 			model.addAttribute("succ", "글이 작성되었습니다.");
-			model.addAttribute("page", 1);
 			model.addAttribute("menu", param.get("menu"));
+			model.addAttribute("page", 1);
 			return "redirect:/board/main";
 		} catch (Exception e) {
 			model.addAttribute("err", "글 작석이 실패하였습니다.");
@@ -298,6 +297,24 @@ public class BoardController {
 		model.addAttribute("content", "dasdsadsadsad");
 
 		return "/board/change";
+	}
+
+	@RequestMapping(path = "/boardDel", method =RequestMethod.POST)
+	public String Delete(@RequestParam String id, @RequestParam String menu, Model model,HttpSession session) {
+		System.out.println(id);
+		boolean rst = boardService.delete(id);
+
+		if (rst) {
+			model.addAttribute("find",boardService.findAll());
+			model.addAttribute("succ", "게시물이 삭제 되었습니다.");
+			model.addAttribute("menu", menu);
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
+		} else {
+			model.addAttribute("read",boardService.find(id));
+			return "read_logon";
+		}
+
 	}
 
 }

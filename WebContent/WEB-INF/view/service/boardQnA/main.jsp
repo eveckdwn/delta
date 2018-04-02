@@ -3,23 +3,30 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:if test="${!empty succ }">
-	<script>
-		alert("${succ}");
-		
-	
-	</script>
-
-</c:if>
 
 <c:choose>
 	<c:when test="${menu eq  1}">
+		<c:if test="${!empty succ }">
+			<script>
+				alert("${succ}");
+			</script>
+		</c:if>
 		<h2>여행 가요</h2>
 	</c:when>
 	<c:when test="${menu eq  2}">
+		<c:if test="${!empty succ }">
+			<script>
+				alert("${succ}");
+			</script>
+		</c:if>
 		<h2>여행 후기</h2>
 	</c:when>
 	<c:otherwise>
+		<c:if test="${!empty succ }">
+			<script>
+				alert("${succ}");
+			</script>
+		</c:if>
 		<h2>Q & A</h2>
 	</c:otherwise>
 </c:choose>
