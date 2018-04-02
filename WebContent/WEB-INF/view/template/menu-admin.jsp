@@ -96,7 +96,7 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">Together</a>
-		</div>
+		</div>"WebContent/WEB-INF/view/service/travel/content.jsp"
 		<ul class="nav navbar-nav">
 			<li class="active"><a href="/">Home</a></li>
 			<li><a href="/travel/station?page=1">여행 정보</a></li>
