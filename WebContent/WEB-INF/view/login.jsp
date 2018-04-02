@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-<title>Spring - managed by GIT</title>
-</head>
 <style>
 a {
 	text-decoration: none;
@@ -15,7 +11,6 @@ input {
 	width: 100%;
 }
 </style>
-<body>
 	<div align="center">
 		<div style="width: 980px;">
 			<div>
@@ -64,5 +59,3 @@ input {
 			console.log(rst);
 		}
 	</script>
-</body>
-</html>

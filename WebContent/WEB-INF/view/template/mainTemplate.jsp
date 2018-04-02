@@ -17,8 +17,9 @@
 <style>
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
 .row.content {
-	height: 1500px;
+	height: 750px;
 }
+
 
 /* Set gray background color and 100% height */
 .sidenav {
@@ -51,9 +52,6 @@ footer {
 	</header>
 	<div class="container-fluid">
 		<div class="row content">
-			<div class="col-sm-2 sidenav">
-				<tiles:insertAttribute name="side"/>
-			</div>
 			<div class="col-sm-10">
 				<tiles:insertAttribute name="main"/>
 			</div>

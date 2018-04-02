@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h4>Welcome to Spring</h4>
+<h4>Welcome to Together</h4>
 <hr />
 <ul class="nav nav-pills nav-stacked">
 	<li class="dropdown"><a class="dropdown-toggle"

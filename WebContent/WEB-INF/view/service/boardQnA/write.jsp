@@ -9,69 +9,48 @@
 
 	String str = dayTime.format(new Date(time));
 %>
-<html>
-<head>
-<title>글쓰기</title>
-
-<c:if test="${find ne null }">
-	<script>
-		
-	</script>
-</c:if>
-<!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
-<script type="text/javascript" src="/SE2/js/service/HuskyEZCreator.js"
-	charset="utf-8"></script>
-<!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-</head>
-<body>
-	<form id="frm" method="post">
-		<div align="center">
-			<table width="50%">
-				<tr>
-					<td>내용 유형</td>
-					<td><select name="type">
-							<option id="type" value="일반">일반</option>
-							<option id="type" value="이벤트">이벤트</option>
-							<option id="type" value="공지">공지</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td>기차역</td>
-					<td><select name="tab">
-							<c:forEach var="i" items="${station }">
-								<option value="${i.NAME }">${i.NAME }</option>
-							</c:forEach>
-					</select></td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td><input type="text" id="title" name="title"
-						style="width: 650px" /></td>
-				</tr>
-				<tr>
-					<td>내용</td>
-					<td><textarea rows="10" cols="30" id="ir1" name="context"
-							style="width: 650px; height: 350px;"></textarea></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center"><input type="hidden"
-						name="page" value="1" />
-						<button type="submit" id="save">저장</button>
-						<button type="button">취소</button></td>
-				</tr>
-			</table>
-			<input type="hidden" name="writer" value="${sessionScope.logon }" />
-			<input type="hidden" name="readnum" value="0" /> <input
-				type="hidden" name="like" value="0" /> <input type="hidden"
-				name="wdate" value="<%=str%>" />
-		</div>
-	</form>
-
-
-</body>
-</html>
+<form id="frm" method="post">
+	<div align="center">
+		<table width="50%">
+			<tr>
+				<td>내용 유형</td>
+				<td><select name="type">
+						<option id="type" value="일반">일반</option>
+						<option id="type" value="이벤트">이벤트</option>
+						<option id="type" value="공지">공지</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>기차역</td>
+				<td><select name="tab">
+						<c:forEach var="i" items="${station }">
+							<option value="${i.NAME }">${i.NAME }</option>
+						</c:forEach>
+				</select></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td><input type="text" id="title" name="title"
+					style="width: 650px" /></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td><textarea rows="10" cols="30" id="ir1" name="context"
+						style="width: 650px; height: 350px;"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="hidden" name="page"
+					value="1" />
+					<button type="submit" id="save">저장</button>
+					<button type="button">취소</button></td>
+			</tr>
+		</table>
+		<input type="hidden" name="writer" value="${sessionScope.logon }" />
+		<input type="hidden" name="readnum" value="0" /> <input type="hidden"
+			name="like" value="0" /> <input type="hidden" name="wdate"
+			value="<%=str%>" />
+	</div>
+</form>
 
 <script type="text/javascript">
 	var oEditors = [];

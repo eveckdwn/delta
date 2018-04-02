@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
-<head>
-<title>Admin-Certification</title>
-</head>
-<body>
 	<div>
 		<h2>Warning Are You Administrator?</h2>
 		<hr />
@@ -19,7 +14,3 @@
 			</form>
 		</div>
 	</div>
-
-</body>
-</html>
-

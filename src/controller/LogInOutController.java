@@ -61,6 +61,7 @@ public class LogInOutController {
 			return "t_el";
 		case 3:
 			session.setAttribute("logon", map.get("id"));
+			session.setAttribute("auth", true);
 			return "admin_index";
 		default:
 			model.addAttribute("ment", greetService.make());

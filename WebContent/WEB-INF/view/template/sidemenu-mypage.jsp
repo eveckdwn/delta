@@ -6,7 +6,7 @@
 <%
 	String logon = (String)session.getAttribute("logon");	
 %>
-<h4>Welcome to Spring</h4>
+<h4>Welcome to Together</h4>
 <hr />
 <ul class="nav nav-pills nav-stacked">
 

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">WebSiteName</a>
+      <a class="navbar-brand" href="/">Together</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
@@ -16,6 +16,7 @@
           <li><a href="#">여행 후기</a></li>
         </ul>
       </li>
+      <li><a href="/chat">실시간 채팅</a></li>
       <li><a href="/board/main?page=1">여행 Q&A</a></li>
       <li><a href="/admin">Admin</a></li>
     </ul>
