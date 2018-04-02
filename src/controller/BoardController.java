@@ -213,8 +213,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/write", method = RequestMethod.GET)
-	public String WriteGET(Model model,HttpSession session,
-			HttpServletRequest request, @RequestParam String menu) {
+	public String WriteGET(Model model, HttpSession session, HttpServletRequest request, @RequestParam String menu) {
 
 		model.addAttribute("station", stationservice.readAllStation());
 		model.addAttribute("findAll", boardService.findAll());
@@ -250,8 +249,10 @@ public class BoardController {
 			@RequestParam String code) {
 
 		try {
-			System.out.println(code);
+			//	System.out.println(code);
 
+			//	TODO : 조회스 증가
+			
 			model.addAttribute("read", boardService.find(id));
 			model.addAttribute("length", replyService.find(code).size());
 			model.addAttribute("reply", replyService.find(code));
@@ -274,15 +275,10 @@ public class BoardController {
 		System.out.println(pop);
 		try {
 			replyService.insert(pop);
+			model.addAttribute("id", (String) pop.get("id"));
+			model.addAttribute("code", (String) pop.get("code"));
+			return "redirect:/board/read";
 
-			model.addAttribute("read", boardService.find((String) pop.get("id")));
-			model.addAttribute("reply", replyService.find((String) pop.get("code")));
-			if (session.getAttribute("logon") == null) {
-				return "read_default";
-			} else {
-				return "read_logon";
-
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 

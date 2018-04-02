@@ -38,40 +38,48 @@
 				onclick="location.href='/board/change?no=3';" />
 		</c:if>
 	</p>
+	<c:choose>
+		<c:when test="${sessionScope.logon ne null }">
+			<form method="post">
+				<table>
+					<colgroup>
+						<col width="80%" />
+						<col width="20%" />
+					</colgroup>
+					<tr>
+						<td colspan="2" align="center">
+							<div>
+								<textarea name="context" rows="4" cols="70" style="width: 100%;"
+									placeholder="내용을 입력해주세요."></textarea>
+							</div>
+						</td>
+						<td><input type="hidden" name="writer"
+							value="${sessionScope.logon }" /> <input type="hidden"
+							name="like" value="0" /> <input type="hidden" name="code"
+							value="${read.id }" /> <input type="hidden" name="wdate"
+							value="<%=str%>" /></td>
 
-	<form method="post">
-		<table>
-			<colgroup>
-				<col width="80%"/>
-				<col width="20%"/>
-			</colgroup>
-			<tr>
-				<td colspan="2" align="center">
-					<div>
-						<textarea name="context" rows="4" cols="70" style="width: 100%;"
-							placeholder="내용을 입력해주세요."></textarea>
-					</div>
-				</td>
-				<td><input type="hidden" name="writer"
-					value="${sessionScope.logon }" /> <input type="hidden" name="like"
-					value="0" /> <input type="hidden" name="code" value="${read.id }" />
-					<input type="hidden" name="wdate" value="<%=str%>" />
-				</td>
-				<td><button type="submit" style="widows: 300px; height: 90px">등록</button></td>
-			</tr>
-		</table>
-	</form>
+						<td><button type="submit" style="widows: 300px; height: 90px">등록</button></td>
+
+					</tr>
+				</table>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<p>로그인을 하시면 댓글을 입력하실 수 있습니다.</p>
+		</c:otherwise>
+	</c:choose>
 	<div>
-	<c:forEach var="i" items="${reply }">
-		<a>${i.writer }</a><p align="right">${i.wdate } |${i.like }<p>  <br/>
-		<p>${i.context }</p>
-	<hr color="black"/>
-	</c:forEach>
+		<c:forEach var="i" items="${reply }">
+			<a>${i.writer }</a>
+			<p align="right">${i.wdate }|${i.like }
+			<p>
+				<br />
+			<p>${i.context }</p>
+			<hr color="black" />
+		</c:forEach>
 		<hr style="color: #E6E6E6;">
 	</div>
 
 </body>
 </html>
-
-
-
