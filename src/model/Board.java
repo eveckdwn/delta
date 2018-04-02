@@ -59,7 +59,9 @@ public class Board {
 		if(param.get("tab") != null)
 			this.tab = (String) param.get("tab");
 		if(param.get("nick") != null)
-			this.tab = (String) param.get("nick");
+			this.nick = (String) param.get("nick");
+		if(param.get("menu") != null)
+			this.menu = (String) param.get("menu");
 	}
 	
 	public String getNick() {

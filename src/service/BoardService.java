@@ -31,10 +31,10 @@ public class BoardService {
 	}
 	
 	public List findAll() {
-		Query q = new Query();
-		q.addCriteria(new Criteria().where("menu").is("menu"));
-		List hero = mongoOperation.find(q, Board.class, "board");	//	조건 검색
-		//List hero = mongoOperation.findAll(Board.class, "board");	//	전체 검색
+		//Query q = new Query();
+	//	q.addCriteria(new Criteria().where("menu").is("menu"));
+		//List hero = mongoOperation.find(q, Board.class, "board");	//	조건 검색
+		List hero = mongoOperation.findAll(Board.class, "board");	//	전체 검색
 		
 		return hero;
 	}
@@ -47,9 +47,22 @@ public class BoardService {
 		return find;
 	}
 	
-	public List Search(String mode, String value) {
+	public List findMenu(String menu) {
 		Query q = new Query();
-			q.addCriteria(new Criteria().where(mode).regex(value));
+		q.addCriteria(new Criteria().where("menu").is(menu));
+		List find = mongoOperation.find(q, Board.class, "board");
+		
+		return find;
+	}
+	
+	
+	
+	
+	
+	
+	public List Search(String menu,String mode, String value) {
+		Query q = new Query();
+			q.addCriteria(new Criteria().and("menu").is(menu).and(mode).regex(value));
 			
 		List find = mongoOperation.find(q, Board.class, "board");
 		
