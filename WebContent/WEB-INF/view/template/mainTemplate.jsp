@@ -20,7 +20,6 @@
 	height: 750px;
 }
 
-
 /* Set gray background color and 100% height */
 .sidenav {
 	background-color: #f1f1f1;
@@ -48,17 +47,22 @@ footer {
 </head>
 <body>
 	<header class="container-fluid">
-		<tiles:insertAttribute name="menu"/>
+		<tiles:insertAttribute name="menu" />
 	</header>
 	<div class="container-fluid">
 		<div class="row content">
-			<div class="col-sm-10">
-				<tiles:insertAttribute name="main"/>
+			<div class="col-sm-12">
+				<tiles:insertAttribute name="main" />
 			</div>
 		</div>
 	</div>
-	<footer class="container-fluid">
-		<h2>Tiles Template Engine</h2>
+	<footer class="container-fluid" style="text-align:right;">
+		<h2>TOGETHER TEAM</h2>
+		KG ITbank 자바 언어 기반 웹 개발자 과정 최종 프로젝트<br/>
+		mail : ncs13master@gmail.com<br/>
+		ⓒ 2018 Together Team : 김성헌, 문지범, 손창주, 이승휴 All Rights Reserved.
 	</footer>
 </body>
 </html>
+
+

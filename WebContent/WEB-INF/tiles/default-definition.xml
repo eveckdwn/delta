@@ -86,15 +86,13 @@
 	
 	<!-- Service part Start -->
 	<definition name="service_default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Spring MVC"/>
+		<put-attribute name="title" value="TOGETHER SERVICE"/>
 		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-index.jsp"/>
 	</definition>
 	
 	<definition name="service_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Spring MVC"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-mypage.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE"/>
+		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user-logon.jsp"/>
 	</definition>
 	
 	<definition name="service_travel_default" extends="service_default">

@@ -14,7 +14,7 @@ input {
 	<div align="center">
 		<div style="width: 980px;">
 			<div>
-				<h1>Spring Project</h1>
+				<h1>WELCOME TO TOGETHER</h1>
 				<small>- ${ment } -</small>
 			</div>
 			<hr />
