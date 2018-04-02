@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%
-	String logon = (String)session.getAttribute("logon");	
+	String logon = (String) session.getAttribute("logon");
 %>
 <style>
 /* navbar */
@@ -96,20 +96,37 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">Together</a>
-		</div>"WebContent/WEB-INF/view/service/travel/content.jsp"
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="/">Home</a></li>
-			<li><a href="/travel/station?page=1">여행 정보</a></li>
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">여행모임 <span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">여행 가요</a></li>
-					<li><a href="#">여행 후기</a></li>
-				</ul></li>
-			<li><a href="/chat">실시간 채팅</a></li>
-			<li><a href="/board/main?page=1">여행 Q&A</a></li>
-			<li><a href="/admin">Admin</a></li>
-		</ul>
+		</div>
+		<div>
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/travel/station?page=1">여행 정보</a></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">여행모임 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="/board/main?page=1&menu=1">여행 가요</a></li>
+						<li><a href="/board/main?page=1&menu=2">여행 후기</a></li>
+						<li><a href="/board/main?page=1&menu=3">여행 Q&A</a></li>
+					</ul></li>
+				<li><a href="/chat">실시간 채팅</a></li>
+			</ul>
+		</div>
+		<div style="float: right;">
+			<ul class="nav navbar-nav">
+				<li class="active dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">- 기차역 관리하기 -</li>
+						<li><a href="/admin/station_manage">기차역 조회 및 수정</a></li>
+						<li><a href="/admin/station_add">기차역 추가하기</a></li>
+						<li class="dropdown-header">- 여행지 관리하기 -</li>
+						<li><a href="/admin/travel_manage?page=1">여행지 조회 및 수정</a></li>
+						<li><a href="/admin/travel_add">여행지 추가하기</a></li>
+						<li class="dropdown-header">- 회원 관리하기 -</li>
+						<li><a href="/admin/users">회원 관리</a></li>
+					</ul></li>
+			</ul>
+		</div>
 	</div>
 	<div style="float: right;">
 		<ul class="nav navbar-nav">
@@ -119,13 +136,6 @@
 				<ul class="dropdown-menu">
 					<li><a href="/mypage">PROFILE</a></li>
 					<li><a onclick="popup();">MESSAGE <span id="cnt"></span></a></li>
-				</ul></li>
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">FRIENDS <span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="/friend/friends">lists</a></li>
-					<li><a href="/friend/follow">follow</a></li>
-					<li><a href="/friend/request">requests</a></li>
 				</ul></li>
 			<li><a href="/login/out">Log Out</a></li>
 		</ul>
@@ -152,5 +162,3 @@
 	}
 	setInterval(cnt, 5000);
 </script>
-
-</nav>
