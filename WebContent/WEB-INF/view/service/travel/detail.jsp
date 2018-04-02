@@ -7,7 +7,7 @@ h3 {
 }
 </style>
 
-<div align="center" style="width: 80%">
+<div>
 	<c:if test="${info ne null}">
 		<script>
 			alert('${info }');

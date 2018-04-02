@@ -44,6 +44,12 @@
 			value="/WEB-INF/view/template/menu-index.jsp" />
 	</definition>
 
+	<definition name="logons" template="/WEB-INF/view/template/mainTemplate.jsp">
+		<put-attribute name="title" value="WELCOME TO TOGETHER" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-index-logon.jsp" />
+	</definition>
+	
 	<definition name="index" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/login.jsp" />
 	</definition>
@@ -58,12 +64,6 @@
 
 	<definition name="findpass" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/findpass.jsp" />
-	</definition>
-
-	<definition name="logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="WELCOME TO TOGETHER" />
-		<put-attribute name="menu"
-			value="/WEB-INF/view/template/menu-index-logon.jsp" />
 	</definition>
 
 	<definition name="logon" extends="logons">
@@ -91,19 +91,19 @@
 		<put-attribute name="menu" value="/WEB-INF/view/template/menu-info-logon.jsp"/>
 	</definition>
 	
-	<definition name="service_travel_default" extends="service_default">
+	<definition name="service_travel_default" extends="service_info_default">
 		<put-attribute name="main" value="/WEB-INF/view/service/travel/content.jsp" />
 	</definition>
 	
-	<definition name="service_travel_logons" extends="service_logons">
+	<definition name="service_travel_logons" extends="service_info_logons">
 		<put-attribute name="main" value="/WEB-INF/view/service/travel/content.jsp" />
 	</definition>
 	
-	<definition name="service_travel_detail_default" extends="service_default">
+	<definition name="service_travel_detail_default" extends="service_info_default">
 		<put-attribute name="main" value="/WEB-INF/view/service/travel/detail.jsp" />
 	</definition>
 	
-	<definition name="service_travel_detail_logons" extends="service_logons">
+	<definition name="service_travel_detail_logons" extends="service_info_logons">
 		<put-attribute name="main" value="/WEB-INF/view/service/travel/detail.jsp" />
 	</definition>
 	<!-- Info part End -->

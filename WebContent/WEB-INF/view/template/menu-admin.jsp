@@ -109,10 +109,6 @@
 						<li><a href="/board/main?page=1&menu=3">여행 Q&A</a></li>
 					</ul></li>
 				<li><a href="/chat">실시간 채팅</a></li>
-			</ul>
-		</div>
-		<div style="float: right;">
-			<ul class="nav navbar-nav">
 				<li class="active dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -127,18 +123,18 @@
 					</ul></li>
 			</ul>
 		</div>
-	</div>
-	<div style="float: right;">
-		<ul class="nav navbar-nav">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">${sessionScope.logonNick }(${sessionScope.logon })<span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="/mypage">PROFILE</a></li>
-					<li><a onclick="popup();">MESSAGE <span id="cnt"></span></a></li>
-				</ul></li>
-			<li><a href="/login/out">Log Out</a></li>
-		</ul>
+		<div style="float: right;">
+			<ul class="nav navbar-nav">
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">${sessionScope.logonNick }(${sessionScope.logon })<span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="/mypage">PROFILE</a></li>
+						<li><a onclick="popup();">MESSAGE <span id="cnt"></span></a></li>
+					</ul></li>
+				<li><a href="/login/out">Log Out</a></li>
+			</ul>
+		</div>
 	</div>
 </nav>
 <script>
