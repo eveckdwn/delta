@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import service.BoardService;
 import service.ReplyService;
@@ -228,15 +230,19 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/write", method = RequestMethod.POST)
-	public String WritePOST(@RequestParam(name = "page") String page, @RequestParam(name = "menu") String menu,
-			@RequestParam Map param, Model model, String id, HttpSession session) {
-
-		boardService.insert(param);
-		model.addAttribute("page", 1);
-		System.out.println(menu);
-		model.addAttribute("menu", menu);
-		return "redirect:/board/main";
-
+	public String WritePOST(@RequestParam(name = "photos") MultipartFile[] photos, @RequestParam Map param, Model model,
+			String id, HttpSession session) {
+		try {
+			boardService.insert(param, photos);
+			model.addAttribute("succ", "글이 작성되었습니다.");
+			model.addAttribute("page", 1);
+			model.addAttribute("menu", param.get("menu"));
+			return "redirect:/board/main";
+		} catch (Exception e) {
+			model.addAttribute("err", "글 작석이 실패하였습니다.");
+			e.printStackTrace();
+			return "board_logon";
+		}
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.GET)

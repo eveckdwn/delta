@@ -19,6 +19,7 @@ public class Board {
 	public String tab;
 	public String nick;
 	public String menu;
+	public String[] photos;
 	
 	
 	
@@ -62,6 +63,16 @@ public class Board {
 			this.nick = (String) param.get("nick");
 		if(param.get("menu") != null)
 			this.menu = (String) param.get("menu");
+		if(param.get("photos") != null)
+			this.photos = (String[]) param.get("photos");
+	}
+	
+	public String[] getPhotos() {
+		return photos;
+	}
+	
+	public void setPhotos(String[] Photos) {
+		this.photos = photos;
 	}
 	
 	public String getNick() {
@@ -71,8 +82,6 @@ public class Board {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-
-	
 
 	public ObjectId getId() {
 		return id;
