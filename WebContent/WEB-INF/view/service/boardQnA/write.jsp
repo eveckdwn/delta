@@ -8,66 +8,89 @@
 	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 	String str = dayTime.format(new Date(time));
+	
+	String menu = (String)request.getParameter("menu");
 %>
 <html>
 <head>
 <title>글쓰기</title>
 
-<c:if test="${find ne null }">
-	<script>
-		
-	</script>
-</c:if>
 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
 <script type="text/javascript" src="/SE2/js/service/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+
+
+
 </head>
 <body>
-	<form id="frm" method="post">
+
+	<h2>글 쓰 기</h2>
+	<hr />
+	<form id="frm" enctype="multipart/form-data" action="/board/write" method="post">
 		<div align="center">
-			<table width="50%">
+			<table width="100%">
 				<tr>
-					<td>내용 유형</td>
-					<td><select name="type">
-							<option id="type" value="일반">일반</option>
-							<option id="type" value="이벤트">이벤트</option>
-							<option id="type" value="공지">공지</option>
+				<tr>
+					<td align="right" style="padding-right: 10px;">게시판</td>
+					<td><select name="menu">
+					<%if(menu.equals("1")) {%>
+							<option value="1">여행 가요</option>
+					<%}else if(menu.equals("2")){ %>
+							<option value="2">여행 후기</option>
+					<%}else{ %>
+							<option value="3">Q&N</option>
+					<%} %>
 					</select></td>
 				</tr>
+				<td align="right" style="padding-right: 10px;">내용 유형</td>
+				<td><select name="type">
+						<option id="type" value="일반">일반</option>
+						<option id="type" value="이벤트">이벤트</option>
+						<option id="type" value="공지">공지</option>
+				</select></td>
+				</tr>
+
 				<tr>
-					<td>기차역</td>
+					<td align="right" style="padding-right: 10px;">기차역</td>
 					<td><select name="tab">
+
+
 							<c:forEach var="i" items="${station }">
+
+
 								<option value="${i.NAME }">${i.NAME }</option>
+
+
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
-					<td>제목</td>
+					<td align="right" style="padding-right: 10px;">제목</td>
 					<td><input type="text" id="title" name="title"
 						style="width: 650px" /></td>
 				</tr>
 				<tr>
-					<td>내용</td>
+					<td align="right" style="padding-right: 10px;">내용</td>
 					<td><textarea rows="10" cols="30" id="ir1" name="context"
 							style="width: 650px; height: 350px;"></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="hidden"
-						name="page" value="1" />
-						<button type="submit" id="save">저장</button>
-						<button type="button">취소</button></td>
+					<td align="right" style="padding-right: 10px;">첨부 사진</td>
+					<td><input type="file" name="photos" id="p" multiple /></td>
 				</tr>
 			</table>
+			<div align="center">
+				<button type="submit" id="save">저장</button>
+				<button type="button">취소</button>
+			</div>
 			<input type="hidden" name="writer" value="${sessionScope.logon }" />
 			<input type="hidden" name="readnum" value="0" /> <input
 				type="hidden" name="like" value="0" /> <input type="hidden"
-				name="wdate" value="<%=str%>" />
-				<input type="hidden" name="nick" value="${sessionScope.logonNick }" />
-				<input type="hidden" name="menu" value="${menu }" />
+				name="wdate" value="<%=str%>" /><input type="hidden"
+				name="mode" value="${mode }" />
 		</div>
 	</form>
 
@@ -105,8 +128,17 @@
 		$("#save").click(function() {
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
-
 		});
 
 	});
+</script>
+<script>
+	document.getElementById("p").onchange = function() {
+		console.log(this.files[0]);
+		if (!this.files[0].type.startsWith("image")) {
+			window.alert("jpg, gif, bmp, tif, png 형식의 파일만 첨부하실 수 있습니다.");
+			this.value = "";
+			return;
+		}
+	}
 </script>
