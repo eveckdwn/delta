@@ -145,6 +145,8 @@ public class BoardController {
 		
 		List board = boardService.Search(mode, value);
 		model.addAttribute("find", board);
+		
+		
 		if(session.getAttribute("logon") == null) {
 			return "board_default";
 		}else {
@@ -155,11 +157,12 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/write", method = RequestMethod.GET)
-	public String WriteGET(Model model, @RequestParam(required = false) String id, HttpSession session, HttpServletRequest request) {
+	public String WriteGET(Model model, @RequestParam(required = false) String id,
+			HttpSession session, HttpServletRequest request, @RequestParam String menu) {
 
 		model.addAttribute("station", stationservice.readAllStation());
 		model.addAttribute("find", boardService.find(id));
-
+		model.addAttribute("menu",menu);
 		if (session.getAttribute("logon") == null) {
 			return "write_default";
 		} else {
@@ -170,13 +173,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/write", method = RequestMethod.POST)
-	public String WritePOST(@RequestParam(name="page") String page, @RequestParam Map param, Model model, String id, HttpSession session) {
+	public String WritePOST(@RequestParam(name="page") String page, @RequestParam Map param, Model model,
+			String id, HttpSession session ) {
 
 		try {
 			boardService.insert(param);
 
 			List board = boardService.findAll();
-
+			
+			model.addAttribute("read", boardService.find(id));
 			int p = Integer.parseInt(page); // 현재 페이지
 			int division = 10; // 페이지당 보여줄 컨텐츠 수
 			int split = board.size() / division == 0 ? 1 : board.size() / division; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수

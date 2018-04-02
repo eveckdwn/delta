@@ -99,7 +99,7 @@
 		alert('로그인을 해야 이용하실 수 있습니다.');
 		</c:when>
 		<c:otherwise>
-		location.href = "/board/write";
+		location.href = "/board/write?menu=${menu}";
 		</c:otherwise>
 		</c:choose>
 	}

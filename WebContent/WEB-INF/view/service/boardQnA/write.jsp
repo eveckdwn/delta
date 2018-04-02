@@ -67,7 +67,7 @@
 				type="hidden" name="like" value="0" /> <input type="hidden"
 				name="wdate" value="<%=str%>" />
 				<input type="hidden" name="nick" value="${sessionScope.logonNick }" />
-				<input type="hidden" name="type" value="${type }" />
+				<input type="hidden" name="menu" value="${menu }" />
 		</div>
 	</form>
 

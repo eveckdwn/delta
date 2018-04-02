@@ -19,6 +19,10 @@ public class Board {
 	public String tab;
 	public String nick;
 	public String menu;
+	
+	
+	
+	
 	public String getMenu() {
 		return menu;
 	}

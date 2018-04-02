@@ -31,10 +31,11 @@ public class BoardService {
 	}
 	
 	public List findAll() {
-		//Query q = new Query();
-		//q.addCriteria(new Criteria().where("name").is("루피"));
-		//List hero = mongoOperation.find(q, Hero.class, "hero");	//	조건 검색
-		List hero = mongoOperation.findAll(Board.class, "board");	//	전체 검색
+		Query q = new Query();
+		q.addCriteria(new Criteria().where("menu").is("menu"));
+		List hero = mongoOperation.find(q, Board.class, "board");	//	조건 검색
+		//List hero = mongoOperation.findAll(Board.class, "board");	//	전체 검색
+		
 		return hero;
 	}
 	
@@ -49,6 +50,7 @@ public class BoardService {
 	public List Search(String mode, String value) {
 		Query q = new Query();
 			q.addCriteria(new Criteria().where(mode).regex(value));
+			
 		List find = mongoOperation.find(q, Board.class, "board");
 		
 		return find;
@@ -78,5 +80,7 @@ public class BoardService {
 		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
 		return us.getModifiedCount() == 1;
 	}
+	
+	
 
 }
