@@ -248,10 +248,15 @@ public class BoardController {
 	public String ReadGET(Model model, @RequestParam String id, HttpSession session, @RequestParam Map param,
 			@RequestParam String code) {
 
+		
+		System.out.println(param);
+		
+		boolean rst = boardService.updateReadnum(param);
 		try {
 			//	System.out.println(code);
 
 			//	TODO : 조회스 증가
+			rst = true;
 			
 			model.addAttribute("read", boardService.find(id));
 			model.addAttribute("length", replyService.find(code).size());
@@ -265,6 +270,8 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+			rst = false;
+
 			return "admin/fail";
 		}
 
@@ -275,12 +282,17 @@ public class BoardController {
 		System.out.println(pop);
 		try {
 			replyService.insert(pop);
+			
+			
 			model.addAttribute("id", (String) pop.get("id"));
 			model.addAttribute("code", (String) pop.get("code"));
 			return "redirect:/board/read";
 
 		} catch (Exception e) {
+			
+			
 			e.printStackTrace();
+			
 
 			return "admin/fail";
 		}

@@ -124,7 +124,7 @@ public class BoardService {
 		Query q = new Query();
 		q.addCriteria(new Criteria().where("_id").is((String)param.get("id")));
 		Update update = new Update();
-		int read = Integer.parseInt((String)param.get("read")) + 1;
+		int read = Integer.parseInt((String)param.get("readnum")) + 1;
 		update.set("readnum", String.valueOf(read));
 		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
 		return us.getModifiedCount() == 1;
