@@ -17,7 +17,15 @@
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
-
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<bean id="filter" class="filter.AdminSpringInterceptor"/>
+		</mvc:interceptor>
+	
+	</mvc:interceptors>
+	
 	<context:component-scan base-package="controller" />
 	<context:component-scan base-package="service" />
 	

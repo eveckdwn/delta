@@ -11,13 +11,6 @@
 			value="/WEB-INF/view/template/sidemenu-admin.jsp" />
 	</definition>
 	
-	<definition name="admin_confirm" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Are You Administor"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-admin.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-admin-nonauth.jsp"/>
-		<put-attribute name="main" value="/WEB-INF/view/admin/certification.jsp"/>
-	</definition>
-
 	<definition name="admin_index" extends="admin">
 		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp" />
 	</definition>
@@ -48,11 +41,9 @@
 
 	<!-- Guest part Start -->
 	<definition name="default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="WELCOME TO SPRING" />
+		<put-attribute name="title" value="WELCOME TO TOGETHER" />
 		<put-attribute name="menu"
 			value="/WEB-INF/view/template/menu-user.jsp" />
-		<put-attribute name="side"
-			value="/WEB-INF/view/template/sidemenu-index.jsp" />
 	</definition>
 
 	<definition name="index" extends="default">
@@ -74,9 +65,7 @@
 	<definition name="logons" template="/WEB-INF/view/template/mainTemplate.jsp">
 		<put-attribute name="title" value="Spring MVC" />
 		<put-attribute name="menu"
-			value="/WEB-INF/view/template/menu-user.jsp" />
-		<put-attribute name="side"
-			value="/WEB-INF/view/template/sidemenu-mypage.jsp" />
+			value="/WEB-INF/view/template/menu-user-logon.jsp" />
 	</definition>
 
 	<definition name="logon" extends="logons">
@@ -97,15 +86,13 @@
 	
 	<!-- Service part Start -->
 	<definition name="service_default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Spring MVC"/>
+		<put-attribute name="title" value="TOGETHER SERVICE"/>
 		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-index.jsp"/>
 	</definition>
 	
 	<definition name="service_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="Spring MVC"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user.jsp"/>
-		<put-attribute name="side" value="/WEB-INF/view/template/sidemenu-mypage.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE"/>
+		<put-attribute name="menu" value="/WEB-INF/view/template/menu-user-logon.jsp"/>
 	</definition>
 	
 	<definition name="service_travel_default" extends="service_default">

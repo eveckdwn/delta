@@ -125,8 +125,8 @@
 		<hr style="color: #E6E6E6;">
 	</div>
 
-</body>
-</html>
+<div>
+	<textarea rows="10" cols="100" style="width: 100%;"></textarea>
 
 <script>
 	var x = 480;
