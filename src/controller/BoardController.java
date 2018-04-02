@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
 import service.BoardService;
+import service.LikebanService;
 import service.ReplyService;
 import service.StationService;
+import service.UsersService;
 
 @Controller
 @RequestMapping("/board")
@@ -30,12 +34,17 @@ public class BoardController {
 
 	@Autowired
 	ReplyService replyService;
+	@Autowired
+	LikebanService likebanService;
+	@Autowired
+	UsersService userservice;
+	
 
 	@RequestMapping(path = "/main", method = RequestMethod.GET)
-	public String Board01(@RequestParam String page, Model model, HttpSession session, @RequestParam String menu) {
+	public String Board01(@RequestParam String page, Model model, HttpSession session,
+			@RequestParam String menu) {
 
 		model.addAttribute("menu", menu);
-
 		List board = (List) boardService.findMenu(menu);
 
 		int p = Integer.parseInt(page); // 현재 페이지
@@ -245,20 +254,21 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.GET)
-	public String ReadGET(Model model, @RequestParam String id, HttpSession session, @RequestParam Map param,
+	public String ReadGET(Model model, @RequestParam String id, HttpSession session,
 			@RequestParam String code) {
 
 		
-		System.out.println(param);
 		
-		boolean rst = boardService.updateReadnum(param);
 		try {
 			//	System.out.println(code);
 
 			//	TODO : 조회스 증가
-			rst = true;
 			
+			
+			
+//			model.addAttribute("number",(int) likebanService.number(likeid).size());
 			model.addAttribute("read", boardService.find(id));
+			System.out.println(boardService.find(id));
 			model.addAttribute("length", replyService.find(code).size());
 			model.addAttribute("reply", replyService.find(code));
 			if (session.getAttribute("logon") == null) {
@@ -270,7 +280,6 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			rst = false;
 
 			return "admin/fail";
 		}
@@ -278,11 +287,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.POST)
-	public String ReadPOST(Model model, HttpSession session, @RequestParam Map pop) {
+	public String ReadPOST(Model model, HttpSession session,
+			@RequestParam Map pop) {
 		System.out.println(pop);
 		try {
 			replyService.insert(pop);
-			
 			
 			model.addAttribute("id", (String) pop.get("id"));
 			model.addAttribute("code", (String) pop.get("code"));
@@ -297,6 +306,24 @@ public class BoardController {
 			return "admin/fail";
 		}
 
+	}
+	
+	@RequestMapping(path="/like", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String likeHandle(@RequestParam Map param) {
+	
+		
+		return new Gson().toJson(likebanService.like(param));
+	}
+	
+	@RequestMapping(path="/report", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String report(@RequestParam Map param, Model model ) {
+	
+		model.addAttribute("select", userservice.selectAll());
+		userservice.foulUsers();
+		
+		return new Gson().toJson(likebanService.report(param));
 	}
 
 	@RequestMapping("/change")
