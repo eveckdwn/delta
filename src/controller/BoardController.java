@@ -313,5 +313,13 @@ public class BoardController {
 		}
 
 	}
+	
+	@RequestMapping(path="/edit", method=RequestMethod.POST)
+	public String edit(@RequestParam String id, Model model) {
+		
+		model.addAttribute("read", boardService.find(id));
+		
+		return "edit";
+	}
 
 }

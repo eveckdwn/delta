@@ -73,9 +73,9 @@
 		<form method="post">
 			<div style="margin-top: 10px;" align="right">
 				<c:if test="${sessionScope.logon == read.writer }">
-					<button type="submit" formaction="/boardEdit">수정</button>
 					<input type="hidden" name="id" value="${read.id }" />
 					<input type="hidden" name="menu" value="${read.menu }">
+					<button type="submit" formaction="/board/edit">수정</button>
 					<button type="submit" formaction="/board/boardDel">삭제</button>
 				</c:if>
 			</div>
