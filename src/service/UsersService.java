@@ -29,8 +29,8 @@ public class UsersService {
 		this.template = template;
 	}
 
-	public Map confirmId(String id) {
-		return template.selectOne("users.checkId", id);
+	public List confirmId(String id) {
+		return template.selectList("users.checkId", id);
 	}
 
 	public boolean addNewOne(Map map) {

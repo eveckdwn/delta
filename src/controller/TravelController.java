@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -63,9 +64,12 @@ public class TravelController {
 
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
 	public String detailGetHandle(@RequestParam Map param, Model model, HttpSession session) {
-		List travel = travelService.readAllC((String)param.get("tname"));
+		Map travel = travelService.readOne((String)param.get("tname"));
+		List travelC = travelService.readAllC((BigDecimal)travel.get("TID"));
 		model.addAttribute("travel", travel);
-		model.addAttribute("commentSize", travel.size());
+		model.addAttribute("travelC", travelC);
+		System.out.println(travelC.size());
+		model.addAttribute("commentSize", travelC.size());
 		if(param.get("info") != null) {
 			model.addAttribute("info", (String) param.get("info"));
 		}

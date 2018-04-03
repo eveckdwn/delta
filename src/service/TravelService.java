@@ -1,5 +1,6 @@
 package service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,9 @@ public class TravelService {
 		return template.selectList("travel.readAll");
 	}
 	
+	public Map readOne(String tname) {
+		return template.selectOne("travel.readOne", tname);
+	}
 	
 	public List readSome(String sname) {
 		return template.selectList("travel.readSome", sname);
@@ -37,8 +41,8 @@ public class TravelService {
 		return template.delete("travel.delete", param) == 1;
 	}
 	
-	public List readAllC(String tname) {
-		return template.selectList("travel.readAllC", tname);
+	public List readAllC(BigDecimal trano) {
+		return template.selectList("travel.readAllC", trano.intValue());
 	}
 	
 	public boolean addTcomments(Map param) {

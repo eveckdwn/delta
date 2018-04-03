@@ -91,7 +91,7 @@
 	<table width="100%"
 		class="table table-bordered table-hover text-center">
 		<colgroup>
-			<col width="10%" />
+			<col width="15%" />
 			<col width="15%" />
 			<col width="" />
 			<col width="10%" />

@@ -2,6 +2,35 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+.font2 {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 25px;
+	line-height: 4.0;
+	text-align: center;
+	width: 100%;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+#wrapper {
+	position: relative;
+}
+
+#wrapper:after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	background-image: url('/image/background1.jpg');
+	width: 100%;
+	height: 100%;
+	opacity: 0.4;
+	z-index: -1;
+}
+
 a {
 	text-decoration: none;
 }
@@ -35,12 +64,14 @@ button:active {
 	position: relative;
 	top: 1px;
 	color: #ffffff;
-	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#151515));
-	background: -moz-linear-gradient(top,  #ffffff,  #151515);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#151515');
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff),
+		to(#151515));
+	background: -moz-linear-gradient(top, #ffffff, #151515);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+		endColorstr='#151515');
 }
 
-.arial{
+.arial {
 	font-family: Arial Black;
 }
 
@@ -49,9 +80,18 @@ input {
 	width: 100%;
 }
 </style>
-	<div align="center">
-		<div
-			style="width: 800px; height: 550px; border-radius: 25px; border: 5px double #999; margin: 30px auto; font-family: 맑은 고딕;">
+<div class="container-fluid">
+		<div id="wrapper" class="font2" style="width: 48%; min-width: 350px; margin: auto; height:650px; float: left;">
+			<h2 style="margin-top: 60px; margin-bottom: 50px">TOGETHER</h2>
+			<hr />
+			<p style="margin-top: 50px; margin-left: 10px ">
+				함께가자 Together !<br/>
+				Together는 기차배낭여행을 꿈꾸는 여행자들이 모여<br/>
+				정보를 교환하는 서비스입니다.
+			</p>
+		</div>
+		<div align="center"
+		style="min-width: 350px; width: 51%; height: 700px; border-radius: 25px; border: 5px double #999; margin: 30px auto; font-family: 맑은 고딕; float: right">
 			<div style="font-family: fantasy;">
 				<h1>TOGETHER</h1>
 				<small>- ${ment } -</small>
@@ -78,10 +118,11 @@ input {
 							type="text" name="id" id="id" />
 					</p>
 					<p>
-						<b class="arial">PASS(*)</b><br /> <input type="password" name="pass">
+						<b class="arial">PASS(*)</b><br /> <input type="password"
+							name="pass">
 					</p>
 					<p>
-						<button id="sbt" type="submit" style="width: 100%; height: 30px;" >로
+						<button id="sbt" type="submit" style="width: 100%; height: 30px;">로
 							그 인</button>
 						<c:if test="${!empty err }">
 							<a href="/findpass"><button type="button"
@@ -89,13 +130,6 @@ input {
 						</c:if>
 					</p>
 				</form>
-
 			</div>
 		</div>
 	</div>
-	<script>
-		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
-		ws2.onmessage = function(rst) {
-			console.log(rst);
-		}
-	</script>

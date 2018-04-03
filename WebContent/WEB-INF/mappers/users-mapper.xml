@@ -10,10 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="checkId" resultType="hashmap">
-		select users.id, users.email,
-		users.pass, users.lv, users.photo COUNT(*) as count from users where
-		id = #{id} group by users.id, users.pass, users.email, users.lv,
-		users.photo
+		select * from users where id=#{id}
 	</select>
 
 	<!-- 로그인 시 사용하는 mapper & mypage에서 정보 뿌려주는 역할 -->

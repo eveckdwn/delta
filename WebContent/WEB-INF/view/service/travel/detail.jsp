@@ -13,7 +13,7 @@ h3 {
 			alert('${info }');
 		</script>
 	</c:if>
-	<h2>${travel[0].TNAME } 상세정보</h2>
+	<h2>${travel.TNAME } 상세정보</h2>
 	<hr />
 	<table class="table table-bordered table-hover text-center">
 		<colgroup>
@@ -26,15 +26,15 @@ h3 {
 		<tbody>
 			<tr>
 				<th style="vertical-align: middle; text-align: center;">분류</th>
-				<td colspan="3" style="vertical-align: middle; text-align: center;">${travel[0].CATE }</td>
+				<td colspan="3" style="vertical-align: middle; text-align: center;">${travel.CATE }</td>
 				<th>지도</th>
 			</tr>
 			<tr>
 				<th style="vertical-align: middle; text-align: center;">여행지</th>
-				<td colspan="3" style="vertical-align: middle; text-align: center;">${travel[0].TNAME }</td>
+				<td colspan="3" style="vertical-align: middle; text-align: center;">${travel.TNAME }</td>
 				<td id="map" rowspan="5" height="400px"><script>
 				function initMap() {
-					var uluru = {lat: ${travel[0].LAT}, lng: ${travel[0].LNG}};
+					var uluru = {lat: ${travel.LAT}, lng: ${travel.LNG}};
 					var map = new google.maps.Map(document.getElementById("map"), {
 						zoom: 14,
 				          center: uluru
@@ -51,26 +51,26 @@ h3 {
 			<tr>
 				<th style="vertical-align: middle; text-align: center;">관리자</th>
 				<td colspan="3" style="vertical-align: middle; text-align: center;"><c:choose>
-						<c:when test="${travel[0].MANAGER ne null }">${travel[0].MANAGER }</c:when>
+						<c:when test="${travel.MANAGER ne null }">${travel.MANAGER }</c:when>
 						<c:otherwise>-</c:otherwise>
 					</c:choose></td>
 			</tr>
 			<tr>
 				<th style="vertical-align: middle; text-align: center;">연락처</th>
 				<td colspan="3" style="vertical-align: middle; text-align: center;"><c:choose>
-						<c:when test="${travel[0].CONTACT ne null }">${travel[0].CONTACT }</c:when>
+						<c:when test="${travel.CONTACT ne null }">${travel.CONTACT }</c:when>
 						<c:otherwise>-</c:otherwise>
 					</c:choose></td>
 			</tr>
 			<tr>
 				<th style="vertical-align: middle; text-align: center;">주소</th>
-				<td colspan="3" style="vertical-align: middle; text-align: center;">${travel[0].TADDR }</td>
+				<td colspan="3" style="vertical-align: middle; text-align: center;">${travel.TADDR }</td>
 			</tr>
 			<tr>
 				<th style="vertical-align: middle; text-align: center;">위도</th>
-				<td style="vertical-align: middle; text-align: center;">${travel[0].LAT }</td>
+				<td style="vertical-align: middle; text-align: center;">${travel.LAT }</td>
 				<th style="vertical-align: middle; text-align: center;">경도</th>
-				<td style="vertical-align: middle; text-align: center;">${travel[0].LNG }</td>
+				<td style="vertical-align: middle; text-align: center;">${travel.LNG }</td>
 			</tr>
 			<tr>
 				<th colspan="5" style="vertical-align: middle; text-align: center;">설명</th>
@@ -78,7 +78,7 @@ h3 {
 			<tr>
 				<td colspan="5" style="vertical-align: middle; text-align: justify;">
 					<c:choose>
-						<c:when test="${travel[0].DETAIL ne null }">${travel[0].DETAIL }</c:when>
+						<c:when test="${travel.DETAIL ne null }">${travel.DETAIL }</c:when>
 						<c:otherwise>-</c:otherwise>
 					</c:choose>
 				</td>
@@ -102,7 +102,7 @@ h3 {
 				<col width="10%" />
 			</colgroup>
 			<tr>
-				<td><input type="hidden" name="trano" value="${travel[0].TID }" />
+				<td><input type="hidden" name="trano" value="${travel.TID }" />
 					<input type="hidden" name="userid" value="${sessionScope.logon}" />
 					<input type="hidden" name="userid"
 					value="${sessionScope.logonNick}" /> <input id="score"
@@ -180,7 +180,7 @@ h3 {
 		</tr>
 		<c:choose>
 			<c:when test="${commentSize ne 0 }">
-				<c:forEach items="${travel }" var="t">
+				<c:forEach items="${travelC }" var="t">
 					<tr>
 						<td style="display: none">${t.COMMENTNO }</td>
 						<td id="userscore" class="score" style="vertical-align: middle;">${t.TRASCORE }</td>

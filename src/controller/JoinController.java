@@ -62,17 +62,20 @@ public class JoinController {
 			return "redirect:/";
 		} else {
 			model.addAttribute("err", "회원가입에 실패하였습니다.");
+			model.addAttribute("param", param);
 			return "join";
 		}
 	}
 	
+	@Autowired
+	UsersService usersService;
 	
-//	@RequestMapping("/confirm")
-//	@ResponseBody
-//	public boolean confirmHandle(@RequestParam String id) {
-//		Map confirm = (Map) memberService.confirmId(id);
-//		BigDecimal bd = (BigDecimal)confirm.get("COUNT");
-//		return 0 == bd.intValue(); 
-//	}
+	@RequestMapping("/confirm")
+	@ResponseBody
+	public boolean confirmHandle(@RequestParam String id) {
+		System.out.println(id);
+		List confirm = (List) usersService.confirmId(id);
+		return 0 == confirm.size(); 
+	}
 
 }

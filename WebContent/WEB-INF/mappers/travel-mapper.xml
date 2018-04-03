@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from travel where sname = #{sname} order by tname asc
 	</select>
 	
+	<select id="readOne" resultType="hashmap">
+		select * from travel where tname = #{tname}
+	</select>
+	
 	<update id="update" parameterType="hashmap">
 		update travel set sname=#{sname}, tname=#{tname}, cate=#{cate}, lat=#{lat}, lng=#{lng}, taddr=#{taddr}, manager=#{manager, jdbcType=VARCHAR}, contact=#{contact, jdbcType=VARCHAR}, detail=#{detail, jdbcType=VARCHAR} where tid=#{tid}
 	</update>
@@ -28,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="readAllC" resultType="hashmap">
-		select * from travel left join tcomments on travel.tid = tcomments.trano left join users on tcomments.userid = users.id where tname = #{tname} order by commentno asc
+		select * from tcomments left join users on tcomments.userid = users.id where trano = #{trano} order by commentno asc
 	</select>
 	
 	<update id="updateC" parameterType="hashmap">
