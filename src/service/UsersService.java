@@ -135,10 +135,14 @@ public class UsersService {
 		}
 		return template.update("users.updateAccount", map) == 1;
 	}
-	
-	
+
+	public boolean updatefoul(String reid) {
+
+		return template.update("users.foulusers", reid) == 1;
+	}
+
 	public boolean updatefoul(Map map) {
-		
+
 		return template.update("users.foulusers", map) == 1;
 	}
 

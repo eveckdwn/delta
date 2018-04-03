@@ -255,40 +255,19 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.GET)
-	public String ReadGET(Model model, @RequestParam(name="id") String id,
-			HttpSession session, @RequestParam(name="code") String code, @RequestParam String likeid) {
+	public String ReadGET(Model model, HttpSession session, @RequestParam Map param) {
 
 		
-		model.addAttribute("read", boardService.find(id));
-		model.addAttribute("length", replyService.find(code).size());
-		model.addAttribute("reply", replyService.find(code));
+		model.addAttribute("read", boardService.find((String)param.get("id")));
+		model.addAttribute("length", replyService.find((String)param.get("code")).size());
+		model.addAttribute("reply", replyService.find((String)param.get("code")));
 		try {
-			Board data = (Board) boardService.find(id);
+			Board data = (Board) boardService.find((String)param.get("id"));
 			Map map = new HashMap<>();
 			map.put("id", data.getId());
 			map.put("readnum", data.getReadnum());
 			
 			boardService.updateReadnum(map);
-			
-			// System.out.println(code);
-
-			// TODO : 조회수 증가
-			/*
-			 * 1. likebanService에서 insert (seq_adjfasklfj.nextval(),내 아이디, 게시글 ObjectId)
-			 * 2. likebanService.number(likeid)를 몽고에 업데이트
-			 * 3. query key : id, value : 게시글 아이디 ==> 좋아요 수 update하기
-			 * 4. model.addAttribute();	//	이 게시글 읽기 위한 정보 보내주기
-			 * 5. return "redirect:/board/read"   
-			 */
-			
-			/*Map pop = new HashMap<>();
-			pop.put("id", data.getId());
-			pop.put("like", data.getLike());
-			
-			boardService.updatelike(pop, likeid);*/
-			
-			
-			
 			
 			if (session.getAttribute("logon") == null) {
 				return "read_default";
@@ -326,23 +305,38 @@ public class BoardController {
 	@RequestMapping(path = "/like", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String likeHandle(@RequestParam Map param) {
-
-		return new Gson().toJson(likebanService.like(param));
+		try {
+			if(likebanService.like(param)) {
+				List like = likebanService.number((String)param.get("likeid"));
+				param.put("like", like.size());
+				return new Gson().toJson(likebanService.updateLike(param));
+				
+			}else {
+				//	에러 터지기 때문에 절대 일어나지 않을 일.. 
+				return new Gson().toJson(false);
+			}
+		}catch(Exception e) {
+			return new Gson().toJson(false);
+		}
 	}
 
+	@Autowired
+	UsersService usersService;
+	
 	@RequestMapping(path = "/report", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String report(@RequestParam Map param, Model model) {
 		try {
-
 			boolean declare = likebanService.report(param);
-
-			// TODO : 신고했으면 유저의 foul 1 증가시키기
 			
+			if(declare) {
+				return new Gson().toJson(usersService.updatefoul((String)param.get("reid")));
+			}else {
+				return String.valueOf(false);
+			}
 			
-			return new Gson().toJson(declare);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return new Gson().toJson(false);
 		}
 
