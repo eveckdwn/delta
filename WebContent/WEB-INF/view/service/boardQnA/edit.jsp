@@ -2,6 +2,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	long time = System.currentTimeMillis();
 	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -25,25 +26,43 @@
 
 	<h2>글 쓰 기</h2>
 	<hr />
-	<form id="frm" enctype="multipart/form-data" action="/board/write"
+	<form id="frm" enctype="multipart/form-data" action="/board/Bedit"
 		method="post">
 		<div align="center">
 			<table width="100%">
 				<tr>
-				<tr>
 					<td align="right" style="padding-right: 10px;">게시판</td>
 					<td><select name="menu">
+							<%
+								if (menu.equals("1")) {
+							%>
 							<option value="1">여행 가요</option>
 							<option value="2">여행 후기</option>
 							<option value="3">Q&N</option>
+							<%
+								} else if (menu.equals("2")) {
+							%>
+							<option value="2">여행 후기</option>
+							<option value="1">여행 가요</option>
+							<option value="3">Q&N</option>
+							<%
+								} else {
+							%>
+							<option value="3">Q&N</option>
+							<option value="1">여행 가요</option>
+							<option value="2">여행 후기</option>
+							<%
+								}
+							%>
 					</select></td>
 				</tr>
-				<td align="right" style="padding-right: 10px;">내용 유형</td>
-				<td><select name="type">
-						<option id="type" value="일반">일반</option>
-						<option id="type" value="이벤트">이벤트</option>
-						<option id="type" value="공지">공지</option>
-				</select></td>
+				<tr>
+					<td align="right" style="padding-right: 10px;">내용 유형</td>
+					<td><select name="type">
+							<option id="type" value="일반">일반</option>
+							<option id="type" value="이벤트">이벤트</option>
+							<option id="type" value="공지">공지</option>
+					</select></td>
 				</tr>
 
 				<tr>
@@ -57,27 +76,40 @@
 				<tr>
 					<td align="right" style="padding-right: 10px;">제목</td>
 					<td><input type="text" id="title" name="title"
-						style="width: 650px" /></td>
+						style="width: 650px" value="${read.title }" /></td>
 				</tr>
 				<tr>
 					<td align="right" style="padding-right: 10px;">내용</td>
-					<td><textarea rows="10" cols="30" id="ir1" name="context"
-							style="width: 650px; height: 350px;"></textarea></td>
+					<td><textarea rows="10" cols="30" id="ir1" class="se2_inputarea" name="context"
+							style="width: 650px; height: 350px;" ></textarea></td>
 				</tr>
 				<tr>
+					<td align="right" style="padding-right: 10px;">등록된 사진</td>
+					<td style="word-break: break-all;"><c:if
+							test="${!empty read.photos }">
+							<c:forEach var="photo" items="${read.photos }">
+								<img
+									src="<%=request.getContextPath() %>/board/${read.writer }/${photo }"
+									style="width: 50px; height: 50px;" />
+								<button type="button" class="p" value="${photo }">x</button>
+							</c:forEach>
+						</c:if></td>
+				</tr>
+				<tr style="margin: 30px;">
 					<td align="right" style="padding-right: 10px;">첨부 사진</td>
 					<td><input type="file" name="photos" id="p" multiple /></td>
 				</tr>
 			</table>
 			<div align="center">
-				<button type="submit" id="save">저장</button>
-				<button type="button">취소</button>
+				<button type="submit" id="edit">수정</button>
+				<button type="submit"
+					formaction="/board/main?menu=${read.menu }&page=1">취소</button>
 			</div>
 			<input type="hidden" name="writer" value="${sessionScope.logon }" />
 			<input type="hidden" name="readnum" value="0" /> <input
 				type="hidden" name="like" value="0" /> <input type="hidden"
-				name="wdate" value="<%=str%>" /><input type="hidden" name="mode"
-				value="${mode }" />
+				name="wdate" value="<%=str%>" /><input type="hidden" name="id"
+				value="${read.id }" />
 		</div>
 	</form>
 
@@ -128,11 +160,31 @@
 			return;
 		}
 	}
-	
+
 	edit();
-	function edit(){
-		document.getElmentById("title").innerHTML("${read.title}");
-		document.getElementByName("context").innerHTML("${read.content}");
-	}
+		function edit() {
+			$(".se2_inputarea").html("${read.context}");
+		}
+	
+		
+		$(".p").on("click", function() {
+			var del = $(this).val();
+			var idd = "${read.id}";
+			
+				$.post("/board/podel", {
+					photos : del,
+					id : idd
+				}, function(rst) {
+					if (rst) {
+						alert("사진을 삭제 하였습니다.");
+						location.replace("/board/Bedit?id=${read.id}&menu=${read.menu}");
+					}else{
+						alert("삭제를 실패 하였습니다.");
+						location.reload();
+					}
+
+				})
+		});
+	
 	
 </script>

@@ -154,7 +154,7 @@
 		<put-attribute name="main"
 			value="/WEB-INF/view/service/boardQnA/read.jsp" />
 	</definition>
-	<definition name="edit" extends="logons">
+	<definition name="board_edit" extends="logons">
 		<put-attribute name="main"
 			value="/WEB-INF/view/service/boardQnA/edit.jsp" />
 	</definition>

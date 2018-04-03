@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import service.BoardService;
@@ -296,7 +297,7 @@ public class BoardController {
 		return "/board/change";
 	}
 
-	@RequestMapping(path = "/boardDel", method =RequestMethod.POST)
+	@RequestMapping(path = "/boardDel", method =RequestMethod.GET)
 	public String Delete(@RequestParam String id, @RequestParam String menu, Model model,HttpSession session) {
 		System.out.println(id);
 		boolean rst = boardService.delete(id);
@@ -314,12 +315,35 @@ public class BoardController {
 
 	}
 	
-	@RequestMapping(path="/edit", method=RequestMethod.POST)
-	public String edit(@RequestParam String id, Model model) {
+	@RequestMapping(path="/Bedit", method=RequestMethod.GET)
+	public String GetEdit(@RequestParam String id, Model model) {
 		
+		model.addAttribute("station", stationservice.readAllStation());
 		model.addAttribute("read", boardService.find(id));
 		
-		return "edit";
+		return "board_edit";
+	}
+	
+	@RequestMapping(path="/Bedit", method=RequestMethod.POST)
+	public String PostEdit(@RequestParam Map map,@RequestParam(name="photos") MultipartFile[] photos, Model model) throws IllegalStateException, IOException {
+		System.out.println(map.toString());
+		boolean rst = boardService.update(map,photos);
+		if(rst) {
+			model.addAttribute("menu", map.get("menu"));
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
+		}else {
+			model.addAttribute("menu", map.get("menu"));
+			model.addAttribute("page", 1);
+			return "err";
+		}
+	}
+	
+	@RequestMapping(path="/podel",  produces = "application/json", method=RequestMethod.POST)
+	@ResponseBody
+	public String photoDel(@RequestParam String photos, @RequestParam String id) {
+		boolean rst = boardService.deletePhoto(id,photos);
+		return String.valueOf(rst);
 	}
 
 }
