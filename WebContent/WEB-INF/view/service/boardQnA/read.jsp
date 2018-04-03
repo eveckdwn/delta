@@ -120,29 +120,25 @@
 	</table>
 </div>
 <script>
-function like() {
-	if(${sessionScope.logon eq null}){
-		alert('좋아요 버튼은 로그인 후 이용하실 수 있습니다.');
-	}else{
-		$.post("/board/like",{
-			lid : "${sessionScope.logon}",
-			likeid : "${read.id}"
-		},function(rst){
-			if(rst){
-				alert('좋아요를 눌렀습니다.');
-				location.reload();
-			}else{
-				alert('이미 추천하셨습니다.');
-				location.reload();
-			}
-		});
- 	}
-}
+	function like() {
+		if(${sessionScope.logon eq null}){
+			alert('좋아요 버튼은 로그인 후 이용하실 수 있습니다.');
+		}else{
+			$.post("/board/like",{
+				lid : "${sessionScope.logon}",
+				likeid : "${read.id}"
+			},function(rst){
+				if(rst){
+					alert('좋아요를 눌렀습니다.');
+					location.reload();
+				}else{
+					alert('이미 추천하셨습니다.');
+					location.reload();
+				}
+			});
+	 	}
+	}
 
-<div>
-	<textarea rows="10" cols="100" style="width: 100%;"></textarea>
-
-<script>
 	var x = 480;
 	var slider = document.getElementById("slider");
 	var slideArray = slider.getElementsByTagName("li");
