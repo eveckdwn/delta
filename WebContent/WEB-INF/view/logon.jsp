@@ -31,7 +31,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-image: url('/image/background1.jpg');
+	background-image: url('/image/background.jpg');
 	width: 100%;
 	height: 100%;
 	opacity: 0.4;

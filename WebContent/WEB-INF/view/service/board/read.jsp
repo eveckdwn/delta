@@ -37,9 +37,46 @@
 	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	String str = dayTime.format(new Date(time));
 %>
+<div class="banner">
+	<c:choose>
+		<c:when test="${menu eq  1}">
+			<c:if test="${!empty succ }">
+				<script>
+					alert("${succ}");
+				</script>
+			</c:if>
+			<h2>여행 가요</h2>
+		</c:when>
+		<c:when test="${menu eq  2}">
+			<c:if test="${!empty succ }">
+				<script>
+					alert("${succ}");
+				</script>
+			</c:if>
+			<h2>여행 후기</h2>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${!empty succ }">
+				<script>
+					alert("${succ}");
+				</script>
+			</c:if>
+			<h2>Q & A</h2>
+		</c:otherwise>
+	</c:choose>
+	<hr style="border: solid 2px; color: #D8D8D8" />
+</div>
 <div
 	style="border-top: 1px groove; border-bottom: 1px groove; border-left: 1px groove; border-right: 1px groove; padding: 10px;">
-	<b>${read.title }</b>
+	<c:choose>
+		<c:when test="${read.type eq '일반' }">
+			<b><span style="color: gray">[${read.type}]</span>&nbsp;<span
+				style="color: maroon;">[${read.tab}]</span>&nbsp;${read.title }</b>
+		</c:when>
+		<c:otherwise>
+			<b><span style="color: red">[${read.type}]</span>&nbsp;${read.title }</b>
+		</c:otherwise>
+	</c:choose>
 	<hr style="color: #E6E6E6;">
 	<p align="right">글쓴이:${read.writer} | 조회수(${read.readnum }) |
 		${read.wdate }</p>

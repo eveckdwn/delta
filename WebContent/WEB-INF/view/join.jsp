@@ -25,7 +25,7 @@
 	display: block;
 	position: absolute;
 	top: 50px;
-	background-image: url('/image/background1.jpg');
+	background-image: url('/image/background.jpg');
 	width: 100%;
 	height: 100%;
 	opacity: 0.4;
