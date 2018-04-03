@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.ServletContext;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -31,7 +33,9 @@ public class BoardService {
 	MongoOperations mongoOperation;
 	@Autowired
 	ServletContext ctx;
-
+	@Autowired
+	LikebanService likebanservice;
+	
 	Board board;
 
 	public BoardService(MongoTemplate mongoTemplate) {
@@ -120,14 +124,31 @@ public class BoardService {
 		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
 		return us.getModifiedCount() == 1;
 	}
+	
 	public boolean updateReadnum(Map param) {
 		Query q = new Query();
-		q.addCriteria(new Criteria().where("_id").is((String)param.get("id")));
+		q.addCriteria(new Criteria().where("_id").is((ObjectId)param.get("id")));
 		Update update = new Update();
-		int read = Integer.parseInt((String)param.get("read")) + 1;
+	//	System.out.println((String)param.get("readnum"));
+		int read = Integer.parseInt((String)param.get("readnum")) + 1;
 		update.set("readnum", String.valueOf(read));
 		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
 		return us.getModifiedCount() == 1;
 	}
+	
+/*	public boolean updatelike(Map param, String likeid) {
+		Query q = new Query();
+		q.addCriteria(new Criteria().where("_id").is((ObjectId)param.get("id")));
+		Update update = new Update();
+		System.out.println(likebanservice.number(likeid));
+		List like = likebanservice.number(likeid);
+		update.set("like", Integer.valueOf);
+		UpdateResult us = mongoOperation.updateFirst(q, update, "board");
+		return us.getModifiedCount() == 1;
+	}
+*/	
+	
+	
+	
 
 }

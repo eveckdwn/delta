@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		= #{id}
 	</update>
 
-
-
-
+	<update id="foulusers">
+	 update users set foul = +1 where id = #{id}
+	</update>
 </mapper>

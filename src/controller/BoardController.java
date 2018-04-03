@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +13,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
+import model.Board;
 import service.BoardService;
+import service.LikebanService;
 import service.ReplyService;
 import service.StationService;
+import service.UsersService;
 
 @Controller
 @RequestMapping("/board")
@@ -30,12 +37,15 @@ public class BoardController {
 
 	@Autowired
 	ReplyService replyService;
+	@Autowired
+	LikebanService likebanService;
+	@Autowired
+	UsersService userservice;
 
 	@RequestMapping(path = "/main", method = RequestMethod.GET)
 	public String Board01(@RequestParam String page, Model model, HttpSession session, @RequestParam String menu) {
 
 		model.addAttribute("menu", menu);
-
 		List board = (List) boardService.findMenu(menu);
 
 		int p = Integer.parseInt(page); // 현재 페이지
@@ -245,17 +255,20 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.GET)
-	public String ReadGET(Model model, @RequestParam String id, HttpSession session, @RequestParam Map param,
-			@RequestParam String code) {
+	public String ReadGET(Model model, HttpSession session, @RequestParam Map param) {
 
+		
+		model.addAttribute("read", boardService.find((String)param.get("id")));
+		model.addAttribute("length", replyService.find((String)param.get("code")).size());
+		model.addAttribute("reply", replyService.find((String)param.get("code")));
 		try {
-			//	System.out.println(code);
-
-			//	TODO : 조회스 증가
+			Board data = (Board) boardService.find((String)param.get("id"));
+			Map map = new HashMap<>();
+			map.put("id", data.getId());
+			map.put("readnum", data.getReadnum());
 			
-			model.addAttribute("read", boardService.find(id));
-			model.addAttribute("length", replyService.find(code).size());
-			model.addAttribute("reply", replyService.find(code));
+			boardService.updateReadnum(map);
+			
 			if (session.getAttribute("logon") == null) {
 				return "read_default";
 			} else {
@@ -272,17 +285,59 @@ public class BoardController {
 
 	@RequestMapping(path = "/read", method = RequestMethod.POST)
 	public String ReadPOST(Model model, HttpSession session, @RequestParam Map pop) {
-		System.out.println(pop);
+		// System.out.println(pop);
 		try {
 			replyService.insert(pop);
+
 			model.addAttribute("id", (String) pop.get("id"));
 			model.addAttribute("code", (String) pop.get("code"));
 			return "redirect:/board/read";
 
 		} catch (Exception e) {
+
 			e.printStackTrace();
 
 			return "admin/fail";
+		}
+
+	}
+
+	@RequestMapping(path = "/like", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String likeHandle(@RequestParam Map param) {
+		try {
+			if(likebanService.like(param)) {
+				List like = likebanService.number((String)param.get("likeid"));
+				param.put("like", like.size());
+				return new Gson().toJson(likebanService.updateLike(param));
+				
+			}else {
+				//	에러 터지기 때문에 절대 일어나지 않을 일.. 
+				return new Gson().toJson(false);
+			}
+		}catch(Exception e) {
+			return new Gson().toJson(false);
+		}
+	}
+
+	@Autowired
+	UsersService usersService;
+	
+	@RequestMapping(path = "/report", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String report(@RequestParam Map param, Model model) {
+		try {
+			boolean declare = likebanService.report(param);
+			
+			if(declare) {
+				return new Gson().toJson(usersService.updatefoul((String)param.get("reid")));
+			}else {
+				return String.valueOf(false);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Gson().toJson(false);
 		}
 
 	}

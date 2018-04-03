@@ -11,7 +11,7 @@ public class Reply {
 	public String like;
 	public String wdate;
 	public String code;
-
+	public String nick;
 	public Reply() {
 
 	}
@@ -27,7 +27,17 @@ public class Reply {
 			this.wdate = (String) pop.get("wdate");
 		if (pop.get("code") != null)
 			this.code = (String) pop.get("code");
+		if (pop.get("nick") != null)
+			this.nick = (String) pop.get("nick");
 
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 
 	public ObjectId getId() {
@@ -81,8 +91,10 @@ public class Reply {
 	@Override
 	public String toString() {
 		return "Reply [id=" + id + ", writer=" + writer + ", context=" + context + ", like=" + like + ", wdate=" + wdate
-				+ ", code=" + code + "]";
+				+ ", code=" + code + ", nick=" + nick + "]";
 	}
+
+	
 
 
 }
