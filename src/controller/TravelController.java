@@ -68,7 +68,6 @@ public class TravelController {
 		List travelC = travelService.readAllC((BigDecimal)travel.get("TID"));
 		model.addAttribute("travel", travel);
 		model.addAttribute("travelC", travelC);
-		System.out.println(travelC.size());
 		model.addAttribute("commentSize", travelC.size());
 		if(param.get("info") != null) {
 			model.addAttribute("info", (String) param.get("info"));
