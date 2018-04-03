@@ -89,8 +89,7 @@
 			<input type="hidden" name="writer" value="${sessionScope.logon }" />
 			<input type="hidden" name="readnum" value="0" /> <input
 				type="hidden" name="like" value="0" /> <input type="hidden"
-				name="wdate" value="<%=str%>" /><input type="hidden"
-				name="mode" value="${mode }" />
+				name="wdate" value="<%=str%>" />
 		</div>
 	</form>
 

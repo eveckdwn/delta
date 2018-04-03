@@ -17,11 +17,14 @@
 		${read.wdate }</p>
 	<p>${read.context }</p>
 	<hr style="color: #E6E6E6;" width="190px" align="right">
-		<p align="center">
-			<button type="button" style="width: 100px; height: 100px" onclick="like();">
-				<img src="/image/like2.jpg" style="width: 100%; height: 100%"
-					align="top"></button>
-		</p>
+	<p align="center">
+		<button type="button" style="width: 100px; height: 100px"
+			onclick="like();">
+			<img src="/image/like2.jpg" style="width: 100%; height: 100%"
+				align="top"><br/>
+				${number }
+		</button>
+	</p>
 	<p>
 		<b><a style="color: #FE642E;">댓글(${length })</a></b>
 	</p>
@@ -52,7 +55,7 @@
 						name="like" value="0" /> <input type="hidden" name="code"
 						value="${read.id }" /> <input type="hidden" name="wdate"
 						value="<%=str%>" /></td>
-						<input type="hidden" name="nick" value="${read.nick}">
+					<input type="hidden" name="nick" value="${read.nick}">
 					<td><button type="submit" style="widows: 300px; height: 90px">등록</button></td>
 
 				</tr>
@@ -64,16 +67,28 @@
 	</c:otherwise>
 </c:choose>
 <div>
-	<c:forEach var="i" items="${reply }">
-		<a>${i.nick }(${i.writer })</a>
-		<p align="right">${i.wdate }|${i.like }
-		<p>
-			<br/>
-		<p>${i.context }</p>
-		<p align="right"><button type="button" id="report">신고하기</button></p>
-		<hr color="black" />
-	</c:forEach>
-	<hr style="color: #E6E6E6;">
+	<table class="">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>닉네임(아이디)</th>
+			<th>내용</th>
+			<th>좋아요</th>
+			<th></th>
+		</tr>
+		<c:forEach var="i" items="${reply }">
+			<tr>
+				<td>${i.nick }(${i.writer })</td>
+				<td>${i.context }<small>(${i.wdate })</small></td>
+				<td>${i.like }</td>
+				<td><button type="button" id="report" onclick="declare(this);">신고하기</button></td>
+			</tr>
+		</c:forEach>
+	</table>
 </div>
 <script>
 function like() {
@@ -96,29 +111,31 @@ function like() {
 }
 
 
-$("#report").on("click",function () {
-	
+function declare(target) {
 	if(${sessionScope.logon eq null}) {
 		alert("로그인 후 이용하실 수 있습니다.");
 	}else{
-		var report = prompt("신고 사유를 적어주세요.");
+		var button = $(target);
+		var tr = $(button).parent().parent();
+		var td = tr.children();
+		var tdcontent = ($(td[0]).html());
+		var id = tdcontent.substring(tdcontent.indexOf("(")+1,tdcontent.indexOf(")"));
 		$.post("/board/report",{
 			rid : "${sessionScope.logon}",
-			reid : "${select.id}",
-			reason : report,
+			reid : id,
 			objectid : "${read.id}"
 		},function(rst){
 			if(rst){
-				alert("님이 신고 되었습니다.");
+				alert(id + "님이 신고 되었습니다.");
 				location.reload();
 			}else{
-				alert("이미 신고되었습니다.");
+				alert("신고에 실패했습니다. 중복 신고를 하실 수 없습니다.");
 				location.reload();
 			}
 		});
 	} 
 	
-});
+}
 
 
 

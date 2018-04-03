@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import model.Board;
 import service.BoardService;
 import service.LikebanService;
 import service.ReplyService;
@@ -38,11 +41,9 @@ public class BoardController {
 	LikebanService likebanService;
 	@Autowired
 	UsersService userservice;
-	
 
 	@RequestMapping(path = "/main", method = RequestMethod.GET)
-	public String Board01(@RequestParam String page, Model model, HttpSession session,
-			@RequestParam String menu) {
+	public String Board01(@RequestParam String page, Model model, HttpSession session, @RequestParam String menu) {
 
 		model.addAttribute("menu", menu);
 		List board = (List) boardService.findMenu(menu);
@@ -254,23 +255,41 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.GET)
-	public String ReadGET(Model model, @RequestParam String id, HttpSession session,
-			@RequestParam String code) {
+	public String ReadGET(Model model, @RequestParam(name="id") String id,
+			HttpSession session, @RequestParam(name="code") String code, @RequestParam String likeid) {
 
 		
-		
+		model.addAttribute("read", boardService.find(id));
+		model.addAttribute("length", replyService.find(code).size());
+		model.addAttribute("reply", replyService.find(code));
 		try {
-			//	System.out.println(code);
+			Board data = (Board) boardService.find(id);
+			Map map = new HashMap<>();
+			map.put("id", data.getId());
+			map.put("readnum", data.getReadnum());
+			
+			boardService.updateReadnum(map);
+			
+			// System.out.println(code);
 
-			//	TODO : 조회스 증가
+			// TODO : 조회수 증가
+			/*
+			 * 1. likebanService에서 insert (seq_adjfasklfj.nextval(),내 아이디, 게시글 ObjectId)
+			 * 2. likebanService.number(likeid)를 몽고에 업데이트
+			 * 3. query key : id, value : 게시글 아이디 ==> 좋아요 수 update하기
+			 * 4. model.addAttribute();	//	이 게시글 읽기 위한 정보 보내주기
+			 * 5. return "redirect:/board/read"   
+			 */
+			
+			/*Map pop = new HashMap<>();
+			pop.put("id", data.getId());
+			pop.put("like", data.getLike());
+			
+			boardService.updatelike(pop, likeid);*/
 			
 			
 			
-//			model.addAttribute("number",(int) likebanService.number(likeid).size());
-			model.addAttribute("read", boardService.find(id));
-			System.out.println(boardService.find(id));
-			model.addAttribute("length", replyService.find(code).size());
-			model.addAttribute("reply", replyService.find(code));
+			
 			if (session.getAttribute("logon") == null) {
 				return "read_default";
 			} else {
@@ -280,50 +299,53 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-
 			return "admin/fail";
 		}
 
 	}
 
 	@RequestMapping(path = "/read", method = RequestMethod.POST)
-	public String ReadPOST(Model model, HttpSession session,
-			@RequestParam Map pop) {
-		System.out.println(pop);
+	public String ReadPOST(Model model, HttpSession session, @RequestParam Map pop) {
+		// System.out.println(pop);
 		try {
 			replyService.insert(pop);
-			
+
 			model.addAttribute("id", (String) pop.get("id"));
 			model.addAttribute("code", (String) pop.get("code"));
 			return "redirect:/board/read";
 
 		} catch (Exception e) {
-			
-			
+
 			e.printStackTrace();
-			
 
 			return "admin/fail";
 		}
 
 	}
-	
-	@RequestMapping(path="/like", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+
+	@RequestMapping(path = "/like", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String likeHandle(@RequestParam Map param) {
-	
-		
+
 		return new Gson().toJson(likebanService.like(param));
 	}
-	
-	@RequestMapping(path="/report", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+
+	@RequestMapping(path = "/report", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String report(@RequestParam Map param, Model model ) {
-	
-		model.addAttribute("select", userservice.selectAll());
-		userservice.foulUsers();
-		
-		return new Gson().toJson(likebanService.report(param));
+	public String report(@RequestParam Map param, Model model) {
+		try {
+
+			boolean declare = likebanService.report(param);
+
+			// TODO : 신고했으면 유저의 foul 1 증가시키기
+			
+			
+			return new Gson().toJson(declare);
+		} catch (Exception e) {
+
+			return new Gson().toJson(false);
+		}
+
 	}
 
 	@RequestMapping("/change")
