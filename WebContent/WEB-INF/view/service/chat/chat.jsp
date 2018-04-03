@@ -11,6 +11,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var cws = new WebSocket("ws://${pageContext.request.serverName}/chat-ws?id=" + ${crid});
+	
+	function pop(id){
+		window.open("/profile?id="+id, "??", "left=100,top=200,width=350,height=450");
+	}
 	// 연결이 됬을때. 
 	cws.onopen = function() {
 		$("#chatMessage").append("서버 연결 성공");
@@ -22,15 +26,11 @@
 		var obj = JSON.parse(resp.data);
 		switch (obj.type) {
 		case "message" :
-			$("#chatMessage").append("[" + obj.name + "] (" + obj.time + ") : " + obj.message);
+			$("#chatMessage").append("[<a onclick=\"pop('"+obj.id+"')\">" + obj.name + "</a>] (" + obj.time + ") : " + obj.message);
 	        $("#chatMessage").append("<br />");
 	        $("#chatMessage").scrollTop(99999999);
-	        //정리 필요. 내 닉네임이면 왼쪽 정렬.. 어떻게 하지
 			break;
 			
-			
-		// 그냥 유저 관련된걸 어디 변수에 저장해서 직접 뿌려주는게 더 나은가?
-		// 그렇게 하면 근데 계속 업데이트해주는게 되나?
 		case "userList" :
 			console.log(obj.names);
 			for (var i=0; i<obj.names.length; i++) {
@@ -43,10 +43,7 @@
 	        $("#online").append("<br />");
 			break;
 		case "userDel" :
-			console.log($("#online").html());
-			console.log(obj.name+"<br>");
-			$("#online").html($("#online").html().replace(obj.name+"<br>", ""));
-			console.log($("#online").html());
+			$("#online").html($("#online").html().replace("<br>"+obj.name+"<br>", "<br>"));
 			break;
 		}
 		
@@ -72,7 +69,6 @@
 		<table class="table table-bordered">
 			<colgroup>
 				<col width="80%" />
-				<col width="" />
 			</colgroup>
 			<tr>
 				<td><div id="chatMessage" style="overflow:auto; height: 500px;"></div></td>

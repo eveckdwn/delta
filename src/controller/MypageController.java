@@ -77,4 +77,16 @@ public class MypageController {
 			return "mypage";
 		}
 	}
+	
+	@RequestMapping("/profile")
+	public String profileHandle(@RequestParam String id, HttpSession session, Model model) {
+
+		Map userid = new HashMap<>();
+		userid.put("id", id);
+
+		Map user = users.mypageInfo(userid);
+		user.remove("PASS"); user.remove("BAN"); user.remove("FOUL"); user.remove("LV");
+		model.addAttribute("user", user);
+		return "/profile";
+	}
 }

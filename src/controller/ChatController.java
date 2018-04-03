@@ -112,11 +112,12 @@ public class ChatController extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String name = getName(session.getAttributes());
-
+		String id = (String) session.getAttributes().get("logon");
+		
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		for (WebSocketSession webSocketSession : channel) {
-			webSocketSession.sendMessage(new TextMessage(createJsonMessage(name, message.getPayload())));
+			webSocketSession.sendMessage(new TextMessage(createJsonMessage(name, id, message.getPayload())));
 		}
 	}
 
@@ -142,10 +143,11 @@ public class ChatController extends TextWebSocketHandler {
 		return (String) my.get("NICK");
 	}
 
-	public String createJsonMessage(String name, String message) {
+	public String createJsonMessage(String name, String id, String message) {
 		Map data = new HashMap();
 		data.put("type", "message");
 		data.put("name", name);
+		data.put("id", id);
 		SimpleDateFormat sdf = new SimpleDateFormat("a hh:mm");
 		data.put("time", sdf.format(new Date(System.currentTimeMillis())));
 		data.put("message", message);
