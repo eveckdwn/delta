@@ -17,13 +17,18 @@
 <style>
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
 .row.content {
+<<<<<<< HEAD
 	height: 750px;
+=======
+	height: 650px;
+>>>>>>> refs/remotes/origin/view_수정
 }
 
 /* Set gray background color and 100% height */
 .sidenav {
 	background-color: #f1f1f1;
 	height: 100%;
+	border-radius : .5em;
 }
 
 /* Set black background color, white text and some padding */

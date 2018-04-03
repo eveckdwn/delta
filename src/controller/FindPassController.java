@@ -22,7 +22,7 @@ public class FindPassController {
 	@RequestMapping("/findpass")
 	public String findPassHandle() {
 		
-		return "/findpass";
+		return "findpass";
 	}
 	
 	@RequestMapping(path="/findpass/confirm",method=RequestMethod.POST)
