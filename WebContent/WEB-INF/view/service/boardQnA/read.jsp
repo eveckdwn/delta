@@ -57,10 +57,9 @@
 			넘어갑니다.]</small>
 	</c:if>
 	<p>${read.context }</p>
-	<p align="right">이 작성자의 게시글 더보기</p>
 	<hr style="color: #E6E6E6;" width="190px" align="right">
 	<p align="center">
-		<button style="width: 100px; height: 100px">
+		<button style="width: 100px; height: 100px" onclick="like()">
 			<img src="/image/like2.jpg" style="width: 100%; height: 100%"
 				align="top">${read.like }</button>
 	</p>
@@ -108,7 +107,7 @@
 	</c:otherwise>
 </c:choose>
 <div>
-
+	<table>
 	<c:forEach var="i" items="${reply }">
 		<tr>
 			<td>${i.nick }(${i.writer })</td>
@@ -121,9 +120,12 @@
 </div>
 <script>
 	function like() {
+		console.log("1");
 		if(${sessionScope.logon eq null}){
+			console.log("2");			
 			alert('좋아요 버튼은 로그인 후 이용하실 수 있습니다.');
 		}else{
+			console.log("3");
 			$.post("/board/like",{
 				lid : "${sessionScope.logon}",
 				likeid : "${read.id}"
@@ -140,8 +142,8 @@
 	}
 
 	var x = 480;
-	var slider = document.getElementById("slider");
-	var slideArray = slider.getElementsByTagName("li");
+	var slider = $("#slider");
+	var slideArray = $(slider).children();
 	var slideMax = slideArray.length - 1;
 	var curSlideNo = 0;
 
@@ -152,7 +154,7 @@
 			slideArray[i].style.right = -x + "px";
 	}
 
-	slider.addEventListener('click', function() {
+	slider.click(function() {
 		changeSlide();
 	}, false);
 
@@ -211,7 +213,6 @@ function declare(target) {
 				location.reload();
 			}
 		});
-	} 
-	
+	}
 }
 </script>
