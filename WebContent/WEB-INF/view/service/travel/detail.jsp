@@ -13,8 +13,10 @@ h3 {
 			alert('${info }');
 		</script>
 	</c:if>
-	<h2>${travel.TNAME } 상세정보</h2>
-	<hr />
+	<div class="banner">
+		<h2>${travel.TNAME }상세정보</h2>
+		<hr />
+	</div>
 	<table class="table table-bordered table-hover text-center">
 		<colgroup>
 			<col width="15%" />
@@ -197,7 +199,8 @@ h3 {
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="4" style="vertical-align: middle;">코멘트가 없습니다. 코멘트를 통해 다른 여행자가 참고할 수 있게 도와주세요.</td>
+					<td colspan="4" style="vertical-align: middle;">코멘트가 없습니다.
+						코멘트를 통해 다른 여행자가 참고할 수 있게 도와주세요.</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>

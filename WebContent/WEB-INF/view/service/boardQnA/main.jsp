@@ -3,36 +3,35 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<c:choose>
-	<c:when test="${menu eq  1}">
-		<c:if test="${!empty succ }">
-			<script>
-				alert("${succ}");
-			</script>
-		</c:if>
-		<h2>여행 가요</h2>
-	</c:when>
-	<c:when test="${menu eq  2}">
-		<c:if test="${!empty succ }">
-			<script>
-				alert("${succ}");
-			</script>
-		</c:if>
-		<h2>여행 후기</h2>
-	</c:when>
-	<c:otherwise>
-		<c:if test="${!empty succ }">
-			<script>
-				alert("${succ}");
-			</script>
-		</c:if>
-		<h2>Q & A</h2>
-	</c:otherwise>
-</c:choose>
-<p>
-<hr style="border: solid 2px; color: #D8D8D8" />
-<p />
+<div class="banner">
+	<c:choose>
+		<c:when test="${menu eq  1}">
+			<c:if test="${!empty succ }">
+				<script>
+					alert("${succ}");
+				</script>
+			</c:if>
+			<h2>여행 가요</h2>
+		</c:when>
+		<c:when test="${menu eq  2}">
+			<c:if test="${!empty succ }">
+				<script>
+					alert("${succ}");
+				</script>
+			</c:if>
+			<h2>여행 후기</h2>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${!empty succ }">
+				<script>
+					alert("${succ}");
+				</script>
+			</c:if>
+			<h2>Q & A</h2>
+		</c:otherwise>
+	</c:choose>
+	<hr style="border: solid 2px; color: #D8D8D8" />
+</div>
 <div align="center">
 	<table class="table table-striped table-bordered table-hover">
 		<colgroup>
@@ -53,18 +52,32 @@
 				<th>추천수</th>
 			</tr>
 		</thead>
-		<c:forEach items="${board }" var="b" varStatus="bs">
-			<tbody>
+		<tbody>
+			<c:forEach items="${event }" var="e" varStatus="es">
+				<tr>
+					<td>${es.index + 1 }</td>
+					<td><a
+						href="/board/read?id=${e.id }&code=${e.id }&likeid=${e.id}"><span style="color: red">[${e.type}]</span>&nbsp;
+							${e.title }</a></td>
+					<td>${e.writer }</td>
+					<td>${e.wdate }</td>
+					<td>${e.readnum }</td>
+					<td>${e.like }</td>
+				</tr>
+			</c:forEach>
+			<c:forEach items="${board }" var="b" varStatus="bs">
 				<tr>
 					<td>${(division * (now_page-1)) + bs.index + 1 }</td>
-					<td><a href="/board/read?id=${b.id }&code=${b.id }&likeid=${b.id}">${b.title }</a></td>
+					<td><a
+						href="/board/read?id=${b.id }&code=${b.id }&likeid=${b.id}"><span style="color: gray">[${b.type}]</span>&nbsp;<span style="color: maroon;">[${b.tab}]</span>&nbsp;
+							${b.title }</a></td>
 					<td>${b.writer }</td>
 					<td>${b.wdate }</td>
 					<td>${b.readnum }</td>
 					<td>${b.like }</td>
 				</tr>
-			</tbody>
-		</c:forEach>
+			</c:forEach>
+		</tbody>
 	</table>
 	<table align="center">
 		<tr>

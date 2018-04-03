@@ -46,8 +46,10 @@ public class BoardController {
 	public String Board01(@RequestParam String page, Model model, HttpSession session, @RequestParam String menu) {
 
 		model.addAttribute("menu", menu);
-		List board = (List) boardService.findMenu(menu);
-
+		List event = (List) boardService.findTypeNotGeneral(menu, "일반");
+		model.addAttribute("event", event);
+		
+		List board = (List) boardService.findTypeGeneral(menu, "일반");
 		int p = Integer.parseInt(page); // 현재 페이지
 		int division = 10; // 페이지당 보여줄 컨텐츠 수
 		int split = board.size() / division + 1; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수

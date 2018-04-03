@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_R96Ncu_I2ntMuWfqXmvAsTKqklpj0JU&callback=initMap"></script>
-<h2>여행 정보</h2>
-<hr />
+<div class="banner">
+	<h2>여행 정보</h2>
+	<hr />
+</div>
 <h3>기차역 정보</h3>
 <hr />
 <p>여행하고자하는 역정보를 클릭하시면 해당 역 주변 여행지가 나옵니다.</p>

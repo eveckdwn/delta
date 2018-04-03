@@ -60,18 +60,23 @@ public class BoardService {
 		return find;
 	}
 	
-	public List findMenu(String menu) {
+	public List findTypeNotGeneral(String menu, String type) {
+		//	공지, 이벤트 글 받아오기
 		Query q = new Query();
-		q.addCriteria(new Criteria().where("menu").is(menu));
+		q.addCriteria(new Criteria().where("menu").is(menu).and("type").ne(type));
 		List find = mongoOperation.find(q, Board.class, "board");
 		
 		return find;
 	}
 	
-	
-	
-	
-	
+	public List findTypeGeneral(String menu, String type) {
+		//	일반 글 받아오기
+		Query q = new Query();
+		q.addCriteria(new Criteria().where("menu").is(menu).and("type").is(type));
+		List find = mongoOperation.find(q, Board.class, "board");
+		
+		return find;
+	}
 	
 	public List Search(String menu,String mode, String value) {
 		Query q = new Query();

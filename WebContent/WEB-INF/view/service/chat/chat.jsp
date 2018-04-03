@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${crname }</title>
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -63,32 +58,32 @@
 	}
 	
 </script>
-</head>
-<body>
-	<div align="center" style="width: 80%; min-width: 800px">
-		<table class="table table-bordered">
-			<colgroup>
-				<col width="80%" />
-			</colgroup>
-			<tr>
-				<td><div id="chatMessage" style="overflow:auto; height: 500px;"></div></td>
-				<td><div id="online" style="overflow:auto; height: 500px;"></div></td>
-			</tr>
-			<tr>
-				<td colspan="2"><div>
-						<input type="text" id="message" placeholder="메시지"
-							style="width: 100%" />
-					</div></td>
-			</tr>
-		</table>
-	</div>
-	<script>
+<div class="banner">
+	<h2>${crname }</h2>
+	<hr/>
+</div>
+<div align="center" style="width: 80%; min-width: 800px">
+	<table class="table table-bordered">
+		<colgroup>
+			<col width="80%" />
+		</colgroup>
+		<tr>
+			<td><div id="chatMessage" style="overflow: auto; height: 500px;"></div></td>
+			<td><div id="online" style="overflow: auto; height: 500px;"></div></td>
+		</tr>
+		<tr>
+			<td colspan="2"><div>
+					<input type="text" id="message" placeholder="메시지"
+						style="width: 100%" />
+				</div></td>
+		</tr>
+	</table>
+</div>
+<script>
 	$("#message").keydown(function(event) {
 	    if(event.keyCode == 13){
 	    	send();
 	    }
 	});
-	</script>
-</body>
-</html>
+</script>
 

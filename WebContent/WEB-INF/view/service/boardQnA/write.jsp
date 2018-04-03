@@ -23,7 +23,6 @@
 	<div align="center">
 		<table width="100%">
 			<tr>
-			<tr>
 				<td align="right" style="padding-right: 10px;">게시판</td>
 				<td><select name="menu">
 						<%
@@ -43,25 +42,25 @@
 						%>
 				</select></td>
 			</tr>
-			<td align="right" style="padding-right: 10px;">내용 유형</td>
-			<td><select name="type">
-					<option id="type" value="일반">일반</option>
-					<option id="type" value="이벤트">이벤트</option>
-					<option id="type" value="공지">공지</option>
-			</select></td>
+			<tr>
+				<td align="right" style="padding-right: 10px;">내용 유형</td>
+				<td><select name="type">
+						<option id="type" value="일반">일반</option>
+						<c:if test=${sessionScope.logon eq 'admin' }>
+							<option id="type" value="이벤트">이벤트</option>
+							<option id="type" value="공지">공지</option>
+						</c:if>
+				</select></td>
 			</tr>
 
 			<tr>
 				<td align="right" style="padding-right: 10px;">기차역</td>
 				<td><select name="tab">
-
-
+						<c:if test=${sessionScope.logon eq 'admin' }>
+							<option value="-" disabled selected>-</option>
+						</c:if>
 						<c:forEach var="i" items="${station }">
-
-
 							<option value="${i.NAME }">${i.NAME }</option>
-
-
 						</c:forEach>
 				</select></td>
 			</tr>

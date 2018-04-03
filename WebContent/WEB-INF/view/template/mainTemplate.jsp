@@ -16,6 +16,14 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.banner{
+	background-image: url('/image/banner.png');
+	width: 100%;
+	height: 150px;
+	padding-top: 50px;
+	padding-left: 150px;
+}
+
 .row.content {
 	height: 650px;
 }
