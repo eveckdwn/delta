@@ -14,82 +14,86 @@
 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
 <script type="text/javascript" src="/SE2/js/service/HuskyEZCreator.js"
 	charset="utf-8"></script>
+<div class="banner">
+	<h2>글 쓰 기</h2>
+	<hr />
+</div>
+<div align="center">
+	<div style="width:80%">
+		<form id="frm" enctype="multipart/form-data" action="/board/write"
+			method="post">
+			<div align="center">
+				<table class="table table-bordered" width="100%">
+					<tr>
+						<td align="right" style="padding-right: 10px;">게시판</td>
+						<td><select name="menu" style="width: 100px">
+								<%
+									if (menu.equals("1")) {
+								%>
+								<option value="1">여행 가요</option>
+								<%
+									} else if (menu.equals("2")) {
+								%>
+								<option value="2">여행 후기</option>
+								<%
+									} else {
+								%>
+								<option value="3">Q&N</option>
+								<%
+									}
+								%>
+						</select></td>
+					</tr>
+					<tr>
+						<td align="right" style="padding-right: 10px;">내용 유형</td>
+						<td><select name="type"  style="width: 100px">
+								<option id="type" value="일반">일반</option>
+								<c:if test="${sessionScope.auth ne null }">
+									<option id="type" value="이벤트">이벤트</option>
+									<option id="type" value="공지">공지</option>
+								</c:if>
+						</select></td>
+					</tr>
 
-
-<h2>글 쓰 기</h2>
-<hr />
-<form id="frm" enctype="multipart/form-data" action="/board/write"
-	method="post">
-	<div align="center">
-		<table width="100%">
-			<tr>
-				<td align="right" style="padding-right: 10px;">게시판</td>
-				<td><select name="menu">
-						<%
-							if (menu.equals("1")) {
-						%>
-						<option value="1">여행 가요</option>
-						<%
-							} else if (menu.equals("2")) {
-						%>
-						<option value="2">여행 후기</option>
-						<%
-							} else {
-						%>
-						<option value="3">Q&N</option>
-						<%
-							}
-						%>
-				</select></td>
-			</tr>
-			<tr>
-				<td align="right" style="padding-right: 10px;">내용 유형</td>
-				<td><select name="type">
-						<option id="type" value="일반">일반</option>
-						<c:if test=${sessionScope.logon eq 'admin' }>
-							<option id="type" value="이벤트">이벤트</option>
-							<option id="type" value="공지">공지</option>
-						</c:if>
-				</select></td>
-			</tr>
-
-			<tr>
-				<td align="right" style="padding-right: 10px;">기차역</td>
-				<td><select name="tab">
-						<c:if test=${sessionScope.logon eq 'admin' }>
-							<option value="-" disabled selected>-</option>
-						</c:if>
-						<c:forEach var="i" items="${station }">
-							<option value="${i.NAME }">${i.NAME }</option>
-						</c:forEach>
-				</select></td>
-			</tr>
-			<tr>
-				<td align="right" style="padding-right: 10px;">제목</td>
-				<td><input type="text" id="title" name="title"
-					style="width: 650px" /></td>
-			</tr>
-			<tr>
-				<td align="right" style="padding-right: 10px;">내용</td>
-				<td><textarea rows="10" cols="30" id="ir1" name="context"
-						style="width: 650px; height: 350px;"></textarea></td>
-			</tr>
-			<tr>
-				<td align="right" style="padding-right: 10px;">첨부 사진</td>
-				<td><input type="file" name="photos" id="p" multiple /></td>
-			</tr>
-		</table>
-		<div align="center">
-			<button type="submit" id="save">저장</button>
-			<button type="button">취소</button>
-		</div>
-		<input type="hidden" name="writer" value="${sessionScope.logon }" />
-		<input type="hidden" name="readnum" value="0" /> <input type="hidden"
-			name="like" value="0" /> <input type="hidden" name="wdate"
-			value="<%=str%>" /><input type="hidden" name="mode" value="${mode }" />
+					<tr>
+						<td align="right" style="padding-right: 10px;">기차역</td>
+						<td><select name="tab" style="width: 100px">
+								<c:if test="${sessionScope.auth ne null }">
+									<option value="-" disabled selected>-</option>
+								</c:if>
+								<c:forEach var="i" items="${station }">
+									<option value="${i.NAME }">${i.NAME }</option>
+								</c:forEach>
+						</select></td>
+					</tr>
+					<tr>
+						<td align="right" style="padding-right: 10px;">제목</td>
+						<td><input type="text" id="title" name="title"
+							style="width: 100%; min-width: 350px;" /></td>
+					</tr>
+					<tr>
+						<td align="right">내용</td>
+						<td><textarea rows="10" cols="30" id="ir1" name="context"
+								style="width: 100%; min-width: 350px; height: 350px;"></textarea></td>
+					</tr>
+					<tr>
+						<td align="right" style="padding-right: 10px;">첨부 사진</td>
+						<td><input type="file" name="photos" id="p" multiple /></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="align-content: space-between; text-align: right;"><button type="submit" id="save">저장</button>
+					<button type="button">취소</button></td>
+					</tr>
+				</table>
+				<input type="hidden" name="writer" value="${sessionScope.logon }" />
+				<input type="hidden" name="readnum" value="0" /> <input
+					type="hidden" name="like" value="0" /> <input type="hidden"
+					name="wdate" value="<%=str%>" /><input type="hidden" name="mode"
+					value="${mode }" />
+			</div>
+		</form>
 	</div>
-</form>
-
+</div>
 <script type="text/javascript">
 	var oEditors = [];
 	$(function() {

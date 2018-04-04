@@ -24,10 +24,6 @@
 	padding-left: 150px;
 }
 
-.row.content {
-	height: 650px;
-}
-
 /* Set gray background color and 100% height */
 .sidenav {
 	background-color: #f1f1f1;

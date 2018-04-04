@@ -49,7 +49,7 @@ public class BoardController {
 		model.addAttribute("menu", menu);
 		List event = (List) boardService.findTypeNotGeneral(menu, "일반");
 		model.addAttribute("event", event);
-		
+
 		List board = (List) boardService.findTypeGeneral(menu, "일반");
 		int p = Integer.parseInt(page); // 현재 페이지
 		int division = 10; // 페이지당 보여줄 컨텐츠 수
@@ -232,12 +232,7 @@ public class BoardController {
 		model.addAttribute("findAll", boardService.findAll());
 
 		model.addAttribute("menu", menu);
-		if (session.getAttribute("logon") == null) {
-			return "write_default";
-		} else {
-			return "write_logon";
-
-		}
+		return "write_logon";
 
 	}
 
@@ -260,18 +255,17 @@ public class BoardController {
 	@RequestMapping(path = "/read", method = RequestMethod.GET)
 	public String ReadGET(Model model, HttpSession session, @RequestParam Map param) {
 
-		
-		model.addAttribute("read", boardService.find((String)param.get("id")));
-		model.addAttribute("length", replyService.find((String)param.get("code")).size());
-		model.addAttribute("reply", replyService.find((String)param.get("code")));
+		model.addAttribute("read", boardService.find((String) param.get("id")));
+		model.addAttribute("length", replyService.find((String) param.get("code")).size());
+		model.addAttribute("reply", replyService.find((String) param.get("code")));
 		try {
-			Board data = (Board) boardService.find((String)param.get("id"));
+			Board data = (Board) boardService.find((String) param.get("id"));
 			Map map = new HashMap<>();
 			map.put("id", data.getId());
 			map.put("readnum", data.getReadnum());
-			
+
 			boardService.updateReadnum(map);
-			
+
 			if (session.getAttribute("logon") == null) {
 				return "read_default";
 			} else {
@@ -309,35 +303,35 @@ public class BoardController {
 	@ResponseBody
 	public String likeHandle(@RequestParam Map param) {
 		try {
-			if(likebanService.like(param)) {
-				List like = likebanService.number((String)param.get("likeid"));
+			if (likebanService.like(param)) {
+				List like = likebanService.number((String) param.get("likeid"));
 				param.put("like", like.size());
 				return new Gson().toJson(likebanService.updateLike(param));
-				
-			}else {
-				//	에러 터지기 때문에 절대 일어나지 않을 일.. 
+
+			} else {
+				// 에러 터지기 때문에 절대 일어나지 않을 일..
 				return new Gson().toJson(false);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return new Gson().toJson(false);
 		}
 	}
 
 	@Autowired
 	UsersService usersService;
-	
+
 	@RequestMapping(path = "/report", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String report(@RequestParam Map param, Model model) {
 		try {
 			boolean declare = likebanService.report(param);
-			
-			if(declare) {
-				return new Gson().toJson(usersService.updatefoul((String)param.get("reid")));
-			}else {
+
+			if (declare) {
+				return new Gson().toJson(usersService.updatefoul((String) param.get("reid")));
+			} else {
 				return String.valueOf(false);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Gson().toJson(false);
@@ -360,13 +354,13 @@ public class BoardController {
 		boolean rst = boardService.delete(id);
 
 		if (rst) {
-			model.addAttribute("find",boardService.findAll());
+			model.addAttribute("find", boardService.findAll());
 			model.addAttribute("succ", "게시물이 삭제 되었습니다.");
 			model.addAttribute("menu", menu);
 			model.addAttribute("page", 1);
 			return "redirect:/board/main";
 		} else {
-			model.addAttribute("read",boardService.find(id));
+			model.addAttribute("read", boardService.find(id));
 			return "read_logon";
 		}
 

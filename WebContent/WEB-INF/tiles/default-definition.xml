@@ -137,6 +137,66 @@
 		<put-attribute name="main"
 			value="/WEB-INF/view/service/board/main.jsp" />
 	</definition>
+
+	<definition name="read_default" extends="service_board_default">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/read.jsp" />
+	</definition>
+	<definition name="read_logon" extends="service_board_logons">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/read.jsp" />
+	</definition>
+	<definition name="write_logon" extends="service_board_logons">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/write.jsp" />
+	</definition>
+	<definition name="change_logon" extends="service_board_logons">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/change.jsp" />
+	</definition>
+	<!-- Board part End -->
+
+	<!-- Chat part Start -->
+	<definition name="service_chat_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-chat-logon.jsp" />
+	</definition>
+
+	<definition name="chat" extends="service_chat_logons">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/chat/list.jsp" />
+	</definition>
+	<definition name="chatroom" extends="service_chat_logons">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/chat/chat.jsp" />
+	</definition>
+
+	<!-- Chat part End -->
+	
+	<!-- Board part Start -->
+
+	<definition name="service_board_default" template="/WEB-INF/view/template/mainTemplate.jsp">
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-board.jsp" />
+	</definition>
+
+	<definition name="service_board_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-board-logon.jsp" />
+	</definition>
+
+	<definition name="board_default" extends="service_board_default">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/main.jsp" />
+	</definition>
+
+	<definition name="board_logon" extends="service_board_logons">
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/main.jsp" />
+	</definition>
 		<definition name="board_edit" extends="logons">
 			<put-attribute name="main"
 				value="/WEB-INF/view/service/board/edit.jsp" />
