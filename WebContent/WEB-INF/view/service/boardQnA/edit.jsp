@@ -144,7 +144,7 @@
 		});
 
 		//저장버튼 클릭시 form 전송
-		$("#save").click(function() {
+		$("#edit").click(function() {
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
 		});
