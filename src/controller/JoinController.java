@@ -44,24 +44,20 @@ public class JoinController {
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String joinPostHandle(@RequestParam Map<String, String> param, Model model, HttpSession session) throws IOException {
-		param.put("ban", null);
-		boolean rst = memberService.addNewOne(param);
-		if (rst) {
-			session.setAttribute("logon", param.get("id"));
-			
-			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
-			Map data = new HashMap();
-			data.put("cnt", s.size());
-			data.put("info", param.get("id") + "님 환영합니다.");
-			Gson gson = new Gson();
-			for(WebSocketSession ws : s) {
-				ws.sendMessage(new TextMessage(gson.toJson(data)));
+	public String joinPostHandle(@RequestParam Map<String, String> param, Model model, HttpSession session){
+		try {
+			param.put("ban", null);
+			boolean rst = memberService.addNewOne(param);
+			if (rst) {
+				session.setAttribute("logon", param.get("id"));
+				return "redirect:/";
+			} else {
+				model.addAttribute("err", "회원가입에 실패하였습니다.");
+				model.addAttribute("param", param);
+				return "join";
 			}
-			
-			return "redirect:/";
-		} else {
-			model.addAttribute("err", "회원가입에 실패하였습니다.");
+		}catch(Exception e) {
+			model.addAttribute("err", "회원가입에 실패하였습니다.<br/>(*)표시가 있는 문항은 모두 입력해주세요.");
 			model.addAttribute("param", param);
 			return "join";
 		}

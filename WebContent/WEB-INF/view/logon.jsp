@@ -39,6 +39,19 @@
 }
 </style>
 
+<%String message = null; %>
+<%if(session.getAttribute("authlv") != null){ %>
+	<%message = (String)session.getAttribute("authlv"); %>
+	<%session.removeValue("authlv"); %>
+<%} %>
+<%if(message != null){%>
+<script>
+		var message = '<%=message%>';
+		var alertmessage = message.replace("<br/>", "\n");
+		alert(alertmessage);
+</script>
+<%}%>
+
 <div style="height: 570px;" id="wrapper" align="center">
 	<table style="text-align: center;">
 		<tr class="font">

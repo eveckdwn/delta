@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class AdminSpringInterceptor extends HandlerInterceptorAdapter{
+public class LvLimitFilter extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -15,8 +15,8 @@ public class AdminSpringInterceptor extends HandlerInterceptorAdapter{
 		//	컨트롤러 실행 전
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("auth")==null) {
-			session.setAttribute("authlv", "관리자만 이용하실 수 있습니다.<br/>관리자이시면 로그인해주세요.");
+		if(session.getAttribute("lv")==null || (int)session.getAttribute("lv") == 0) {
+			session.setAttribute("authlv", "여행모임, 실시간 채팅 기능은 회원가입 후 메일 인증을 받으신 유저들만의 공간입니다. 메일 인증을 받아주세요.");
 			response.sendRedirect("/index");
 			return false;
 		}else {

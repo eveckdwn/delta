@@ -110,6 +110,9 @@ input {
 				<c:if test="${!empty err }">
 					<span style="color: red">${err }</span>
 				</c:if>
+				<c:if test="${sessionScope.authlv ne null }">
+					<span style="color: red">${sessionScope.authlv }</span>
+				</c:if>
 				<form action="/login" method="post"
 					style="width: 330px; text-align: left; line-height: 34px;"
 					autocomplete="off">

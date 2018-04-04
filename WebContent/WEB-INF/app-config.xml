@@ -21,9 +21,45 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
-			<bean id="filter" class="filter.AdminSpringInterceptor"/>
+			<bean id="adminfilter" class="filter.AdminSpringInterceptor"/>
 		</mvc:interceptor>
-	
+		<mvc:interceptor>
+			<mvc:mapping path="/board/**"/>
+			<bean id="boardlvfilter" class="filter.LvLimitFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/chat/**"/>
+			<bean id="chatlvfilter" class="filter.LvLimitFilter"/>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/mypage"/>
+			<bean id="mypageduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/updateUser"/>
+			<bean id="updateUserduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/profile"/>
+			<bean id="profileduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/message/**"/>
+			<bean id="messageduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/travel/**"/>
+			<bean id="travelduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/board/**"/>
+			<bean id="boardduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/chat/**"/>
+			<bean id="chatduplicateloginfilter" class="filter.DuplicateLoginFilter"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<context:component-scan base-package="controller" />
