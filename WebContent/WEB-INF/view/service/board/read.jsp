@@ -97,20 +97,20 @@
 	<p align="right">이 작성자의 게시글 더보기</p>
 	<hr style="color: #E6E6E6;" width="190px" align="right">
 	<p align="center">
-		<button style="width: 100px; height: 100px">
+		<button style="width: 100px; height: 100px" onclick="like()">
 			<img src="/image/like2.jpg" style="width: 100%; height: 100%"
 				align="top">${read.like }</button>
 	</p>
-		<form method="post">
-			<div style="margin-top: 10px;" align="right">
-				<c:if test="${sessionScope.logon == read.writer }">
-					<input type="hidden" name="id" value="${read.id }" />
-					<input type="hidden" name="menu" value="${read.menu }">
-					<button type="submit" formaction="/board/bedit">수정</button>
-					<button type="submit" formaction="/board/boardDel">삭제</button>
-				</c:if>
-			</div>
-		</form>
+	<form method="post">
+		<div style="margin-top: 10px;" align="right">
+			<c:if test="${sessionScope.logon == read.writer }">
+				<input type="hidden" name="id" value="${read.id }" />
+				<input type="hidden" name="menu" value="${read.menu }">
+				<button type="submit" formaction="/board/bedit">수정</button>
+				<button type="submit" formaction="/board/boardDel">삭제</button>
+			</c:if>
+		</div>
+	</form>
 	<p>
 		<b><a style="color: #FE642E;">댓글(${length })</a></b>
 	</p>
@@ -145,7 +145,7 @@
 	</c:otherwise>
 </c:choose>
 <div>
-
+	<table>
 	<c:forEach var="i" items="${reply }">
 		<tr>
 			<td>${i.nick }(${i.writer })</td>
