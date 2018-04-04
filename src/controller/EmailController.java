@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,9 @@ public class EmailController {
 			model.addAttribute("su", "가입시 등록된 이메일 주소로 인증키가 전송되었습니다.");
 			Map user = users.mypageInfo(u);
 			model.addAttribute("user", user);
+			if(session.getAttribute("authlv") != null) {
+				session.removeAttribute("authlv");
+			}
 			return "email";
 		}else {
 			model.addAttribute("er","이메일 전송이 실패되었습니다. 다시 시도하여 주십시오.");
@@ -54,9 +58,11 @@ public class EmailController {
 			
 		if(key.equals(serial)) {
 			if(mailservice.updateLv(id)) 
-				model.addAttribute("t","�̸��� ������ �Ϸ� �Ǿ����ϴ�.");
+				model.addAttribute("t","인증이 완료되었습니다.");
 				Map user = users.mypageInfo(u);
 				model.addAttribute("user", user);
+				BigDecimal bd = (BigDecimal)user.get("LV");
+				session.setAttribute("lv", bd.intValue());
 				return "mypage";
 		}else {
 			model.addAttribute("f","인증키 인증이 실패했습니다. 해당 이메일로 다시 보낸 인증키를 입력하여 주십시오.");

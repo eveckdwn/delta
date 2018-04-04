@@ -85,7 +85,7 @@ input {
 						value="${param.email }" placeholder="abcde@gmail.com">
 				</p>
 				<p>
-					<button id="sbt" type="submit" style="width: 100%; height: 30px;" disabled>가
+					<button id="sbt" type="submit" style="width: 100%; height: 30px;">가
 						입 신 청</button>
 				</p>
 			</form>

@@ -21,7 +21,15 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
-			<bean id="filter" class="filter.AdminSpringInterceptor"/>
+			<bean id="adminfilter" class="filter.AdminSpringInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/board/**"/>
+			<bean id="boardlvfilter" class="filter.LvLimitFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/chat/**"/>
+			<bean id="chatlvfilter" class="filter.LvLimitFilter"/>
 		</mvc:interceptor>
 	
 	</mvc:interceptors>

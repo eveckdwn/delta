@@ -44,14 +44,19 @@ public class LogInOutController {
 			session.setAttribute("logon", info.get("ID"));
 			session.setAttribute("logonNick", info.get("NICK"));
 			BigDecimal bd = (BigDecimal)info.get("LV");
+			session.setAttribute("lv", bd.intValue());
+			if(session.getAttribute("authlv") != null) {
+				session.removeAttribute("authlv");
+			}
 			if(bd.intValue()==3) {
+				session.setAttribute("auth", true);
 				return "redirect:/admin";
 			}else {
 				return "redirect:/";
 			}
 		case 1:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "회원 정보가 존재하지 않습니다.\n회원가입을 해주세요.");
+			model.addAttribute("err", "회원 정보가 존재하지 않습니다.<br/>회원가입을 해주세요.");
 			model.addAttribute("main", "join.jsp");
 			return "t_el";
 		case 2:

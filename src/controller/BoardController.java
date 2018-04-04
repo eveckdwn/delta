@@ -348,31 +348,48 @@ public class BoardController {
 		return "/board/change";
 	}
 
-	@RequestMapping(path = "/boardDel", method =RequestMethod.GET)
+	
+	@RequestMapping(path = "/boardDel", method = RequestMethod.POST)
 	public String Delete(@RequestParam String id, @RequestParam String menu, Model model,HttpSession session) {
-		System.out.println(id);
-		boolean rst = boardService.delete(id);
-
-		if (rst) {
-			model.addAttribute("find", boardService.findAll());
-			model.addAttribute("succ", "게시물이 삭제 되었습니다.");
+		
+		Board board = boardService.find(id);
+		if(!board.getWriter().equals(session.getAttribute("logon"))) {
+			model.addAttribute("succ", "게시물 삭제는 작성자만 가능합니다.");
 			model.addAttribute("menu", menu);
 			model.addAttribute("page", 1);
 			return "redirect:/board/main";
-		} else {
-			model.addAttribute("read", boardService.find(id));
-			return "read_logon";
+		}else {
+			boolean rst = boardService.delete(id);
+			if (rst) {
+				model.addAttribute("find", boardService.findAll());
+				model.addAttribute("succ", "게시물이 삭제 되었습니다.");
+				model.addAttribute("menu", menu);
+				model.addAttribute("page", 1);
+				return "redirect:/board/main";
+			} else {
+				model.addAttribute("read", boardService.find(id));
+				return "read_logon";
+			}
 		}
 
 	}
 	
-	@RequestMapping(path="/Bedit", method=RequestMethod.GET)
-	public String GetEdit(@RequestParam String id, Model model) {
+	@RequestMapping(path="/bedit", method = RequestMethod.POST)
+	public String GetEdit(@RequestParam String id, @RequestParam String menu, Model model, HttpSession session) {
 		
-		model.addAttribute("station", stationservice.readAllStation());
-		model.addAttribute("read", boardService.find(id));
+		Board board = boardService.find(id);
+		if(!board.getWriter().equals(session.getAttribute("logon"))) {
+			model.addAttribute("succ", "게시물 수정은 작성자만 가능합니다.");
+			model.addAttribute("menu", menu);
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
+		}else {
+			model.addAttribute("station", stationservice.readAllStation());
+			model.addAttribute("read", boardService.find(id));
+			
+			return "board_edit";
+		}
 		
-		return "board_edit";
 	}
 	
 	@RequestMapping(path="/Bedit", method=RequestMethod.POST)

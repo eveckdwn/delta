@@ -101,12 +101,12 @@
 			<img src="/image/like2.jpg" style="width: 100%; height: 100%"
 				align="top">${read.like }</button>
 	</p>
-		<form method="get">
+		<form method="post">
 			<div style="margin-top: 10px;" align="right">
 				<c:if test="${sessionScope.logon == read.writer }">
 					<input type="hidden" name="id" value="${read.id }" />
 					<input type="hidden" name="menu" value="${read.menu }">
-					<button type="submit" formaction="/board/Bedit">수정</button>
+					<button type="submit" formaction="/board/bedit">수정</button>
 					<button type="submit" formaction="/board/boardDel">삭제</button>
 				</c:if>
 			</div>
