@@ -32,11 +32,13 @@ class ChatRoom {
 	String name;
 	ArrayList<WebSocketSession> sessions;
 	ArrayList<String> users;
+	ArrayList<String> ids;
 	
 	ChatRoom(String name) {
 		this.name = name;
 		sessions = new ArrayList<WebSocketSession>();
 		users = new ArrayList<String>();
+		ids = new ArrayList<String>();
 	}
 }
 
@@ -61,7 +63,6 @@ public class ChatController extends TextWebSocketHandler {
 		List<HashMap> stations = stationService.readAllStation();
 		int n = 0;
 		for (HashMap station : stations) {
-//			connectedUsers.put((String) station.get("NAME"), new ChatRoom(station.get("NAME") + " 채팅방"));
 			connectedUsers.put(Integer.toString(n++), new ChatRoom(station.get("NAME") + " 채팅방"));
 		}
 	}
@@ -93,12 +94,13 @@ public class ChatController extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		String name = getName(session.getAttributes());
-		System.out.println(session.getUri().toString());
+		String id = (String) session.getAttributes().get("logon");
+		String name = getName(id);
+		
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		channel.add(session);
-		String message = addUser(crid, name);
+		String message = addUser(crid, name, id);
 
 		for (WebSocketSession webSocketSession : channel) {
 			if (!session.getId().equals(webSocketSession.getId())) {
@@ -111,8 +113,8 @@ public class ChatController extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		String name = getName(session.getAttributes());
 		String id = (String) session.getAttributes().get("logon");
+		String name = getName(id);
 		
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
@@ -123,22 +125,22 @@ public class ChatController extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		String name = getName(session.getAttributes());
-
+		String id = (String) session.getAttributes().get("logon");
+		String name = getName(id);
+		
 		String crid = session.getUri().getQuery().substring(3, session.getUri().getQuery().length());
 		List<WebSocketSession> channel = connectedUsers.get(crid).sessions;
 		channel.remove(session);
-		String message = delUser(crid, name);
+		String message = delUser(crid, name, id);
 
 		for (WebSocketSession webSocketSession : channel) {
 			webSocketSession.sendMessage(new TextMessage(message));
 		}
 	}
 
-	public String getName(Map map) { // ㅁㄴㅇㄹ
-		String logon = (String) map.get("logon");
+	public String getName(String id) { // ㅁㄴㅇㄹ
 		Map log = new HashMap<>();
-		log.put("id", logon);
+		log.put("id", id);
 		Map my = users.mypageInfo(log);
 		return (String) my.get("NICK");
 	}
@@ -159,25 +161,30 @@ public class ChatController extends TextWebSocketHandler {
 		Map data = new HashMap();
 		data.put("type", "userList");
 		data.put("names", connectedUsers.get(crid).users);
+		data.put("ids", connectedUsers.get(crid).ids);
 
 		Gson gson = new Gson();
 		return gson.toJson(data);
 	}
 
-	public String addUser(String crid, String name) {
+	public String addUser(String crid, String name, String id) {
 		connectedUsers.get(crid).users.add(name);
+		connectedUsers.get(crid).ids.add(id);
 		Map data = new HashMap();
 		data.put("type", "userAdd");
 		data.put("name", name);
+		data.put("id", id);
 		Gson gson = new Gson();
 		return gson.toJson(data);
 	}
 
-	public String delUser(String crid, String name) {
+	public String delUser(String crid, String name, String id) {
 		connectedUsers.get(crid).users.remove(name);
+		connectedUsers.get(crid).ids.remove(id);
 		Map data = new HashMap();
 		data.put("type", "userDel");
 		data.put("name", name);
+		data.put("id", id);
 		Gson gson = new Gson();
 		return gson.toJson(data);
 	}
