@@ -49,7 +49,7 @@ public class BoardController {
 		model.addAttribute("menu", menu);
 		List event = (List) boardService.findTypeNotGeneral(menu, "일반");
 		model.addAttribute("event", event);
-
+		model.addAttribute("station", stationservice.readAllStation());
 		List board = (List) boardService.findTypeGeneral(menu, "일반");
 		int p = Integer.parseInt(page); // 현재 페이지
 		int division = 10; // 페이지당 보여줄 컨텐츠 수
@@ -225,6 +225,187 @@ public class BoardController {
 
 	}
 
+	@RequestMapping(path = "/searchRail", method = RequestMethod.POST)
+	public String SearchRail(Model model, HttpSession session, @RequestParam String menu, @RequestParam String tab,
+			@RequestParam String page) {
+		System.out.println(tab.equals("모든 기차역") || tab.equals("-기차역-"));
+		if (tab.equals("모든 기차역") || tab.equals("-기차역-")) {
+
+			model.addAttribute("menu", menu);
+			List event = (List) boardService.findTypeNotGeneral(menu, "일반");
+			model.addAttribute("event", event);
+			model.addAttribute("station", stationservice.readAllStation());
+			List board = (List) boardService.findTypeGeneral(menu, "일반");
+			int p = Integer.parseInt(page); // 현재 페이지
+			int division = 10; // 페이지당 보여줄 컨텐츠 수
+			int split = board.size() / division + 1; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수
+			int remain = board.size() % division; // 나머지 데이터
+
+			switch (menu) {
+
+			default:
+				return "/admin/fail";
+
+			case "1": {
+
+				model.addAttribute("division", division);
+				session.setAttribute("all_page", split);
+				if (p < split) {
+					model.addAttribute("board", board.subList((p - 1) * division, (p - 1) * division + division));
+					session.setAttribute("now_page", p);
+				} else {
+					model.addAttribute("board", board.subList((split - 1) * division, (split - 1) * division + remain));
+					session.setAttribute("now_page", split);
+				}
+
+				if (session.getAttribute("logon") == null) {
+					return "board_default";
+				} else {
+					return "board_logon";
+
+				}
+
+			}
+
+			case "2": {
+
+				model.addAttribute("division", division);
+				session.setAttribute("all_page", split);
+				if (p < split) {
+					model.addAttribute("board", board.subList((p - 1) * division, (p - 1) * division + division));
+					session.setAttribute("now_page", p);
+				} else {
+					model.addAttribute("board", board.subList((split - 1) * division, (split - 1) * division + remain));
+					session.setAttribute("now_page", split);
+				}
+
+				if (session.getAttribute("logon") == null) {
+					return "board_default";
+				} else {
+					return "board_logon";
+
+				}
+
+			}
+
+			case "3": {
+
+				model.addAttribute("division", division);
+				session.setAttribute("all_page", split);
+				if (p < split) {
+					model.addAttribute("board", board.subList((p - 1) * division, (p - 1) * division + division));
+					session.setAttribute("now_page", p);
+				} else {
+					model.addAttribute("board", board.subList((split - 1) * division, (split - 1) * division + remain));
+					session.setAttribute("now_page", split);
+				}
+
+				if (session.getAttribute("logon") == null) {
+					return "board_default";
+				} else {
+					return "board_logon";
+
+				}
+
+			}
+
+			}
+		} else {
+			int p = Integer.parseInt(page); // 현재 페이지
+			model.addAttribute("menu", menu);
+			model.addAttribute("page", p);
+			model.addAttribute("station", stationservice.readAllStation());
+
+			List board2 = (List) boardService.SearchRail(menu, tab);
+
+			switch (menu) {
+
+			default:
+				return "/admin/fail";
+
+			case "1": {
+
+				int division = 10; // 페이지당 보여줄 컨텐츠 수
+				int split = board2.size() / division + 1; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수
+				int remain = board2.size() % division; // 나머지 데이터
+
+				model.addAttribute("division", division);
+				session.setAttribute("all_page", split);
+				if (p < split) {
+					model.addAttribute("board", board2.subList((p - 1) * division, (p - 1) * division + division));
+					session.setAttribute("now_page", p);
+				} else {
+					model.addAttribute("board",
+							board2.subList((split - 1) * division, (split - 1) * division + remain));
+					session.setAttribute("now_page", split);
+				}
+
+				if (session.getAttribute("logon") == null) {
+					return "board_default";
+				} else {
+					return "board_logon";
+
+				}
+
+			}
+
+			case "2": {
+
+				int division = 10; // 페이지당 보여줄 컨텐츠 수
+				int split = board2.size() / division + 1; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수
+				int remain = board2.size() % division; // 나머지 데이터
+
+				model.addAttribute("division", division);
+				session.setAttribute("all_page", split);
+				if (p < split) {
+					model.addAttribute("board", board2.subList((p - 1) * division, (p - 1) * division + division));
+					session.setAttribute("now_page", p);
+				} else {
+					model.addAttribute("board",
+							board2.subList((split - 1) * division, (split - 1) * division + remain));
+					session.setAttribute("now_page", split);
+				}
+
+				if (session.getAttribute("logon") == null) {
+					return "board_default";
+				} else {
+					return "board_logon";
+
+				}
+
+			}
+
+			case "3": {
+
+				int division = 10; // 페이지당 보여줄 컨텐츠 수
+				int split = board2.size() / division + 1; // 전체 데이터 / 보여 줄 만큼의 양 = 페이지수
+				int remain = board2.size() % division; // 나머지 데이터
+
+				model.addAttribute("division", division);
+				session.setAttribute("all_page", split);
+				if (p < split) {
+					model.addAttribute("board", board2.subList((p - 1) * division, (p - 1) * division + division));
+					session.setAttribute("now_page", p);
+				} else {
+					model.addAttribute("board",
+							board2.subList((split - 1) * division, (split - 1) * division + remain));
+					session.setAttribute("now_page", split);
+				}
+
+				if (session.getAttribute("logon") == null) {
+					return "board_default";
+				} else {
+					return "board_logon";
+
+				}
+
+			}
+
+			}
+		}
+
+	}
+
 	@RequestMapping(path = "/write", method = RequestMethod.GET)
 	public String WriteGET(Model model, HttpSession session, HttpServletRequest request, @RequestParam String menu) {
 
@@ -339,17 +520,8 @@ public class BoardController {
 
 	}
 
-	@RequestMapping("/change")
-	public String Change(Model model, @RequestParam(required = false) String no) {
-		// 이걸 no에 해당하는 데이터를 가지고 오고
-		model.addAttribute("title", "aaaa");
-		model.addAttribute("content", "dasdsadsadsad");
-
-		return "/board/change";
-	}
-
-	@RequestMapping(path = "/boardDel", method =RequestMethod.GET)
-	public String Delete(@RequestParam String id, @RequestParam String menu, Model model,HttpSession session) {
+	@RequestMapping(path = "/boardDel", method = RequestMethod.GET)
+	public String Delete(@RequestParam String id, @RequestParam String menu, Model model, HttpSession session) {
 		System.out.println(id);
 		boolean rst = boardService.delete(id);
 
@@ -365,35 +537,36 @@ public class BoardController {
 		}
 
 	}
-	
-	@RequestMapping(path="/Bedit", method=RequestMethod.GET)
+
+	@RequestMapping(path = "/Bedit", method = RequestMethod.GET)
 	public String GetEdit(@RequestParam String id, Model model) {
-		
+
 		model.addAttribute("station", stationservice.readAllStation());
 		model.addAttribute("read", boardService.find(id));
-		
+
 		return "board_edit";
 	}
-	
-	@RequestMapping(path="/Bedit", method=RequestMethod.POST)
-	public String PostEdit(@RequestParam Map map,@RequestParam(name="photos") MultipartFile[] photos, Model model) throws IllegalStateException, IOException {
+
+	@RequestMapping(path = "/Bedit", method = RequestMethod.POST)
+	public String PostEdit(@RequestParam Map map, @RequestParam(name = "photos") MultipartFile[] photos, Model model)
+			throws IllegalStateException, IOException {
 		System.out.println(map.toString());
-		boolean rst = boardService.update(map,photos);
-		if(rst) {
+		boolean rst = boardService.update(map, photos);
+		if (rst) {
 			model.addAttribute("menu", map.get("menu"));
 			model.addAttribute("page", 1);
 			return "redirect:/board/main";
-		}else {
+		} else {
 			model.addAttribute("menu", map.get("menu"));
 			model.addAttribute("page", 1);
 			return "err";
 		}
 	}
-	
-	@RequestMapping(path="/podel",  produces = "application/json", method=RequestMethod.POST)
+
+	@RequestMapping(path = "/podel", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String photoDel(@RequestParam String photos, @RequestParam String id) {
-		boolean rst = boardService.deletePhoto(id,photos);
+		boolean rst = boardService.deletePhoto(id, photos);
 		return String.valueOf(rst);
 	}
 
