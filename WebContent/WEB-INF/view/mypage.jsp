@@ -32,7 +32,7 @@
 					id="preview" onclick="document.getElementById('profile').click();" />
 			</c:if>
 			<c:if test="${user.PHOTO == null }">
-				<img src="<%=request.getContextPath()%>/photo/default.jpg"
+				<img src="/image/profilepic.jpg"
 					style="width: 200px; height: 200px; border-radius: 50%;"
 					id="preview" onclick="document.getElementById('profile').click();" />
 			</c:if>
