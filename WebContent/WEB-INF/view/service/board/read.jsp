@@ -101,16 +101,16 @@
 			<img src="/image/like2.jpg" style="width: 100%; height: 100%"
 				align="top">${read.like }</button>
 	</p>
-	<form method="post">
-		<div style="margin-top: 10px;" align="right">
-			<c:if test="${sessionScope.logon == read.writer }">
-				<button type="submit" formaction="/boardEdit">수정</button>
-				<input type="hidden" name="id" value="${read.id }" />
-				<input type="hidden" name="menu" value="${read.menu }">
-				<button type="submit" formaction="/board/boardDel">삭제</button>
-			</c:if>
-		</div>
-	</form>
+		<form method="get">
+			<div style="margin-top: 10px;" align="right">
+				<c:if test="${sessionScope.logon == read.writer }">
+					<input type="hidden" name="id" value="${read.id }" />
+					<input type="hidden" name="menu" value="${read.menu }">
+					<button type="submit" formaction="/board/Bedit">수정</button>
+					<button type="submit" formaction="/board/boardDel">삭제</button>
+				</c:if>
+			</div>
+		</form>
 	<p>
 		<b><a style="color: #FE642E;">댓글(${length })</a></b>
 	</p>
@@ -175,10 +175,7 @@ function like() {
 		});
  	}
 }
-
-<div>
-	<textarea rows="10" cols="100" style="width: 100%;"></textarea>
-
+</script>
 <script>
 	var x = 480;
 	var slider = document.getElementById("slider");
@@ -229,7 +226,8 @@ function like() {
 			sliding();
 		}, 20);
 	}
-
+</script>
+<script>
 function declare(target) {
 	if(${sessionScope.logon eq null}) {
 		alert("로그인 후 이용하실 수 있습니다.");

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -353,7 +354,7 @@ public class BoardController {
 		return "/board/change";
 	}
 
-	@RequestMapping(path = "/boardDel", method =RequestMethod.POST)
+	@RequestMapping(path = "/boardDel", method =RequestMethod.GET)
 	public String Delete(@RequestParam String id, @RequestParam String menu, Model model,HttpSession session) {
 		System.out.println(id);
 		boolean rst = boardService.delete(id);
@@ -369,6 +370,37 @@ public class BoardController {
 			return "read_logon";
 		}
 
+	}
+	
+	@RequestMapping(path="/Bedit", method=RequestMethod.GET)
+	public String GetEdit(@RequestParam String id, Model model) {
+		
+		model.addAttribute("station", stationservice.readAllStation());
+		model.addAttribute("read", boardService.find(id));
+		
+		return "board_edit";
+	}
+	
+	@RequestMapping(path="/Bedit", method=RequestMethod.POST)
+	public String PostEdit(@RequestParam Map map,@RequestParam(name="photos") MultipartFile[] photos, Model model) throws IllegalStateException, IOException {
+		System.out.println(map.toString());
+		boolean rst = boardService.update(map,photos);
+		if(rst) {
+			model.addAttribute("menu", map.get("menu"));
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
+		}else {
+			model.addAttribute("menu", map.get("menu"));
+			model.addAttribute("page", 1);
+			return "err";
+		}
+	}
+	
+	@RequestMapping(path="/podel",  produces = "application/json", method=RequestMethod.POST)
+	@ResponseBody
+	public String photoDel(@RequestParam String photos, @RequestParam String id) {
+		boolean rst = boardService.deletePhoto(id,photos);
+		return String.valueOf(rst);
 	}
 
 }
