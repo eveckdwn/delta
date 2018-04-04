@@ -145,5 +145,10 @@ public class UsersService {
 
 		return template.update("users.foulusers", map) == 1;
 	}
+	
+	public boolean userdelete(Map map) {
+		
+		return template.delete("users.userDel", map) == 1;
+	}
 
 }

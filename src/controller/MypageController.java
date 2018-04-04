@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import aj.org.objectweb.asm.Type;
@@ -88,5 +89,34 @@ public class MypageController {
 		user.remove("PASS"); user.remove("BAN"); user.remove("FOUL"); user.remove("LV");
 		model.addAttribute("user", user);
 		return "/profile";
+	}
+	
+	@RequestMapping(path="/userDelete")
+	public String UserDeleteGet(@RequestParam Map param) {
+		
+		return "userdel";
+	}
+	
+	@RequestMapping(path="/userDel", method=RequestMethod.POST, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String UserDeletePost(@RequestParam Map param, HttpSession session) {
+		
+		String logon = (String)session.getAttribute("logon");
+		String my = (String)param.get("id");
+		
+		System.out.println(logon.equals(my));
+		if(logon.equals(my)) {
+			boolean rst = users.userdelete(param);
+			if(rst) {
+				session.removeAttribute("logon");
+				return String.valueOf(rst);
+			}else {
+				return String.valueOf(rst);
+			}
+		}else {
+			return String.valueOf(false);
+		}
+		
+		
 	}
 }

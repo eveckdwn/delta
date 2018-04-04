@@ -108,6 +108,7 @@
 				<button type="submit" formaction="/emailConfirm" name="email"
 					value="${user.EMAIL }">이메일 인증</button>
 			</c:if>
+			<button type="button" onclick="del();">회원탈퇴</button>
 		</p>
 	</div>
 </form>
@@ -126,5 +127,13 @@
 			document.getElementById("preview").src = this.result;
 		}
 		reader.readAsDataURL(this.files[0]);
+	}
+	
+	function del(){
+		window
+		.open(
+				'/userDelete',
+				'회원 탈퇴',
+				'width=500, height=300, toolbar=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');
 	}
 </script>

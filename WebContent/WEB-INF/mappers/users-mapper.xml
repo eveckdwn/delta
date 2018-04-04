@@ -91,4 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="foulusers">
 	 update users set foul = +1 where id = #{id}
 	</update>
+	
+	<delete id="userDel">
+		delete from users 
+		where id=#{id} and pass=#{pass} and email=#{email}
+	</delete>
 </mapper>
