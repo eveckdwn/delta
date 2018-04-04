@@ -8,7 +8,7 @@
 		<put-attribute name="menu"
 			value="/WEB-INF/view/template/menu-admin.jsp" />
 	</definition>
-	
+
 	<definition name="admin_index" extends="admin">
 		<put-attribute name="main" value="/WEB-INF/view/admin/index.jsp" />
 	</definition>
@@ -49,7 +49,7 @@
 		<put-attribute name="menu"
 			value="/WEB-INF/view/template/menu-index-logon.jsp" />
 	</definition>
-	
+
 	<definition name="index" extends="default">
 		<put-attribute name="main" value="/WEB-INF/view/login.jsp" />
 	</definition>
@@ -73,91 +73,105 @@
 	<definition name="mypage" extends="logons">
 		<put-attribute name="main" value="/WEB-INF/view/mypage.jsp" />
 	</definition>
-	
+
 	<definition name="email" extends="logons">
 		<put-attribute name="main" value="/WEB-INF/view/email.jsp" />
 	</definition>
 	<!-- Guest part End -->
-	
-	
+
+
 	<!-- Info part Start -->
 	<definition name="service_info_default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="TOGETHER SERVICE"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-info.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-info.jsp" />
 	</definition>
-	
+
 	<definition name="service_info_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="TOGETHER SERVICE"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-info-logon.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-info-logon.jsp" />
 	</definition>
-	
+
 	<definition name="service_travel_default" extends="service_info_default">
-		<put-attribute name="main" value="/WEB-INF/view/service/travel/content.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/travel/content.jsp" />
 	</definition>
-	
+
 	<definition name="service_travel_logons" extends="service_info_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/travel/content.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/travel/content.jsp" />
 	</definition>
-	
+
 	<definition name="service_travel_detail_default" extends="service_info_default">
-		<put-attribute name="main" value="/WEB-INF/view/service/travel/detail.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/travel/detail.jsp" />
 	</definition>
-	
+
 	<definition name="service_travel_detail_logons" extends="service_info_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/travel/detail.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/travel/detail.jsp" />
 	</definition>
 	<!-- Info part End -->
-	
-	<!-- Board part Start  -->
-	
+
+	<!-- Board part Start -->
+
 	<definition name="service_board_default" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="TOGETHER SERVICE"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-board.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-board.jsp" />
 	</definition>
-	
+
 	<definition name="service_board_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="TOGETHER SERVICE"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-board-logon.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-board-logon.jsp" />
 	</definition>
-	
+
 	<definition name="board_default" extends="service_board_default">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/main.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/main.jsp" />
 	</definition>
-	
+
 	<definition name="board_logon" extends="service_board_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/main.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/main.jsp" />
 	</definition>
-	
+
 	<definition name="read_default" extends="service_board_default">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/read.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/read.jsp" />
 	</definition>
 	<definition name="read_logon" extends="service_board_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/read.jsp"/>
-	</definition>
-	<definition name="write_default" extends="service_board_default">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/write.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/read.jsp" />
 	</definition>
 	<definition name="write_logon" extends="service_board_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/write.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/write.jsp" />
 	</definition>
 	<definition name="change_logon" extends="service_board_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/board/change.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/board/change.jsp" />
 	</definition>
-	<!-- Board part End  -->
-	
+	<!-- Board part End -->
+
 	<!-- Chat part Start -->
 	<definition name="service_chat_logons" template="/WEB-INF/view/template/mainTemplate.jsp">
-		<put-attribute name="title" value="TOGETHER SERVICE"/>
-		<put-attribute name="menu" value="/WEB-INF/view/template/menu-chat-logon.jsp"/>
+		<put-attribute name="title" value="TOGETHER SERVICE" />
+		<put-attribute name="menu"
+			value="/WEB-INF/view/template/menu-chat-logon.jsp" />
 	</definition>
-	
+
 	<definition name="chat" extends="service_chat_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/chat/list.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/chat/list.jsp" />
 	</definition>
 	<definition name="chatroom" extends="service_chat_logons">
-		<put-attribute name="main" value="/WEB-INF/view/service/chat/chat.jsp"/>
+		<put-attribute name="main"
+			value="/WEB-INF/view/service/chat/chat.jsp" />
 	</definition>
-	
+
 	<!-- Chat part End -->
 
 	<!-- EL support -->

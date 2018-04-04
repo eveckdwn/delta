@@ -60,24 +60,27 @@
 </script>
 <div class="banner">
 	<h2>${crname }</h2>
-	<hr/>
+	<hr />
 </div>
-<div align="center" style="width: 80%; min-width: 800px">
-	<table class="table table-bordered">
-		<colgroup>
-			<col width="80%" />
-		</colgroup>
-		<tr>
-			<td><div id="chatMessage" style="overflow: auto; height: 500px;"></div></td>
-			<td><div id="online" style="overflow: auto; height: 500px;"></div></td>
-		</tr>
-		<tr>
-			<td colspan="2"><div>
-					<input type="text" id="message" placeholder="메시지"
-						style="width: 100%" />
-				</div></td>
-		</tr>
-	</table>
+<div align="center">
+	<div style="width: 80%; min-width: 800px">
+		<table class="table table-bordered">
+			<colgroup>
+				<col width="80%" />
+			</colgroup>
+			<tr>
+				<td><div id="chatMessage"
+						style="overflow: auto; height: 500px;"></div></td>
+				<td><div id="online" style="overflow: auto; height: 500px;"></div></td>
+			</tr>
+			<tr>
+				<td colspan="2"><div>
+						<input type="text" id="message" placeholder="메시지"
+							style="width: 100%" />
+					</div></td>
+			</tr>
+		</table>
+	</div>
 </div>
 <script>
 	$("#message").keydown(function(event) {
