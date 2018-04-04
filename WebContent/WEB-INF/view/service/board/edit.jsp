@@ -60,8 +60,10 @@
 					<td align="right" style="padding-right: 10px;">내용 유형</td>
 					<td><select name="type">
 							<option id="type" value="일반">일반</option>
-							<option id="type" value="이벤트">이벤트</option>
-							<option id="type" value="공지">공지</option>
+								<c:if test="${sessionScope.auth ne null }">
+									<option id="type" value="이벤트">이벤트</option>
+									<option id="type" value="공지">공지</option>
+								</c:if>
 					</select></td>
 				</tr>
 
@@ -76,7 +78,7 @@
 				<tr>
 					<td align="right" style="padding-right: 10px;">제목</td>
 					<td><input type="text" id="title" name="title"
-						style="width: 650px" value="${read.title }" /></td>
+						style="width: 650px" value="${read.title }" escapeXml="false"/></td>
 				</tr>
 				<tr>
 					<td align="right" style="padding-right: 10px;">내용</td>
@@ -101,7 +103,7 @@
 				</tr>
 			</table>
 			<div align="center">
-				<button type="submit" id="edit">수정</button>
+				<button type="submit" id="edit" onclick="doRemoveTag()">수정</button>
 				<button type="submit"
 					formaction="/board/main?menu=${read.menu }&page=1">취소</button>
 			</div>
@@ -187,4 +189,20 @@
 		});
 	
 	
+</script>
+<script>
+
+function removeTag( html ) {
+	return html.replace(/(<([^>]+)>)/gi, "");
+}
+
+function doRemoveTag() {
+	var beforeText1 = $("#title").val();
+	var beforeText2 = $("#ir1").val();
+	var afterText1 = removeTag( beforeText1 );
+	var afterText2 = removeTag( beforeText2 );
+	$("#title").val( afterText1 );
+	$("#ir1").val( afterText2 );
+}
+
 </script>
