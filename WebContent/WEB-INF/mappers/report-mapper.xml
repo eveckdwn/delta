@@ -5,7 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="report">
 	<insert id="re" parameterType="hashmap">
 		insert into report values(seq_report.nextval, #{rid}, #{reid}, #{reason,
-		jdbcType=VARCHAR}, #{objectid})
+		jdbcType=VARCHAR}, #{objectid,jdbcType=VARCHAR})
 	</insert>
+	
 </mapper>
 
