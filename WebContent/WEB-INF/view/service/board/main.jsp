@@ -1,7 +1,9 @@
-<%@page import="java.awt.Window"%>
+\<%@page import="java.awt.Window"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <div class="banner">
 	<c:choose>
@@ -32,6 +34,31 @@
 	</c:choose>
 	<hr style="border: solid 2px; color: #D8D8D8" />
 </div>
+<form action="/board/searchRail" method="post" id="srch">
+	<input type="hidden"name="menu" value="${menu }" />
+	<input type="hidden" name="page" value="1" />
+	<table>
+	<tr align="left">
+		<select name="tab" id="title">
+		<option>-기차역-</option>
+		<option>모든 기차역</option>
+	<c:forEach var="i" items="${station }">
+		<option value="${i.NAME }">${i.NAME }</option>
+	</c:forEach>
+		</select>
+	</tr>	
+	</table>
+	<script>
+		$("#title").change(function(){
+			// window.alert($(this).val());
+			if($(this).val()!='-기차역-') {
+				$("#srch").submit();
+			}else{
+				
+			}
+		});
+	</script>
+</form>	
 <div align="center">
 	<table class="table table-striped table-bordered table-hover">
 		<colgroup>
@@ -134,4 +161,15 @@
 		</c:otherwise>
 		</c:choose>
 	}
+		
+/* 	function action() {
+		$.post("/board/searchRail",{
+			tab : "${i.NAME}"
+		},function(rst){
+			alert(${i.NAME}+"으로 이동합니다.");
+		})
+	}
+ */	
+	
+	
 </script>

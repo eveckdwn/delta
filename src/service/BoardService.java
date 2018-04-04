@@ -90,6 +90,16 @@ public class BoardService {
 
 		return find;
 	}
+	
+	public List SearchRail(String menu,String tab) {
+		Query q = new Query();
+		q.addCriteria(new Criteria().and("menu").is(menu).and("tab").is(tab));
+		List find = mongoOperation.find(q, Board.class, "board");
+
+		return find;
+	}
+	
+	
 
 	public void insert(Map param, MultipartFile[] photos) throws IllegalStateException, IOException {
 		System.out.println(photos.length);
