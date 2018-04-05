@@ -59,11 +59,7 @@ public class UsersService {
 		} else if (map.get("pass").equals(users.get("PASS"))) {
 			int rst = template.update("users.lastlogUpdate", log);
 			if (rst == 1) {
-				if (users.get("ID").equals("admin")) {
-					return 3;
-				} else {
-					return 0;
-				}
+				return 0;
 			} else {
 				return 2;
 			}
@@ -145,9 +141,9 @@ public class UsersService {
 
 		return template.update("users.foulusers", map) == 1;
 	}
-	
+
 	public boolean userdelete(Map map) {
-		
+
 		return template.delete("users.userDel", map) == 1;
 	}
 

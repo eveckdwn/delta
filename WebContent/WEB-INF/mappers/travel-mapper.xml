@@ -35,6 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from tcomments left join users on tcomments.userid = users.id where trano = #{trano} order by commentno asc
 	</select>
 	
+	<select id="getCommentWriter" resultType="String">
+		select userid from tcomments where commentno = #{commentno}
+	</select>
+	
 	<update id="updateC" parameterType="hashmap">
 		update tcomments set tracomment=#{tracomment}, trascore=#{trascore} where commentno=#{commentno}
 	</update>

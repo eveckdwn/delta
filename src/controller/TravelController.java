@@ -1,6 +1,7 @@
 package controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 
 import service.StationService;
 import service.TravelService;
+import service.UsersService;
 
 @Controller
 @RequestMapping("/travel")
@@ -27,6 +29,9 @@ public class TravelController {
 
 	@Autowired
 	TravelService travelService;
+	
+	@Autowired
+	UsersService userService;
 
 	String[] mid = new String[5];
 
@@ -80,8 +85,15 @@ public class TravelController {
 		}
 	}
 
-	@RequestMapping(path = "/detail", method = RequestMethod.POST)
+	@RequestMapping(path = "/comment", method = RequestMethod.POST)
 	public String detailPostHandle(@RequestParam Map param, Model model, HttpSession session) {
+		String id = (String) session.getAttribute("logon");
+		param.put("userid", id);
+		Map log = new HashMap<>();
+		log.put("id", id);
+		Map my = userService.mypageInfo(log);
+		param.put("nick", (String) my.get("NICK"));
+		
 		if (travelService.addTcomments(param)) {
 			model.addAttribute("info", "장소 평가를 성공적으로 마쳤습니다.");
 		} else {
@@ -92,15 +104,27 @@ public class TravelController {
 		return "redirect:/travel/detail";
 	}
 	
-	@RequestMapping(path="/comment_update", produces = "application/json;charset=utf-8")
+	@RequestMapping(path="/comment_update", produces = "application/json;charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
-	public String commentUpdateHandle(@RequestParam Map param) {
-		return new Gson().toJson(travelService.updateTcomments(param));
+	public String commentUpdateHandle(@RequestParam Map param, HttpSession session) {
+		String id = (String) session.getAttribute("logon");
+		
+		if (id.equals(travelService.getCommentWriter(param))) {
+			return new Gson().toJson(travelService.updateTcomments(param));
+		} else {
+			return "";
+		}
 	}
 	
-	@RequestMapping(path="/comment_delete", produces = "application/json;charset=utf-8")
+	@RequestMapping(path="/comment_delete", produces = "application/json;charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
-	public String commentDeleteHandle(@RequestParam Map param) {
-		return new Gson().toJson(travelService.deleteTcomments(param));
+	public String commentDeleteHandle(@RequestParam Map param, HttpSession session) {
+		String id = (String) session.getAttribute("logon");
+		
+		if (id.equals(travelService.getCommentWriter(param))) {
+			return new Gson().toJson(travelService.deleteTcomments(param));
+		} else {
+			return "";
+		}
 	}
 }

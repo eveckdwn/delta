@@ -107,11 +107,7 @@
 				<button type="submit"
 					formaction="/board/main?menu=${read.menu }&page=1">취소</button>
 			</div>
-			<input type="hidden" name="writer" value="${sessionScope.logon }" />
-			<input type="hidden" name="readnum" value="0" /> <input
-				type="hidden" name="like" value="0" /> <input type="hidden"
-				name="wdate" value="<%=str%>" /><input type="hidden" name="id"
-				value="${read.id }" />
+			<input type="hidden" name="id" value="${read.id }" />
 		</div>
 	</form>
 
