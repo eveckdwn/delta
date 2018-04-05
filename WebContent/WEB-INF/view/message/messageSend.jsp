@@ -28,7 +28,7 @@
 	</p>
 	<p>
 		<button id="sbt" type="button" onclick="send();">보내기</button>
-		<a href="/message/box"><button type="button">목록</button></a>
+		<a href="/message/box?page=1"><button type="button">목록</button></a>
 	</p>
 </form>
 <script>
