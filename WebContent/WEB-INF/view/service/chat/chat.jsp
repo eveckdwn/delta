@@ -8,7 +8,7 @@
 	var cws = new WebSocket("ws://${pageContext.request.serverName}/chat-ws?id=" + ${crid});
 	
 	function pop(id){
-		window.open("/profile?id="+id, "??", "left=100,top=200,width=350,height=450");
+		window.open("/profile?id="+id,"profile","resizable=no,location=no,left=100,top=200,width=350,height=450");
 	}
 	// 연결이 됬을때. 
 	cws.onopen = function() {
@@ -29,16 +29,16 @@
 		case "userList" :
 			console.log(obj.names);
 			for (var i=0; i<obj.names.length; i++) {
-				$("#online").append(obj.names[i]);
+				$("#online").append("<a onclick=\"pop('"+obj.ids[i]+"')\">" + obj.names[i] + "</a>");
 	        	$("#online").append("<br />");
 			}
 			break;
 		case "userAdd" :
-			$("#online").append(obj.name);
+			$("#online").append("<a onclick=\"pop('"+obj.id+"')\">" + obj.name + "</a>");
 	        $("#online").append("<br />");
 			break;
 		case "userDel" :
-			$("#online").html($("#online").html().replace("<br>"+obj.name+"<br>", "<br>"));
+			$("#online").html($("#online").html().replace("<a onclick=\"pop('"+obj.id+"')\">" + obj.name + "</a><br>", ""));
 			break;
 		}
 		
