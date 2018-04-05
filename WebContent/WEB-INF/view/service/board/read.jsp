@@ -94,7 +94,6 @@
 			넘어갑니다.]</small>
 	</c:if>
 	<p>${read.context }</p>
-	<p align="right">이 작성자의 게시글 더보기</p>
 	<hr style="color: #E6E6E6;" width="190px" align="right">
 	<p align="center">
 		<button style="width: 100px; height: 100px" onclick="like()">
@@ -145,13 +144,17 @@
 	</c:otherwise>
 </c:choose>
 <div>
-	<table>
+	<table class="table table-striped table-bordered table-hover">
+	<colgroup>
+		<col width="10%"/>
+		<col width=""/>
+		<col width="10%"/>
+	</colgroup>
 	<c:forEach var="i" items="${reply }">
 		<tr>
 			<td>${i.nick }(${i.writer })</td>
 			<td>${i.context }<small>(${i.wdate })</small></td>
-			<td>${i.like }</td>
-			<td><button type="button" id="report" onclick="declare(this);">신고하기</button></td>
+			<td><button type="button" id="report" style="width:100%;" onclick="declare(this);">신고하기</button></td>
 		</tr>
 	</c:forEach>
 	</table>
