@@ -420,6 +420,16 @@ public class BoardController {
 	@RequestMapping(path = "/write", method = RequestMethod.POST)
 	public String WritePOST(@RequestParam(name = "photos") MultipartFile[] photos, @RequestParam Map param, Model model,
 			String id, HttpSession session) {
+		
+		param.put("writer", session.getAttribute("logon"));
+		
+		if (!checkPost(param, session.getAttribute("auth") != null)) {
+			model.addAttribute("succ", "글 작성에 실패하였습니다.");
+			model.addAttribute("menu", param.get("menu"));
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
+		}
+		
 		try {
 			boardService.insert(param, photos);
 			model.addAttribute("succ", "글이 작성되었습니다.");
@@ -427,9 +437,11 @@ public class BoardController {
 			model.addAttribute("page", 1);
 			return "redirect:/board/main";
 		} catch (Exception e) {
-			model.addAttribute("err", "글 작석이 실패하였습니다.");
 			e.printStackTrace();
-			return "board_logon";
+			model.addAttribute("succ", "글 작성에 실패하였습니다.");
+			model.addAttribute("menu", param.get("menu"));
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
 		}
 	}
 
@@ -464,6 +476,13 @@ public class BoardController {
 	@RequestMapping(path = "/read", method = RequestMethod.POST)
 	public String ReadPOST(Model model, HttpSession session, @RequestParam Map pop) {
 		// System.out.println(pop);
+		String id = (String) session.getAttribute("logon");
+		pop.put("writer", id);
+		Map log = new HashMap<>();
+		log.put("id", id);
+		Map my = userservice.mypageInfo(log);
+		pop.put("nick", (String) my.get("NICK"));
+		
 		try {
 			replyService.insert(pop);
 
@@ -574,18 +593,29 @@ public class BoardController {
 	}
 
 	@RequestMapping(path = "/Bedit", method = RequestMethod.POST)
-	public String PostEdit(@RequestParam Map map, @RequestParam(name = "photos") MultipartFile[] photos, Model model)
+	public String PostEdit(@RequestParam Map map, @RequestParam(name = "photos") MultipartFile[] photos, Model model, HttpSession session)
 			throws IllegalStateException, IOException {
 		System.out.println(map.toString());
+		map.put("writer", session.getAttribute("logon"));
+		
+		Board board = boardService.find((String) map.get("id"));
+		if(!(checkPost(map, session.getAttribute("auth") != null) && board.getWriter().equals(session.getAttribute("logon")))) {
+			model.addAttribute("succ", "글 수정에 실패하였습니다.");
+			model.addAttribute("menu", map.get("menu"));
+			model.addAttribute("page", 1);
+			return "redirect:/board/main";
+		}
+		
 		boolean rst = boardService.update(map, photos);
 		if (rst) {
 			model.addAttribute("menu", map.get("menu"));
 			model.addAttribute("page", 1);
 			return "redirect:/board/main";
 		} else {
+			model.addAttribute("succ", "글 수정에 실패하였습니다.");
 			model.addAttribute("menu", map.get("menu"));
 			model.addAttribute("page", 1);
-			return "err";
+			return "redirect:/board/main";
 		}
 	}
 
@@ -594,6 +624,31 @@ public class BoardController {
 	public String photoDel(@RequestParam String photos, @RequestParam String id) {
 		boolean rst = boardService.deletePhoto(id, photos);
 		return String.valueOf(rst);
+	}
+	
+	public boolean checkPost(Map map, boolean admin) {
+		if (!checkStation(map, admin)) return false;
+		
+		if ("일반".equals(map.get("type"))) return true;
+		if (admin) {
+			if ("공지".equals(map.get("type"))) return true;
+			if ("이벤트".equals(map.get("type"))) return true;
+		}
+		return false;
+	}
+	
+	public boolean checkStation(Map map, boolean admin) {
+		List<HashMap> stations = stationservice.readAllStation();
+		if (map.get("tab").equals("-") && admin) {
+			return true;
+		} else {
+			for (HashMap station : stations) {
+				if (station.get("NAME").equals(map.get("tab"))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

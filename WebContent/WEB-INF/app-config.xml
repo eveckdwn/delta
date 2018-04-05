@@ -31,6 +31,18 @@
 			<mvc:mapping path="/chat/**"/>
 			<bean id="chatlvfilter" class="filter.LvLimitFilter"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/travel/comment"/>
+			<bean id="commentlvfilter" class="filter.LvLimitFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/travel/comment_update"/>
+			<bean id="commentupdatelvfilter" class="filter.LvLimitFilter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/travel/comment_delete"/>
+			<bean id="commentdeletelvfilter" class="filter.LvLimitFilter"/>
+		</mvc:interceptor>
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/mypage"/>

@@ -45,16 +45,18 @@ public class Board {
 			this.title = (String) param.get("title");
 		if(param.get("context") != null)
 			this.context = (String) param.get("context");
-		if(param.get("readnum") != null)
-			this.readnum = (String) param.get("readnum");
-		if(param.get("like") != null)
-			this.like = (String) param.get("like");
-		if(param.get("wdate") != null) {
-			this.wdate = (String) param.get("wdate");
-		}else {
+		this.readnum = "0";
+		this.like = "0";
+//		if(param.get("readnum") != null)
+//			this.readnum = (String) param.get("readnum");
+//		if(param.get("like") != null)
+//			this.like = (String) param.get("like");
+//		if(param.get("wdate") != null) {
+//			this.wdate = (String) param.get("wdate");
+//		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			this.wdate = sdf.format(new Date());
-		}
+//		}
 		if(param.get("type") != null)
 			this.type = (String) param.get("type");
 		if(param.get("tab") != null)

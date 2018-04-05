@@ -96,7 +96,7 @@ h3 {
 	<div id="howto" style="text-align: left; color: red; display: none;">평가내용을
 		적으셔야 점수 평가와 등록 버튼이 활성화됩니다.</div>
 	<br />
-	<form method="POST">
+	<form action="/travel/comment" method="POST">
 		<table class="table table-bordered table-hover text-center">
 			<colgroup>
 				<col width="10%" />
@@ -105,9 +105,8 @@ h3 {
 			</colgroup>
 			<tr>
 				<td><input type="hidden" name="trano" value="${travel.TID }" />
-					<input type="hidden" name="userid" value="${sessionScope.logon}" />
-					<input type="hidden" name="userid"
-					value="${sessionScope.logonNick}" /> <input id="score"
+				<input type="hidden" name="tname" value="${travel.TNAME }" />
+				<input id="score"
 					type="number" min="1" max="5" value="5" name="trascore"
 					style="padding: 12px; width: 100%; height: 100%; text-align: center;"
 					disabled="disabled" /></td>

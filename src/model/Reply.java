@@ -1,5 +1,7 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.bson.types.ObjectId;
@@ -21,15 +23,14 @@ public class Reply {
 			this.writer = (String) pop.get("writer");
 		if (pop.get("context") != null)
 			this.context = (String) pop.get("context");
-		if (pop.get("like") != null)
-			this.like = (String) pop.get("like");
-		if (pop.get("wdate") != null)
-			this.wdate = (String) pop.get("wdate");
 		if (pop.get("code") != null)
 			this.code = (String) pop.get("code");
 		if (pop.get("nick") != null)
 			this.nick = (String) pop.get("nick");
-
+		
+		this.like = "0";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		this.wdate = sdf.format(new Date());
 	}
 
 	public String getNick() {

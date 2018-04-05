@@ -194,7 +194,7 @@ public class BoardService {
 			update.set("tab", (String) param.get("tab"));
 			update.set("title", (String) param.get("title"));
 			update.set("context", (String) param.get("context"));
-			update.set("wdate", (String) param.get("wdate"));
+//			update.set("wdate", (String) param.get("wdate"));
 			for(int i = 0; i < list.size(); i++) {
 				update.push("photos", list.get(i));
 				us = mongoOperation.updateFirst(q, update, "board");

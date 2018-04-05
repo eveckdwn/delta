@@ -56,5 +56,9 @@ public class TravelService {
 	public boolean deleteTcomments(Map param) {
 		return template.delete("travel.deleteC", param) == 1;
 	}
+	
+	public String getCommentWriter(Map param) {
+		return template.selectOne("travel.getCommentWriter", param);
+	}
 
 }
