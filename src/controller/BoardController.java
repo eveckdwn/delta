@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -597,6 +599,12 @@ public class BoardController {
 			throws IllegalStateException, IOException {
 		System.out.println(map.toString());
 		map.put("writer", session.getAttribute("logon"));
+		
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String str = dayTime.format(new Date(time));
+		
+		map.put("wdate", str);
 		
 		Board board = boardService.find((String) map.get("id"));
 		if(!(checkPost(map, session.getAttribute("auth") != null) && board.getWriter().equals(session.getAttribute("logon")))) {
