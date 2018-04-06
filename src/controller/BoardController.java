@@ -574,7 +574,7 @@ public class BoardController {
 
 	}
 	
-	@RequestMapping(path="/bedit", method = RequestMethod.POST)
+	@RequestMapping(path="/bedit", method = RequestMethod.GET)
 	public String GetEdit(@RequestParam String id, @RequestParam String menu, Model model, HttpSession session) {
 		
 		Board board = boardService.find(id);

@@ -100,7 +100,7 @@
 			<img src="/image/like2.jpg" style="width: 100%; height: 100%"
 				align="top">${read.like }</button>
 	</p>
-	<form method="post">
+	<form>
 		<div style="margin-top: 10px;" align="right">
 			<c:if test="${sessionScope.logon == read.writer }">
 				<input type="hidden" name="id" value="${read.id }" />
