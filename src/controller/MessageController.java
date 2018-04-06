@@ -100,7 +100,6 @@ public class MessageController {
 	// return String.valueOf(messageService.delMessage(multiMap));
 	// }
 	public String delMessage(@RequestParam(name = "mid[]") String[] mid) {
-		System.out.println(mid[1]);
 		return String.valueOf(messageService.delMessage(mid));
 	}
 
