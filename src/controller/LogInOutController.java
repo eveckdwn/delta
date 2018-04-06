@@ -124,6 +124,9 @@ public class LogInOutController {
 			}
 		}
 		session.removeAttribute("logon");
+		if(session.getAttribute("auth") != null) {
+			session.removeAttribute("auth");
+		}
 		model.addAttribute("ment", greetService.make());
 		return "index";
 	}
