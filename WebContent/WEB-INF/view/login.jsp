@@ -81,58 +81,56 @@ input {
 }
 </style>
 <div class="container-fluid">
-		<div id="wrapper" class="font2" style="width: 48%; min-width: 350px; margin: auto; height:650px; float: left;">
-			<h2 style="margin-top: 60px; margin-bottom: 50px">TOGETHER</h2>
-			<hr />
-			<p style="margin-top: 50px; margin-left: 10px ">
-				함께가자 Together !<br/>
-				Together는 기차배낭여행을 꿈꾸는 여행자들이 모여<br/>
-				정보를 교환하는 서비스입니다.
-			</p>
-		</div>
-		<div align="center"
+	<div id="wrapper" class="font2"
+		style="width: 48%; min-width: 350px; margin: auto; height: 650px; float: left;">
+		<h2 style="margin-top: 60px; margin-bottom: 50px">TOGETHER</h2>
+		<hr />
+		<p style="margin-top: 50px; margin-left: 10px">
+			함께가자 Together !<br /> Together는 기차배낭여행을 꿈꾸는 여행자들이 모여<br /> 정보를 교환하는
+			서비스입니다.
+		</p>
+	</div>
+	<div align="center"
 		style="min-width: 350px; width: 51%; height: 700px; border-radius: 25px; border: 5px double #999; margin: 30px auto; font-family: 맑은 고딕; float: right">
-			<div style="font-family: fantasy;">
-				<h1>TOGETHER</h1>
-				<small>- ${ment } -</small>
-			</div>
-			<hr />
-			<div style="font-size: 17pt; margin-top: 50px;">
-				Log in your personal account<br /> <span style="font-size: 11pt;">로그인시
-					모든 요소는 필수기입 항목입니다.</span>
-			</div>
-			<div>
-				<c:if test="${!empty t }">
-					<span style="color: blue">${t }</span>
-				</c:if>
-			</div>
-			<div>
-				<c:if test="${!empty err }">
-					<span style="color: red">${err }</span>
-				</c:if>
-				<c:if test="${sessionScope.authlv ne null }">
-					<span style="color: red">${sessionScope.authlv }</span>
-				</c:if>
-				<form action="/login" method="post"
-					style="width: 330px; text-align: left; line-height: 34px;"
-					autocomplete="off">
-					<p>
-						<b class="arial">ID(*)</b> <small id="checkrst"></small><br /> <input
-							type="text" name="id" id="id" />
-					</p>
-					<p>
-						<b class="arial">PASS(*)</b><br /> <input type="password"
-							name="pass">
-					</p>
-					<p>
-						<button id="sbt" type="submit" style="width: 100%; height: 30px;">로
-							그 인</button>
-						<c:if test="${!empty err }">
-							<a href="/findpass"><button type="button"
-									style="width: 100%; height: 30px;">비밀번호 찾기</button></a>
-						</c:if>
-					</p>
-				</form>
-			</div>
+		<div style="font-family: fantasy;">
+			<h1>TOGETHER</h1>
+			<small>- ${ment } -</small>
+		</div>
+		<hr />
+		<div style="font-size: 17pt; margin-top: 50px;">
+			Log in your personal account<br /> <span style="font-size: 11pt;">로그인시
+				모든 요소는 필수기입 항목입니다.</span>
+		</div>
+		<div>
+			<c:if test="${!empty t }">
+				<span style="color: blue">${t }</span>
+			</c:if>
+		</div>
+		<div>
+			<c:if test="${!empty err }">
+				<span style="color: red">${err }</span>
+			</c:if>
+			<c:if test="${sessionScope.authlv ne null }">
+				<span style="color: red">${sessionScope.authlv }</span>
+			</c:if>
+			<form action="/login" method="post"
+				style="width: 330px; text-align: left; line-height: 34px;"
+				autocomplete="off">
+				<p>
+					<b class="arial">ID(*)</b> <small id="checkrst"></small><br /> <input
+						type="text" name="id" id="id" />
+				</p>
+				<p>
+					<b class="arial">PASS(*)</b><br /> <input type="password"
+						name="pass">
+				</p>
+				<p>
+					<button id="sbt" type="submit" style="width: 100%; height: 30px;">로
+						그 인</button>
+					<a href="/findpass"><button type="button"
+							style="width: 100%; height: 30px;">비밀번호 찾기</button></a>
+				</p>
+			</form>
 		</div>
 	</div>
+</div>
