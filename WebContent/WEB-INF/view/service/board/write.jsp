@@ -59,7 +59,7 @@
 						<td align="right" style="padding-right: 10px;">기차역</td>
 						<td><select name="tab" style="width: 100px">
 								<c:if test="${sessionScope.auth ne null }">
-									<option value="-" disabled selected>-</option>
+									<option value="-" >-</option>
 								</c:if>
 								<c:forEach var="i" items="${station }">
 									<option value="${i.NAME }">${i.NAME }</option>
