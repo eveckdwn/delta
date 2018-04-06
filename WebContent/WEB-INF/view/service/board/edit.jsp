@@ -175,7 +175,7 @@
 				}, function(rst) {
 					if (rst) {
 						alert("사진을 삭제 하였습니다.");
-						location.replace("/board/Bedit?id=${read.id}&menu=${read.menu}");
+						location.replace("/board/bedit?id=${read.id}&menu=${read.menu}");
 					}else{
 						alert("삭제를 실패 하였습니다.");
 						location.reload();
