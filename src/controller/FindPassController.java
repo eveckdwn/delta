@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import service.GreetService;
 import service.MailService;
 
 @Controller
 public class FindPassController {
+	
+	@Autowired
+	GreetService greetService;
 	
 	@Autowired
 	MailService mailservice;
@@ -32,6 +36,7 @@ public class FindPassController {
 		
 		if(rst) {
 			model.addAttribute("t","임시 비밀번호가 이메일로 전송이 되었습니다.<br/> 확인 후 로그인을 진행하여 주십시오.");
+			model.addAttribute("ment", greetService.make());
 			return "login";
 		}else {
 			model.addAttribute("f","아이디와 이메일이 일치하지 않습니다.");

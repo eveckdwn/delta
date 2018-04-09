@@ -107,12 +107,16 @@ input {
 			</c:if>
 		</div>
 		<div>
-			<c:if test="${!empty err }">
-				<span style="color: red">${err }</span>
-			</c:if>
-			<c:if test="${sessionScope.authlv ne null }">
-				<span style="color: red">${sessionScope.authlv }</span>
-			</c:if>
+			<c:choose>
+				<c:when test="${!empty err }">
+					<span style="color: red">${err }</span>
+				</c:when>
+				<c:when test="${sessionScope.authlv ne null }">
+					<span style="color: red">${sessionScope.authlv }</span>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			</c:choose>
 			<form action="/login" method="post"
 				style="width: 330px; text-align: left; line-height: 34px;"
 				autocomplete="off">

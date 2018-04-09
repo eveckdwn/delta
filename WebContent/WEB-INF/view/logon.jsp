@@ -45,9 +45,10 @@
 	<%session.removeValue("authlv"); %>
 <%} %>
 <%if(message != null){%>
+
 <script>
 		var message = '<%=message%>';
-		var alertmessage = message.replace("<br/>", "\n");
+		var alertmessage = message.replace(/<br/>/g, '\n');
 		alert(alertmessage);
 </script>
 <%}%>

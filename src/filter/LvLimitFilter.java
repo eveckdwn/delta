@@ -15,9 +15,13 @@ public class LvLimitFilter extends HandlerInterceptorAdapter{
 		//	컨트롤러 실행 전
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("lv")==null || (int)session.getAttribute("lv") == 0) {
-			session.setAttribute("authlv", "여행모임, 실시간 채팅 기능은 회원가입 후 메일 인증을 받으신 유저들만의 공간입니다. 메일 인증을 받아주세요.");
+		if(session.getAttribute("lv")==null) {
+			session.setAttribute("authlv", "여행모임, 실시간 채팅 기능은 회원가입 후 메일 인증을 받으신 유저들만의 공간입니다.<br/>회원이시면 로그인해주세요.<br/>비회원이신경우, 우측 상단의 SignUp버튼을 눌러 회원가입을 완료해주세요.");
 			response.sendRedirect("/index");
+			return false;
+		}else if((int)session.getAttribute("lv") == 0){
+			session.setAttribute("authlv", "여행모임, 실시간 채팅 기능은 회원가입 후 메일 인증을 받으신 유저들만의 공간입니다. 메일 인증을 받아주세요.");
+			response.sendRedirect("/mypage");
 			return false;
 		}else {
 			return true;

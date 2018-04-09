@@ -123,11 +123,21 @@ public class LogInOutController {
 				}
 			}
 		}
+		
+		if(application.getAttribute(session.getId()) != null) {
+			application.removeAttribute(session.getId());
+		}
+		
 		session.removeAttribute("logon");
+		session.removeAttribute("logonNick");
+		session.removeAttribute("lv");
+		
 		if(session.getAttribute("auth") != null) {
 			session.removeAttribute("auth");
 		}
+		
 		model.addAttribute("ment", greetService.make());
+		
 		return "index";
 	}
 
